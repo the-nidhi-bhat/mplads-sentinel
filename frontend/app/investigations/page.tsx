@@ -1,2 +1,7 @@
-// Investigations page — placeholder
-// TODO: Implement investigation workspace for auditor review and case management
+export default function InvestigationsPage() {
+  return (
+    <div className="flex items-center justify-center h-[60vh] text-[var(--text-muted)]">
+      <p>Investigations — Coming soon</p>
+    </div>
+  );
+}

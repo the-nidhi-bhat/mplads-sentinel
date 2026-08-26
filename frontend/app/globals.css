@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+
+/* ── Light Mode (default) ── */
+:root {
+  --bg-primary: #F5F6F8;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --border-color: #E2E8F0;
+  --border-glow: rgba(10, 31, 61, 0.1);
+  --border-focus: rgba(10, 31, 61, 0.4);
+
+  --text-primary: #10182B;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+
+  --navy: #0A1F3D;
+  --navy-light: #0F2E5C;
+  --saffron: #FF9933;
+  --india-green: #128A3E;
+
+  --color-critical: #DC2626;
+  --color-high: #EA580C;
+  --color-medium: #CA8A04;
+  --color-low: #059669;
+
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Dark Mode ── */
+.dark {
+  --bg-primary: #0B1220;
+  --bg-secondary: #111827;
+  --bg-card: #111827;
+  --bg-card-hover: #1E293B;
+  --border-color: #1E293B;
+  --border-glow: rgba(255, 153, 51, 0.1);
+  --border-focus: rgba(255, 153, 51, 0.4);
+
+  --text-primary: #E8EAF0;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  --navy: #0F2E5C;
+  --navy-light: #1A3F6F;
+  --saffron: #FFB366;
+  --india-green: #1AAF50;
+
+  --color-critical: #EF4444;
+  --color-high: #F97316;
+  --color-medium: #EAB308;
+  --color-low: #10B981;
+}
+
+/* ── Global Reset & Base ── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color var(--transition-normal),
+    color var(--transition-normal);
+}
+
+/* ── Focus States (WCAG AA) ── */
+:focus-visible {
+  outline: 3px solid var(--saffron);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(255, 153, 51, 0.25);
+  color: var(--text-primary);
+}
+
+/* ── Utility: Section spacing ── */
+.section-padding {
+  @apply px-6 py-20 md:px-12 lg:px-20 xl:px-32;
+}
+
+/* ── Utility: Container ── */
+.container-gov {
+  @apply mx-auto max-w-7xl;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Carousel pause class ── */
+.carousel-paused * {
+  animation-play-state: paused !important;
+}
+
+/* ── Intersection observer reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
