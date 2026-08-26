@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment
+.env
+
+# Next.js
+.next/
+out/
+
+# Build
+dist/
+build/
+
+# Model artifacts (large files)
+backend/model_artifacts/*.joblib
+
+# Data files
+backend/data/*.csv
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
