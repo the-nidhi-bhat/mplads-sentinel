@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPLADS AI Monitor - Risk & Anomaly Analytics Platform</title>
+  <meta name="description"
+    content="AI Powered Monitoring & Analytics Platform for MPLADS. Detecting cost anomalies, project delays, expenditure patterns, and mismatches.">
+
+  <!-- Leaflet GIS Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- Leaflet MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <!-- ==================== LANDING PAGE ==================== -->
+  <div id="landing-page" class="landing-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <span class="flag-icon">🇮🇳</span> GOVERNMENT OF INDIA
+      </div>
+      <div class="top-bar-right">
+        <span class="font-resize">A+ A A-</span>
+        <span class="divider">|</span>
+        <button class="btn-icon" id="btn-theme-toggle-landing" title="Toggle Light/Dark Mode" style="background:none; border:none; color:inherit; cursor:pointer;">
+          <i data-lucide="moon"></i>
+        </button>
+        <span class="divider">|</span>
+        <select id="lang-select" style="background:transparent; color:inherit; border:none; cursor:pointer; font-weight:600; outline:none;">
+          <option value="en">English</option>
+          <option value="hi">Hindi (हिंदी)</option>
+          <option value="bn">Bengali (বাংলা)</option>
+          <option value="te">Telugu (తెలుగు)</option>
+          <option value="mr">Marathi (मराठी)</option>
+          <option value="ta">Tamil (தமிழ்)</option>
+          <option value="ur">Urdu (اردو)</option>
+          <option value="gu">Gujarati (ગુજરાતી)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+      <div class="brand-logo">
+        <i data-lucide="shield-alert"></i>
+        <div class="brand-text">
+          <span class="brand-title">mplads.gov.in</span>
+          <span class="brand-subtitle">national portal of mplads</span>
+        </div>
+      </div>
+      <button class="btn-signin" id="btn-nav-launch">
+        <i data-lucide="user"></i> SIGN IN
+      </button>
+    </header>
+
+
+
+    <!-- Hero Section -->
+    <main class="landing-hero-new">
+      <div class="hero-content">
+        <h1 class="hero-title-new">MPLADS Sentinel<br>Better Monitoring</h1>
+        <p class="hero-description-new">
+          Transforming MPLADS monitoring from reactive audits to proactive decision-support with AI.
+        </p>
+        <button class="btn-hero-launch" id="btn-hero-launch">
+          Explore Platform
+        </button>
+      </div>
+    </main>
+
+    <!-- Information Cards Section -->
+    <section class="sentinel-info-cards">
+      <div class="cards-header">
+        <h2>Sentinel Core Features</h2>
+        <a href="#" class="view-all">View All</a>
+      </div>
+      <div class="cards-grid">
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          </div>
+          <h3>What is Sentinel?</h3>
+          <p>AI-powered analytics and monitoring platform.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </div>
+          <h3>The Problem</h3>
+          <p>Traditional monitoring relies on delayed post-mortem audits.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+          </div>
+          <h3>How It Works</h3>
+          <p>Ingests multi-modal data streams for ML risk engine.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          </div>
+          <h3>5 Signals</h3>
+          <p>Cost Outliers, Fiscal Spikes, Timeline Delays & more.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3>Human-in-loop</h3>
+          <p>Structured evidence for nodal officers.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== LOGIN VIEW ==================== -->
+  <div id="view-login" class="app-container hidden"
+    style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg-primary); position: fixed; inset: 0; z-index: 50;">
+    <div class="login-card"
+      style="background: var(--bg-card); padding: 3rem; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 420px; text-align: center;">
+      <div
+        style="display: flex; justify-content: center; gap: 0.5rem; color: var(--primary-blue); font-size: 2rem; margin-bottom: 1rem;">
+        <i data-lucide="shield-alert" style="width: 32px; height: 32px;"></i>
+      </div>
+      <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.5rem;">MPLADS SENTINEL</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem;">Authorized Nodal Officers Only</p>
+
+      <div style="text-align: left; margin-bottom: 1.5rem;">
+        <label style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.9rem;">Email
+          Address</label>
+        <input type="email" placeholder="officer@nic.in"
+          style="width: 100%; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-primary); font-family: inherit;">
+      </div>
+      <div style="text-align: left; margin-bottom: 2rem;">
+        <label
+          style="display: block; color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.9rem;">Password</label>
+        <input type="password" placeholder="••••••••"
+          style="width: 100%; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); background: transparent; color: var(--text-primary); font-family: inherit;">
+      </div>
+      <button id="btn-login-submit" class="btn-primary" style="width: 100%; justify-content: center;">Sign In</button>
+    </div>
+  </div>
+
+  <!-- ==================== DASHBOARD APPLICATION ==================== -->
+  <div id="app-workspace" class="app-container hidden">
+    <!-- Sidebar -->
+    <aside id="app-sidebar" class="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <div class="sidebar-brand">
+            <i data-lucide="shield-alert" style="color: #3b82f6;"></i>
+            <div class="sidebar-brand-text">
+              <div style="font-weight: 800; font-size: 0.95rem;">MPLADS SENTINEL</div>
+              <div class="sidebar-brand-desc">AI DECISION LAYER</div>
+            </div>
+          </div>
+          <button class="btn-sidebar-toggle" id="btn-sidebar-toggle">
+            <i data-lucide="chevron-left"></i>
+          </button>
+        </div>
+
+        <ul class="sidebar-menu">
+          <li class="menu-item active" data-view="dashboard">
+            <a class="menu-link">
+              <i data-lucide="layout-dashboard"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="menu-item" data-view="priority-queue">
+            <a class="menu-link" style="color: var(--color-critical);">
+              <i data-lucide="alert-triangle"></i>
+              <span>Priority Queue</span>
+            </a>
+          </li>
+          <li class="menu-item" data-view="projects">
+            <a class="menu-link">
+              <i data-lucide="folder-open"></i>
+              <span>Projects</span>
+            </a>
+          </li>
+          <li class="menu-item" data-view="map">
+            <a class="menu-link">
+              <i data-lucide="map"></i>
+              <span>GIS Map</span>
+            </a>
+          </li>
+          <li class="menu-item" data-view="investigation" id="nav-item-investigations">
+            <a class="menu-link">
+              <i data-lucide="clipboard-list"></i>
+              <span>Investigations</span>
+            </a>
+          </li>
+          <li class="menu-item" data-view="data-ingestion">
+            <a class="menu-link">
+              <i data-lucide="upload-cloud"></i>
+              <span>Data Ingestion</span>
+            </a>
+          </li>
+          <li class="menu-item" data-view="audit-logs">
+            <a class="menu-link">
+              <i data-lucide="history"></i>
+              <span>Audit Logs</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <a class="menu-link" id="btn-sidebar-exit" style="color: var(--text-muted);">
+          <i data-lucide="log-out"></i>
+          <span>Exit Monitor</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <div class="main-workspace">
+      <!-- App Header -->
+      <header class="app-header">
+        <div class="header-title-area">
+          <h1 id="header-view-title">MPLADS SENTINEL</h1>
+          <span>AI Powered Monitoring & Analytics Platform</span>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-icon" id="btn-theme-toggle" title="Toggle Light/Dark Mode">
+            <i data-lucide="sun"></i>
+          </button>
+          <button class="btn-icon">
+            <i data-lucide="bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+          <div class="user-profile">
+            <div class="user-avatar">NO</div>
+            <div class="user-info">
+              <span class="user-name">Nodal Officer</span>
+              <span class="user-role">Karnataka Region</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW 1: DASHBOARD -->
+      <main id="view-dashboard" class="view-container">
+        <!-- Filter Bar -->
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label for="filter-state">State</label>
+            <select id="filter-state" class="filter-select">
+              <option value="Karnataka">Karnataka</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="All">All States</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-district">District</label>
+            <select id="filter-district" class="filter-select">
+              <option value="All">All Districts</option>
+              <option value="Belagavi">Belagavi</option>
+              <option value="Dharwad">Dharwad</option>
+              <option value="Vijayapura">Vijayapura</option>
+              <option value="Haveri">Haveri</option>
+              <option value="Kolhapur">Kolhapur</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-type">Work Type</label>
+            <select id="filter-type" class="filter-select">
+              <option value="All">All</option>
+              <option value="Community Infrastructure">Community Infrastructure</option>
+              <option value="Water & Sanitation">Water & Sanitation</option>
+              <option value="Roads & Bridges">Roads & Bridges</option>
+              <option value="Drainage & Sewerage">Drainage & Sewerage</option>
+              <option value="Education Infrastructure">Education Infrastructure</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-risk">Risk Level</label>
+            <select id="filter-risk" class="filter-select">
+              <option value="All">All Levels</option>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-date">Date Range</label>
+            <input type="text" id="filter-date" class="filter-input" value="01 Apr 2023 – 31 Mar 2024">
+          </div>
+          <button class="btn-reset" id="btn-filter-reset">
+            <i data-lucide="refresh-cw"></i>
+            Reset
+          </button>
+        </div>
+
+        <!-- KPI Metric Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Total Works</span>
+              <div class="kpi-icon-wrapper blue">
+                <i data-lucide="database"></i>
+              </div>
+            </div>
+            <div class="kpi-value">24,681</div>
+            <div class="kpi-trend neutral">
+              <i data-lucide="activity"></i>
+              <span>Active recommendations</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">AI Analyzed</span>
+              <div class="kpi-icon-wrapper blue">
+                <i data-lucide="cpu"></i>
+              </div>
+            </div>
+            <div class="kpi-value">18,432</div>
+            <div class="kpi-trend down">
+              <span>74.7% of total works</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">High Risk Works</span>
+              <div class="kpi-icon-wrapper red">
+                <i data-lucide="alert-triangle"></i>
+              </div>
+            </div>
+            <div class="kpi-value">1,284</div>
+            <div class="kpi-trend up">
+              <i data-lucide="trending-up"></i>
+              <span>↑ 8.4% vs last year</span>
+            </div>
+          </div>
+
+
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Open Investigations</span>
+              <div class="kpi-icon-wrapper green">
+                <i data-lucide="eye"></i>
+              </div>
+            </div>
+            <div class="kpi-value">126</div>
+            <div class="kpi-trend neutral">
+              <span>Requires attention</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          <!-- Risk Distribution Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <span class="chart-title">Risk Distribution</span>
+            </div>
+            <div class="chart-container" id="chart-risk-dist">
+              <!-- Rendered by ApexCharts -->
+            </div>
+          </div>
+
+          <!-- Top AI Risk Drivers Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <span class="chart-title">Top AI Risk Drivers</span>
+            </div>
+            <div class="chart-container" id="chart-risk-drivers">
+              <!-- Rendered by ApexCharts -->
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- VIEW 2: PROJECT DETAILS -->
+      <main id="view-project-details" class="view-container hidden">
+        <!-- Header -->
+        <div class="details-header">
+          <div class="details-title-group">
+            <div class="details-title-row">
+              <h2 id="detail-proj-id">MPL/KA/24081</h2>
+              <span class="risk-badge critical" id="detail-risk-badge">Critical</span>
+            </div>
+            <h3 class="details-subtitle" id="detail-proj-title">Construction of Community Hall</h3>
+            <span style="font-size: 0.85rem; color: var(--text-secondary);" id="detail-proj-loc"><i
+                data-lucide="map-pin"
+                style="width: 14px; height:14px; display: inline-block; vertical-align: middle; margin-right: 4px;"></i>Belagavi,
+              Karnataka</span>
+          </div>
+          <div class="details-header-actions">
+            <button class="btn-secondary">
+              <i data-lucide="download"></i>
+              Export PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- Project Meta Info Grid & Flag Banner -->
+        <div class="details-main-grid">
+          <!-- Information Details Card -->
+          <div class="info-card">
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Location</span>
+                <span class="info-value" id="detail-loc-val">Belagavi, Karnataka</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Implementing Agency</span>
+                <span class="info-value" id="detail-agency-val">Zilla Panchayat Belagavi</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Work Type</span>
+                <span class="info-value" id="detail-type-val">Community Infrastructure</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Sanctioned Amount</span>
+                <span class="info-value" id="detail-sanctioned-val">₹82.40 Lakh</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Expenditure</span>
+                <span class="info-value" id="detail-expenditure-val">₹79.80 Lakh (96.8%)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Sanction Date</span>
+                <span class="info-value" id="detail-date-val">12 May 2023</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Expected Completion</span>
+                <span class="info-value" id="detail-completion-val">10 Nov 2023</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Actual Status</span>
+                <span class="info-value" id="detail-status-val" style="color: var(--color-high);">In Progress
+                  (Delay)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Physical Progress</span>
+                <div class="info-value progress-wrap">
+                  <span id="detail-phys-progress-val">48%</span>
+                  <div class="mini-progress-bg">
+                    <div class="mini-progress-fill" id="detail-phys-progress-bar" style="width: 48%;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Financial Progress</span>
+                <div class="info-value progress-wrap">
+                  <span id="detail-fin-progress-val">96.8%</span>
+                  <div class="mini-progress-bg">
+                    <div class="mini-progress-fill" id="detail-fin-progress-bar"
+                      style="width: 96.8%; background-color: var(--color-critical);"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flagged Banner Card -->
+          <div class="flagged-banner-card">
+            <div class="flagged-banner-content">
+              <h3>Why was this flagged?</h3>
+              <p>
+                Our AI anomaly engine analyzed multiple dimensions of physical progress records, transaction timestamps,
+                and budget sheets to compile a structural risk footprint for this work.
+              </p>
+            </div>
+
+            <div class="flagged-score-box" style="display:flex; gap:0.75rem; align-items:center;">
+              <button class="btn-flagged-action" id="btn-detail-show-map">
+                <i data-lucide="map"></i>
+                Show on Map
+              </button>
+              <button class="btn-flagged-action" id="btn-detail-investigate">
+                <i data-lucide="clipboard-list"></i>
+                Investigate Case
+              </button>
+            </div>
+            <i class="flagged-watermark" data-lucide="alert-octagon"></i>
+          </div>
+        </div>
+
+        <!-- Evidence Breakdown Cards -->
+        <div class="evidence-section">
+          <h3>AI Findings & Evidence</h3>
+          <div class="evidence-grid" id="detail-evidence-container">
+            <!-- Dynamically populated evidence cards -->
+          </div>
+        </div>
+      </main>
+
+      <!-- VIEW 3: GIS RISK MAP -->
+      <main id="view-map" class="view-container hidden" style="padding: 0; position: relative;">
+        <div class="map-view-container">
+          <!-- Floating Header Controls -->
+          <div class="map-header">
+            <span class="map-title">GIS Risk Map</span>
+            <div class="map-controls-top">
+              <div class="toggle-container">
+                <span class="toggle-label">Clusters</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="map-toggle-clusters" checked>
+                  <span class="slider-toggle"></span>
+                </label>
+              </div>
+              <div class="toggle-container">
+                <span class="toggle-label">Heatmap</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="map-toggle-heat">
+                  <span class="slider-toggle"></span>
+                </label>
+              </div>
+              <div class="toggle-container">
+                <span class="toggle-label">Boundaries</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="map-toggle-boundaries">
+                  <span class="slider-toggle"></span>
+                </label>
+              </div>
+              <button class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;" id="btn-map-fit" title="Fit map to filtered results">
+                <i data-lucide="maximize-2" style="width: 14px; height: 14px;"></i>
+                Fit
+              </button>
+              <div class="map-filter-wrapper">
+                <button class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;" id="btn-map-filter">
+                  <i data-lucide="sliders-horizontal" style="width: 14px; height: 14px;"></i>
+                  Filter
+                </button>
+                <!-- Map Filter Panel (dropdown) -->
+                <div id="map-filter-panel" class="map-filter-panel">
+                  <div class="map-filter-panel-header">Map Filters</div>
+                  <div class="map-filter-row">
+                    <label for="map-filter-risk">Risk Level</label>
+                    <select id="map-filter-risk" class="filter-select">
+                      <option value="All">All Levels</option>
+                      <option value="critical">Critical</option>
+                      <option value="high">High</option>
+                      <option value="medium">Medium</option>
+                      <option value="low">Low</option>
+                    </select>
+                  </div>
+                  <div class="map-filter-row">
+                    <label for="map-filter-type">Work Type</label>
+                    <select id="map-filter-type" class="filter-select">
+                      <option value="All">All Types</option>
+                      <option value="Community Infrastructure">Community Infra</option>
+                      <option value="Water & Sanitation">Water & Sanitation</option>
+                      <option value="Roads & Bridges">Roads & Bridges</option>
+                      <option value="Drainage & Sewerage">Drainage</option>
+                      <option value="Education Infrastructure">Education Infra</option>
+                    </select>
+                  </div>
+                  <div class="map-filter-actions">
+                    <button class="btn-secondary btn-sm" id="btn-map-filter-reset">Reset</button>
+                    <button class="btn-primary btn-sm" id="btn-map-filter-apply">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leaflet Map Container -->
+          <div id="leaflet-map"></div>
+
+          <!-- Floating Legend -->
+          <div class="map-legend">
+            <span class="legend-title">Risk Level</span>
+            <div class="legend-item">
+              <span class="legend-dot critical"></span>
+              <span>Critical (91–100) <span class="legend-count" id="legend-count-critical">0</span></span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot high"></span>
+              <span>High (71–90) <span class="legend-count" id="legend-count-high">0</span></span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot medium"></span>
+              <span>Medium (41–70) <span class="legend-count" id="legend-count-medium">0</span></span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot low"></span>
+              <span>Low (0–40) <span class="legend-count" id="legend-count-low">0</span></span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- VIEW 4: INVESTIGATION WORKSPACE -->
+      <main id="view-investigation" class="view-container hidden">
+        <!-- Investigation Case Header -->
+        <div class="inv-header">
+          <div class="inv-title-group">
+            <div class="inv-title-row">
+              <span class="inv-id" id="inv-case-id">INV-24081</span>
+              <span class="inv-proj-id" id="inv-proj-id">MPL/KA/24081</span>
+            </div>
+            <div class="inv-desc" id="inv-proj-title">Construction of Community Hall, Belagavi</div>
+          </div>
+          <button class="btn-secondary">
+            <i data-lucide="share-2"></i>
+            Export Case
+          </button>
+        </div>
+
+        <!-- Investigation Progress Stepper -->
+        <div class="stepper-card">
+          <div class="stepper-wrapper">
+            <div class="stepper-progress-bg"></div>
+            <div class="stepper-progress-fill" id="inv-stepper-progress"></div>
+
+            <div class="step-item completed" data-step="1">
+              <div class="step-node"><i data-lucide="plus" style="width: 14px;"></i></div>
+              <div class="step-label">New</div>
+              <div class="step-date" id="step-date-1">21 May 2024</div>
+            </div>
+
+            <div class="step-item active" data-step="2">
+              <div class="step-node"><i data-lucide="search" style="width: 14px;"></i></div>
+              <div class="step-label">Under Review</div>
+              <div class="step-date" id="step-date-2">25 May 2024</div>
+            </div>
+
+            <div class="step-item" data-step="3">
+              <div class="step-node"><i data-lucide="map-pin" style="width: 14px;"></i></div>
+              <div class="step-label">Field Verification</div>
+              <div class="step-date" id="step-date-3">Pending</div>
+            </div>
+
+            <div class="step-item" data-step="4">
+              <div class="step-node"><i data-lucide="file-check" style="width: 14px;"></i></div>
+              <div class="step-label">Finding Recorded</div>
+              <div class="step-date" id="step-date-4">Pending</div>
+            </div>
+
+            <div class="step-item" data-step="5">
+              <div class="step-node"><i data-lucide="check-circle-2" style="width: 14px;"></i></div>
+              <div class="step-label">Closed</div>
+              <div class="step-date" id="step-date-5">Pending</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two Column Investigation board -->
+        <div class="inv-main-grid">
+          <!-- Left: AI Findings summary -->
+          <div class="findings-summary-card">
+            <h3>AI Findings (from Project Analysis)</h3>
+            <div class="findings-summary-list" id="inv-findings-list">
+              <!-- Dynamically populated summary findings -->
+            </div>
+
+          </div>
+
+          <!-- Right: Action Notes Panel -->
+          <div class="notes-card">
+            <h3>Investigator Notes</h3>
+
+            <div class="editor-toolbar">
+              <button class="toolbar-btn"><i data-lucide="bold" style="width: 14px;"></i></button>
+              <button class="toolbar-btn"><i data-lucide="italic" style="width: 14px;"></i></button>
+              <button class="toolbar-btn"><i data-lucide="list" style="width: 14px;"></i></button>
+              <button class="toolbar-btn"><i data-lucide="heading" style="width: 14px;"></i></button>
+              <button class="toolbar-btn"><i data-lucide="link" style="width: 14px;"></i></button>
+              <button class="toolbar-btn" style="margin-left: auto;"><i data-lucide="code"
+                  style="width: 14px;"></i></button>
+            </div>
+
+            <textarea class="editor-textarea" id="inv-notes-editor"
+              placeholder="Enter field verification notes, observations, and investigation comments..."></textarea>
+            <span class="editor-char-counter" id="inv-char-counter">0 / 2000 characters</span>
+
+            <!-- Actions buttons -->
+            <div class="action-center">
+              <span class="action-center-title">Actions</span>
+              <div class="action-buttons-row">
+                <button class="btn-action-trigger start" id="btn-act-verify">
+                  <i data-lucide="shield-check"></i>
+                  Start Field Verification
+                </button>
+                <button class="btn-action-trigger escalate" id="btn-act-escalate">
+                  <i data-lucide="flag"></i>
+                  Escalate Case
+                </button>
+                <button class="btn-action-trigger close" id="btn-act-close">
+                  <i data-lucide="check-circle-2"></i>
+                  Close Case
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- VIEW: DATA INGESTION -->
+      <main id="view-data-ingestion" class="view-container hidden">
+        <div
+          style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh; color: var(--text-muted); text-align: center;">
+          <i data-lucide="upload-cloud"
+            style="width: 48px; height: 48px; margin-bottom: 1rem; color: var(--primary-blue);"></i>
+          <h2>Data Ingestion Module</h2>
+          <p>This module is under construction. It will handle bulk data uploads and API integrations.</p>
+        </div>
+      </main>
+
+      <!-- VIEW: AUDIT LOGS -->
+      <main id="view-audit-logs" class="view-container hidden">
+        <div
+          style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh; color: var(--text-muted); text-align: center;">
+          <i data-lucide="history"
+            style="width: 48px; height: 48px; margin-bottom: 1rem; color: var(--primary-blue);"></i>
+          <h2>System Audit Logs</h2>
+          <p>This module is under construction. It will display a chronological log of all Sentinel system events.</p>
+        </div>
+      </main>
+
+      <!-- VIEW: PRIORITY QUEUE PLACEHOLDER -->
+      <main id="view-priority-queue" class="view-container hidden">
+        <!-- Filter Bar -->
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label for="pq-filter-state">State</label>
+            <select id="pq-filter-state" class="filter-select">
+              <option value="Karnataka">Karnataka</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="All">All States</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="pq-filter-district">District</label>
+            <select id="pq-filter-district" class="filter-select">
+              <option value="All">All Districts</option>
+              <option value="Belagavi">Belagavi</option>
+              <option value="Dharwad">Dharwad</option>
+              <option value="Vijayapura">Vijayapura</option>
+              <option value="Haveri">Haveri</option>
+              <option value="Kolhapur">Kolhapur</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="pq-filter-type">Work Type</label>
+            <select id="pq-filter-type" class="filter-select">
+              <option value="All">All</option>
+              <option value="Community Infrastructure">Community Infrastructure</option>
+              <option value="Water & Sanitation">Water & Sanitation</option>
+              <option value="Roads & Bridges">Roads & Bridges</option>
+              <option value="Drainage & Sewerage">Drainage & Sewerage</option>
+              <option value="Education Infrastructure">Education Infrastructure</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="pq-filter-risk">Risk Level</label>
+            <select id="pq-filter-risk" class="filter-select">
+              <option value="All">All Levels</option>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <button class="btn-reset" id="pq-btn-filter-reset">
+            <i data-lucide="refresh-cw"></i>
+            Reset
+          </button>
+        </div>
+
+        <!-- Priority Queue Table -->
+        <div class="table-card">
+          <div class="table-header-row">
+            <h2 class="table-title">Priority Queue – High Risk Projects <span id="pq-dedicated-count">10 Projects</span></h2>
+          </div>
+          <div class="table-wrapper">
+            <table class="priority-table">
+              <thead>
+                <tr>
+                  <th>Project ID</th>
+                  <th>Project Name</th>
+                  <th>District</th>
+                  <th>Risk</th>
+                  <th>Primary Finding</th>
+                  <th>Assigned To</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="pq-dedicated-tbody">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <!-- VIEW: PROJECTS PLACEHOLDER -->
+      <main id="view-projects" class="view-container hidden">
+        <div
+          style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh; color: var(--text-muted); text-align: center;">
+          <i data-lucide="folder-open"
+            style="width: 48px; height: 48px; margin-bottom: 1rem; color: var(--primary-blue);"></i>
+          <h2>Projects Directory</h2>
+          <p>Search and filter all MPLADS projects here.</p>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- ApexCharts JS -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+  <!-- Leaflet GIS Map JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Leaflet MarkerCluster JS -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <!-- Leaflet Heatmap JS -->
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+
+  <!-- Main Application Logic Script -->
+  <script src="app.js"></script>
+</body>
+
+</html>
