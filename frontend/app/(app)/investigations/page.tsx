@@ -1,17 +1,13 @@
-<<<<<<< HEAD
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-=======
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { INVESTIGATIONS as INITIAL_DATA } from "./mock-data";
 import { Investigation, InvestigationStatus, RiskLevel } from "./types";
 import { InvestigationCard } from "./components/investigation-card";
 import { InvestigationFilters } from "./components/investigation-filters";
 import { InvestigationDetail } from "./components/investigation-detail";
-import { ShieldAlert, Search as SearchIcon, ClipboardList } from "lucide-react";
->>>>>>> d06f232 (Improve investigation page)
+import { ShieldAlert, Search as SearchIcon, ClipboardList, ArrowLeft } from "lucide-react";
 
 export default function InvestigationsPage() {
   const [investigations, setInvestigations] = useState<Investigation[]>(INITIAL_DATA);
@@ -104,8 +100,7 @@ export default function InvestigationsPage() {
   };
 
   return (
-<<<<<<< HEAD
-    <div className="flex flex-col items-center justify-center gap-4 h-[60vh] text-[var(--text-muted)]">
+    <div className="p-6 space-y-5">
       <Link
         href="/"
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:text-[var(--primary-blue-hover)]"
@@ -113,9 +108,7 @@ export default function InvestigationsPage() {
         <ArrowLeft className="h-3.5 w-3.5" />
         Home
       </Link>
-      <p>Investigations — Coming soon</p>
-=======
-    <div className="p-6 space-y-5">
+
       <div>
         <h1 className="text-xl font-bold text-slate-900">Investigation</h1>
         <p className="text-sm text-slate-500 mt-0.5">Review projects flagged by the anomaly detection engine</p>
@@ -166,7 +159,6 @@ export default function InvestigationsPage() {
           onAddFinding={handleAddFinding}
         />
       )}
->>>>>>> d06f232 (Improve investigation page)
     </div>
   );
 }
