@@ -27,8 +27,8 @@ export default function ThemeToggle({
       onClick={handleToggle}
       className={`flex items-center justify-center rounded-lg border transition-all duration-200 focus-visible:outline-3 focus-visible:outline-offset-2 ${sizeClasses} ${
         isDark
-          ? "border-gov-border-dark bg-navy-dark text-saffron-light hover:bg-navy"
-          : "border-gov-border-light bg-white text-navy hover:bg-gov-bg-light"
+          ? "border-white/10 bg-white/5 text-[var(--saffron)] hover:bg-white/10"
+          : "border-black/8 bg-white text-[var(--navy)] hover:bg-[var(--bg-secondary)]"
       } ${className}`}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}

@@ -5,50 +5,40 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
+  darkMode: ["selector", '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
+        /* Landing page accent palette (not in raw tokens) */
         navy: {
-          DEFAULT: "#0A1F3D",
-          light: "#0F2E5C",
-          dark: "#061328",
+          DEFAULT: "var(--navy)",
+          light: "var(--navy-light)",
+          dark: "var(--navy-dark)",
         },
         saffron: {
-          DEFAULT: "#FF9933",
-          light: "#FFB366",
-          dark: "#E68A2E",
+          DEFAULT: "var(--saffron)",
+          light: "var(--saffron-light)",
+          dark: "var(--saffron-dark)",
         },
         "india-green": {
-          DEFAULT: "#128A3E",
-          light: "#1AAF50",
-          dark: "#0E6B30",
+          DEFAULT: "var(--india-green)",
         },
-        "gov-bg": {
-          light: "#F5F6F8",
-          dark: "#0B1220",
+        teal: {
+          DEFAULT: "var(--teal)",
+          light: "var(--teal-light)",
+          dark: "var(--teal-dark)",
         },
-        "gov-text": {
-          light: "#10182B",
-          dark: "#E8EAF0",
-        },
-        "gov-muted": {
-          light: "#64748B",
-          dark: "#94A3B8",
-        },
-        "gov-card": {
-          light: "#FFFFFF",
-          dark: "#111827",
-        },
-        "gov-border": {
-          light: "#E2E8F0",
-          dark: "#1E293B",
-        },
+        /* Shared shell + raw tokens */
+        "gov-bg": "var(--bg-primary)",
+        "gov-text": "var(--text-primary)",
+        "gov-muted": "var(--text-muted)",
+        "gov-card": "var(--bg-card)",
+        "gov-border": "var(--border-color)",
         risk: {
-          critical: "#DC2626",
-          high: "#EA580C",
-          medium: "#CA8A04",
-          low: "#059669",
+          critical: "var(--color-critical)",
+          high: "var(--color-high)",
+          medium: "var(--color-medium)",
+          low: "var(--color-low)",
         },
       },
       fontFamily: {

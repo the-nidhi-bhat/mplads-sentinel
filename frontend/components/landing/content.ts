@@ -9,12 +9,11 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Overview", href: "#overview" },
-  { label: "The Problem", href: "#problem" },
+  { label: "Home", href: "#hero" },
+  { label: "About the Scheme", href: "#overview" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Detection Signals", href: "#signals" },
-  { label: "For Auditors", href: "#auditors" },
-  { label: "About", href: "#about" },
+  { label: "Dashboard", href: "/dashboard" },
 ];
 
 export interface LandmarkImage {

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { I18nProvider } from "../lib/i18n";
 
 export const metadata: Metadata = {
   title: "MPLADS Sentinel — AI Audit Prioritization Platform",
@@ -43,15 +44,17 @@ export default function RootLayout({
                     theme = window.matchMedia('(prefers-color-scheme: dark)').matches
                       ? 'dark' : 'light';
                   }
-                  if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
+                  document.documentElement.setAttribute('data-theme', theme);
+                  var scale = localStorage.getItem('mplads-font-scale');
+                  if (scale === '0.9' || scale === '1' || scale === '1.1') {
+                    document.documentElement.style.setProperty('--font-scale', scale);
                   }
                 } catch(e) {}
               })();
             `,
           }}
         />
-        {children}
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   );

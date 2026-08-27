@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import ThemeToggle from "./ThemeToggle";
 import HeroCarousel from "./HeroCarousel";
+import { useI18n } from "../../lib/i18n";
 import {
   NAV_ITEMS,
   STATS,
@@ -154,6 +155,11 @@ function Icon({ name, className = "w-5 h-5" }: { name: string; className?: strin
         <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
       </svg>
     ),
+    play: (
+      <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.25-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z" />
+      </svg>
+    ),
   };
   return icons[name] || null;
 }
@@ -198,7 +204,7 @@ function Section({
     <section
       id={id}
       ref={ref}
-      className={`reveal section-padding ${dark ? "bg-navy text-white" : ""} ${className}`}
+      className={`reveal section-padding ${dark ? "bg-[var(--bg-secondary)] text-white" : ""} ${className}`}
     >
       <div className="container-gov">{children}</div>
     </section>
@@ -211,8 +217,9 @@ function Section({
 export default function LandingPage() {
   const [isDark, setIsDark] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [fontScale, setFontScale] = useState<0.9 | 1 | 1.1>(1);
+  const { locale, setLocale, t } = useI18n();
 
-  // Sync theme on mount
   useEffect(() => {
     const stored = localStorage.getItem("mplads-theme");
     if (stored) {
@@ -226,86 +233,123 @@ export default function LandingPage() {
     setIsDark((prev) => {
       const next = !prev;
       localStorage.setItem("mplads-theme", next ? "dark" : "light");
-      document.documentElement.classList.toggle("dark", next);
+      document.documentElement.setAttribute("data-theme", next ? "dark" : "light");
       return next;
     });
   }, []);
 
-  // Apply dark class on toggle
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDark);
+    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
   }, [isDark]);
 
+  useEffect(() => {
+    const stored = localStorage.getItem("mplads-font-scale");
+    if (stored === "0.9" || stored === "1" || stored === "1.1") {
+      setFontScale(Number(stored) as 0.9 | 1 | 1.1);
+    }
+  }, []);
+
+  const updateFontScale = (scale: 0.9 | 1 | 1.1) => {
+    setFontScale(scale);
+    localStorage.setItem("mplads-font-scale", String(scale));
+    document.documentElement.style.setProperty("--font-scale", String(scale));
+  };
+
+  const navKeys = ["nav.home", "nav.about", "nav.howItWorks", "nav.signals", "nav.dashboard"] as const;
+  const statKeys = ["stats.projects", "stats.states", "stats.signals", "stats.flagged"] as const;
+  const stepKeys = ["data", "ingestion", "analysis", "score", "evidence", "human"] as const;
+  const signalKeys = ["cost", "timeline", "spatial", "agency", "progress"] as const;
+  const footerKeys = ["footer.about", "footer.methodology", "footer.dataSources", "footer.privacy", "footer.accessibility"] as const;
+  const heroHeadline = t("hero.headline").split(/(MPLADS:)/g);
+
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDark ? "dark" : ""}`}>
+    <div className="min-h-screen transition-colors duration-300">
       {/* ─── 1. Top Government Strip ─── */}
-      <div className={`border-b px-6 py-2 text-xs font-medium ${isDark ? "border-gov-border-dark bg-navy-dark text-gov-muted-dark" : "border-gov-border-light bg-navy text-white/80"}`}>
+      <div className="border-b border-gov-border px-6 py-1.5 text-[11px] font-medium bg-[var(--bg-secondary)] text-gov-muted">
         <div className="container-gov flex items-center justify-between">
-          <span className="flex items-center gap-2">
-            <Icon name="shield" className="w-3.5 h-3.5" />
-            Government of India · MPLADS Monitoring
+          <span className="flex items-center gap-1.5">
+            {t("topStrip")}
           </span>
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline opacity-70">English</span>
-            <span className="hidden sm:inline opacity-50">|</span>
-            <span className="hidden sm:inline opacity-70">Font Size: A+ A A-</span>
+            <button
+              type="button"
+              onClick={() => setLocale("en")}
+              className={`transition-colors ${locale === "en" ? "text-teal font-bold" : "text-white/50 hover:text-white/80"}`}
+            >
+              EN
+            </button>
+            <span className="text-white/30">|</span>
+            <button
+              type="button"
+              onClick={() => setLocale("hi")}
+              className={`transition-colors ${locale === "hi" ? "text-teal font-bold" : "text-white/50 hover:text-white/80"}`}
+            >
+              HI
+            </button>
+            <span className="hidden sm:inline text-white/30 mx-1">|</span>
+            <span className="hidden sm:inline">{t("fontSize")}</span>
+            <button onClick={() => updateFontScale(0.9)} className={`hidden sm:inline text-white/60 hover:text-white ${fontScale === 0.9 ? "font-bold text-white" : ""}`} aria-label="Decrease font size">A-</button>
+            <button onClick={() => updateFontScale(1)} className={`hidden sm:inline text-white/60 hover:text-white ${fontScale === 1 ? "font-bold text-white" : ""}`} aria-label="Default font size">A</button>
+            <button onClick={() => updateFontScale(1.1)} className={`hidden sm:inline text-white/60 hover:text-white ${fontScale === 1.1 ? "font-bold text-white" : ""}`} aria-label="Increase font size">A+</button>
           </div>
         </div>
       </div>
 
       {/* ─── 2. Header ─── */}
-      <header className={`sticky top-0 z-50 border-b backdrop-blur-md transition-colors ${isDark ? "border-gov-border-dark bg-navy-dark/95" : "border-gov-border-light bg-white/95"}`}>
+      <header className="sticky top-0 z-50 border-b border-gov-border bg-[var(--bg-secondary)] transition-colors">
         <div className="container-gov flex items-center justify-between px-6 py-3">
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5" aria-label="MPLADS Sentinel home">
-            <Icon name="shield-alert" className={`w-7 h-7 ${isDark ? "text-saffron" : "text-navy"}`} />
+          {/* Logo: emblem + stacked text */}
+          <a href="#hero" className="flex items-center gap-3 shrink-0" aria-label="MPLADS Sentinel home">
+            {/* Emblem placeholder — shield with Ashoka-style four lions silhouette */}
+            <svg className="w-10 h-10 text-white shrink-0" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <circle cx="20" cy="20" r="19" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+              <circle cx="20" cy="20" r="16" stroke="currentColor" strokeWidth="1" opacity="0.2" />
+              <path d="M20 8 L24 16 L20 14 L16 16 Z" fill="currentColor" opacity="0.9" />
+              <path d="M20 8 L26 18 L20 15 L14 18 Z" fill="currentColor" opacity="0.6" />
+              <circle cx="20" cy="22" r="3" fill="currentColor" opacity="0.7" />
+              <path d="M14 28 L20 25 L26 28" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.5" />
+            </svg>
             <div className="flex flex-col leading-tight">
-              <span className={`text-lg font-extrabold tracking-tight ${isDark ? "text-white" : "text-navy"}`}>
-                MPLADS SENTINEL
+              <span className="text-[10px] font-medium text-white/60 tracking-wide">
+                {t("header.government")}
               </span>
-              <span className={`text-[10px] font-medium uppercase tracking-widest ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
-                AI Audit Prioritization
+              <span className="text-base font-extrabold text-white tracking-tight leading-snug">
+                {t("header.brand")}
+              </span>
+              <span className="text-[9px] font-medium text-white/40 uppercase tracking-widest">
+                {t("header.tagline")}
               </span>
             </div>
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
-            {NAV_ITEMS.map((item) => (
+          <nav className="hidden lg:flex items-center gap-1 ml-8" aria-label="Main navigation">
+          {NAV_ITEMS.map((item, i) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  isDark
-                    ? "text-gov-muted-dark hover:text-white hover:bg-white/5"
-                    : "text-gov-muted-light hover:text-navy hover:bg-navy/5"
+                className={`nav-link-underline px-3 py-2 text-sm font-medium transition-colors ${
+                  i === 0 ? "text-teal active" : "text-white/70 hover:text-white"
                 }`}
               >
-                {item.label}
+                {t(navKeys[i])}
               </a>
             ))}
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <ThemeToggle isDark={isDark} onToggle={toggleTheme} size="sm" />
             <a
-              href="#hero"
-              className={`hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-bold rounded-lg transition-all ${
-                isDark
-                  ? "bg-saffron text-navy-dark hover:bg-saffron-light"
-                  : "bg-navy text-white hover:bg-navy-light"
-              }`}
+              href="/sign-in"
+              className="hidden sm:inline-flex items-center px-4 py-1.5 text-sm font-semibold rounded-full bg-white text-navy hover:bg-white/90 transition-colors"
             >
-              {HERO_CTA_PRIMARY}
-              <Icon name="arrow-right" className="w-4 h-4" />
+              {t("header.login")}
             </a>
             {/* Mobile nav toggle */}
             <button
               type="button"
-              className={`lg:hidden flex items-center justify-center w-9 h-9 rounded-lg border transition-colors ${
-                isDark ? "border-gov-border-dark text-gov-muted-dark hover:text-white" : "border-gov-border-light text-gov-muted-light hover:text-navy"
-              }`}
+              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg border border-white/20 text-white/70 hover:text-white"
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
               aria-label="Toggle navigation menu"
               aria-expanded={mobileNavOpen}
@@ -321,27 +365,25 @@ export default function LandingPage() {
 
         {/* Mobile Nav Dropdown */}
         {mobileNavOpen && (
-          <nav className={`lg:hidden border-t px-6 py-4 ${isDark ? "border-gov-border-dark bg-navy-dark" : "border-gov-border-light bg-white"}`} aria-label="Mobile navigation">
-            {NAV_ITEMS.map((item) => (
+          <nav className="lg:hidden border-t border-white/10 px-6 py-4 bg-[var(--bg-secondary)]" aria-label="Mobile navigation">
+            {NAV_ITEMS.map((item, i) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileNavOpen(false)}
-                className={`block py-2.5 text-sm font-medium rounded-md transition-colors ${
-                  isDark ? "text-gov-muted-dark hover:text-white" : "text-gov-muted-light hover:text-navy"
+                className={`block py-2.5 text-sm font-medium transition-colors ${
+                  i === 0 ? "text-teal" : "text-white/70 hover:text-white"
                 }`}
               >
-                {item.label}
+                {t(navKeys[i])}
               </a>
             ))}
             <a
-              href="#hero"
+              href="/sign-in"
               onClick={() => setMobileNavOpen(false)}
-              className={`mt-3 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-bold rounded-lg ${
-                isDark ? "bg-saffron text-navy-dark" : "bg-navy text-white"
-              }`}
+              className="mt-3 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-full bg-white text-navy"
             >
-              {HERO_CTA_PRIMARY} <Icon name="arrow-right" className="w-4 h-4" />
+              {t("header.login")}
             </a>
           </nav>
         )}
@@ -352,47 +394,60 @@ export default function LandingPage() {
         <HeroCarousel isDark={isDark} />
         <div className="relative z-20 container-gov px-6 py-20">
           <div className="max-w-2xl">
-            <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 ${isDark ? "text-white" : "text-white"}`}>
-              {HERO_HEADLINE}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-white">
+              {heroHeadline.map((part, index) => part === "MPLADS:" ? <span key={index} className="text-teal">{part}</span> : part)}
             </h1>
-            <p className={`text-lg sm:text-xl leading-relaxed mb-8 ${isDark ? "text-white/80" : "text-white/85"}`}>
-              {HERO_PITCH}
+            <p className="text-lg sm:text-xl leading-relaxed mb-8 text-white/85">
+              {t("hero.pitch")}
             </p>
             <div className="flex flex-wrap items-center gap-4 mb-8">
               <a
                 href="#"
-                className={`inline-flex items-center gap-2 px-6 py-3 text-base font-bold rounded-lg transition-all ${
-                  isDark
-                    ? "bg-saffron text-navy-dark hover:bg-saffron-light shadow-lg shadow-saffron/20"
-                    : "bg-saffron text-white hover:bg-saffron-dark shadow-lg shadow-saffron/30"
-                }`}
+                className="inline-flex items-center gap-2 px-6 py-3 text-base font-bold rounded-lg transition-all bg-saffron text-white hover:bg-saffron-dark shadow-lg shadow-saffron/30"
               >
-                {HERO_CTA_PRIMARY}
+                {t("hero.explore")}
                 <Icon name="arrow-right" className="w-5 h-5" />
               </a>
               <a
                 href="#how-it-works"
                 className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold rounded-lg border border-white/30 text-white transition-all hover:bg-white/10"
               >
-                {HERO_CTA_SECONDARY}
+                {t("hero.howItWorks")}
               </a>
             </div>
-            <p className={`text-sm font-medium tracking-wide ${isDark ? "text-white/50" : "text-white/60"}`}>
-              {HERO_TRUST_LINE}
+            <p className="text-sm font-medium tracking-wide text-white/60">
+              {t("hero.trust")}
             </p>
+            <div className="mt-8 flex items-start gap-6">
+              <a href="#" className="flex w-20 flex-col items-center gap-2 text-center text-xs font-semibold text-white/75 hover:text-white" aria-label="Documentation">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-black/70 text-white shadow-lg ring-1 ring-white/20"><Icon name="file-text" className="h-5 w-5" /></span>
+                Documentation
+              </a>
+              <a href="#" className="flex w-20 flex-col items-center gap-2 text-center text-xs font-semibold text-white/75 hover:text-white" aria-label="Demo Video">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-black/70 text-white shadow-lg ring-1 ring-white/20"><Icon name="play" className="ml-0.5 h-5 w-5" /></span>
+                Demo Video
+              </a>
+            </div>
           </div>
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-8" aria-hidden="true">
+          <svg className="h-full w-full" viewBox="0 0 1200 32" preserveAspectRatio="none">
+            <path d="M0 8C200 30 400 30 600 8s400-22 600 0v24H0Z" fill="var(--saffron)" />
+            <path d="M0 14C200 36 400 36 600 14s400-22 600 0v12H0Z" fill="white" />
+            <path d="M0 20C200 42 400 42 600 20s400-22 600 0v12H0Z" fill="var(--india-green)" />
+          </svg>
         </div>
       </section>
 
       {/* ─── 4. Stats Strip ─── */}
-      <Section id="stats" className={`${isDark ? "bg-navy-dark border-y border-gov-border-dark" : "bg-navy border-y border-navy-light"}`}>
+      <Section id="stats" className="bg-[var(--bg-secondary)] border-y border-gov-border">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {STATS.map((stat) => (
+          {STATS.map((stat, i) => (
             <div key={stat.label} className="text-center">
               <div className="text-3xl sm:text-4xl font-extrabold text-saffron font-mono tracking-tight">
                 {stat.value}
               </div>
-              <div className="mt-1 text-sm font-medium text-white/70">{stat.label}</div>
+              <div className="mt-1 text-sm font-medium text-white/70">{t(statKeys[i])}</div>
               {stat.note && (
                 <div className="mt-0.5 text-[10px] text-white/40 italic">{stat.note}</div>
               )}
@@ -404,41 +459,31 @@ export default function LandingPage() {
       {/* ─── 5. Understanding MPLADS ─── */}
       <Section id="overview">
         <div className="text-center mb-12">
-          <h2 className={`text-3xl sm:text-4xl font-extrabold mb-4 ${isDark ? "text-white" : "text-navy"}`}>
-            Understanding MPLADS
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
+            {t("overview.heading")}
           </h2>
-          <p className={`max-w-3xl mx-auto text-base leading-relaxed ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
-            The Members of Parliament Local Area Development Scheme (MPLADS) was launched on
-            23 December 1993, enabling MPs to recommend developmental works — emphasizing
-            durable community assets — based on locally felt needs in their constituencies.
-            Each MP receives an annual entitlement of ₹5 crore, administered by the Ministry
-            of Statistics and Programme Implementation (MoSPI).
+          <p className="max-w-3xl mx-auto text-base leading-relaxed text-gov-muted">
+            {t("overview.body")}
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {MPLADS_FUND_FLOW.map((step, i) => (
             <div
               key={step.step}
-              className={`relative rounded-xl border p-6 transition-all hover:shadow-lg ${
-                isDark
-                  ? "border-gov-border-dark bg-navy-light/50 hover:border-saffron/30"
-                  : "border-gov-border-light bg-white hover:border-navy/20 hover:shadow-navy/5"
-              }`}
+              className="relative rounded-xl border border-gov-border p-6 transition-all hover:shadow-lg bg-gov-card hover:border-navy/20 hover:shadow-navy/5"
             >
-              <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold mb-4 ${
-                isDark ? "bg-saffron/20 text-saffron" : "bg-navy/10 text-navy"
-              }`}>
+              <div className="flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold mb-4 bg-navy/10 text-navy">
                 {i + 1}
               </div>
-              <h3 className={`text-base font-bold mb-2 ${isDark ? "text-white" : "text-navy"}`}>
-                {step.step}
+              <h3 className="text-base font-bold mb-2 text-gov-text">
+                {t(["step.data.title", "step.ingestion.title", "step.analysis.title", "step.score.title"][i] as Parameters<typeof t>[0])}
               </h3>
-              <p className={`text-sm leading-relaxed ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
-                {step.description}
+              <p className="text-sm leading-relaxed text-gov-muted">
+                {t(["step.data.description", "step.ingestion.description", "step.analysis.description", "step.score.description"][i] as Parameters<typeof t>[0])}
               </p>
               {i < MPLADS_FUND_FLOW.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 -right-4 -translate-y-1/2 z-10">
-                  <Icon name="chevron-right" className={`w-5 h-5 ${isDark ? "text-saffron/40" : "text-navy/30"}`} />
+                  <Icon name="chevron-right" className="w-5 h-5 text-navy/30" />
                 </div>
               )}
             </div>
@@ -451,21 +496,15 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto text-center">
           <Icon name="alert_triangle" className="w-12 h-12 text-saffron mx-auto mb-6" />
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">
-            The challenge isn&apos;t a lack of data. It&apos;s knowing where to look first.
+            {t("problem.heading")}
           </h2>
           <p className="text-lg text-white/70 leading-relaxed mb-8">
-            With over 24,000 active MPLADS projects across India and limited audit capacity,
-            manual review of every project is impractical. Traditional monitoring relies on
-            delayed post-mortem audits — by the time anomalies are found, funds may already
-            be misallocated. Sentinel turns a large project pool into an evidence-backed
-            audit priority queue, so auditors can focus where it matters most.
+            {t("problem.body")}
           </p>
-          <div className={`inline-flex items-center gap-2 px-5 py-3 rounded-lg border ${
-            isDark ? "border-saffron/30 bg-saffron/10 text-saffron" : "border-saffron/20 bg-saffron/5 text-saffron-dark"
-          }`}>
+          <div className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-saffron/20 bg-saffron/5 text-saffron-dark">
             <Icon name="info" className="w-5 h-5" />
             <span className="text-sm font-semibold">
-              Sentinel prioritizes attention — it does not establish wrongdoing.
+              {t("problem.note")}
             </span>
           </div>
         </div>
@@ -474,20 +513,16 @@ export default function LandingPage() {
       {/* ─── 7. Positioning vs eSAKSHI ─── */}
       <Section id="positioning">
         <div className="max-w-4xl mx-auto">
-          <div className={`rounded-xl border p-8 sm:p-10 ${
-            isDark ? "border-gov-border-dark bg-navy-light/30" : "border-gov-border-light bg-gov-bg-light"
-          }`}>
+          <div className="rounded-xl border border-gov-border p-8 sm:p-10 bg-[var(--bg-secondary)]">
             <div className="flex items-start gap-4 mb-6">
-              <div className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center ${
-                isDark ? "bg-india-green/20" : "bg-india-green/10"
-              }`}>
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center bg-india-green/10">
                 <Icon name="shield" className="w-6 h-6 text-india-green" />
               </div>
               <div>
-                <h3 className={`text-lg font-bold mb-2 ${isDark ? "text-white" : "text-navy"}`}>
+                <h3 className="text-lg font-bold mb-2 text-gov-text">
                   How Sentinel fits alongside eSAKSHI
                 </h3>
-                <blockquote className={`text-base leading-relaxed italic border-l-3 border-saffron pl-4 ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
+                <blockquote className="text-base leading-relaxed italic border-l-3 border-saffron pl-4 text-gov-muted">
                   {POSITIONING_LINE}
                 </blockquote>
               </div>
@@ -497,12 +532,12 @@ export default function LandingPage() {
                 <div key={step} className="flex items-center gap-3">
                   <div className={`px-4 py-2.5 rounded-lg text-sm font-bold ${
                     i === 1
-                      ? isDark ? "bg-saffron text-navy-dark" : "bg-navy text-white"
-                      : isDark ? "bg-navy-light text-white/70 border border-gov-border-dark" : "bg-white text-navy border border-gov-border-light"
+                      ? "bg-navy text-white"
+                      : "bg-gov-card text-gov-text border border-gov-border"
                   }`}>
                     {step}
                   </div>
-                  {i < 2 && <Icon name="chevron-right" className={`w-5 h-5 hidden sm:block ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`} />}
+                  {i < 2 && <Icon name="chevron-right" className="w-5 h-5 hidden sm:block text-gov-muted" />}
                 </div>
               ))}
             </div>
@@ -513,41 +548,32 @@ export default function LandingPage() {
       {/* ─── 8. How Sentinel Works (Pipeline) ─── */}
       <Section id="how-it-works">
         <div className="text-center mb-12">
-          <h2 className={`text-3xl sm:text-4xl font-extrabold mb-4 ${isDark ? "text-white" : "text-navy"}`}>
-            How Sentinel Works
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
+            {t("how.heading")}
           </h2>
-          <p className={`max-w-2xl mx-auto ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
-            A six-step pipeline from raw data to human investigation, with full
-            traceability at every stage.
+          <p className="max-w-2xl mx-auto text-gov-muted">
+            {t("how.body")}
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {PIPELINE_STEPS.map((step) => (
             <div
               key={step.number}
-              className={`relative rounded-xl border p-6 transition-all hover:shadow-md group ${
-                isDark
-                  ? "border-gov-border-dark bg-navy-light/40 hover:border-saffron/20"
-                  : "border-gov-border-light bg-white hover:shadow-lg hover:shadow-navy/5"
-              }`}
+              className="relative rounded-xl border border-gov-border p-6 transition-all hover:shadow-md group bg-gov-card hover:shadow-lg hover:shadow-navy/5"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors ${
-                  isDark
-                    ? "bg-navy text-saffron group-hover:bg-saffron/20"
-                    : "bg-navy/5 text-navy group-hover:bg-navy/10"
-                }`}>
+                <div className="flex items-center justify-center w-10 h-10 rounded-lg transition-colors bg-navy/5 text-navy group-hover:bg-navy/10">
                   <Icon name={step.icon} className="w-5 h-5" />
                 </div>
-                <span className={`text-xs font-bold tracking-wider ${isDark ? "text-saffron" : "text-navy"}`}>
+                <span className="text-xs font-bold tracking-wider text-gov-text">
                   STEP {step.number}
                 </span>
               </div>
-              <h3 className={`text-base font-bold mb-2 ${isDark ? "text-white" : "text-navy"}`}>
-                {step.title}
+              <h3 className="text-base font-bold mb-2 text-gov-text">
+                {t(["step.data.title", "step.ingestion.title", "step.analysis.title", "step.score.title", "step.evidence.title", "step.human.title"][step.number - 1] as Parameters<typeof t>[0])}
               </h3>
-              <p className={`text-sm leading-relaxed ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
-                {step.description}
+              <p className="text-sm leading-relaxed text-gov-muted">
+                {t(["step.data.description", "step.ingestion.description", "step.analysis.description", "step.score.description", "step.evidence.description", "step.human.description"][step.number - 1] as Parameters<typeof t>[0])}
               </p>
             </div>
           ))}
@@ -558,15 +584,14 @@ export default function LandingPage() {
       <Section id="signals" dark>
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-            Five Detection Signals
+            {t("signals.heading")}
           </h2>
           <p className="text-white/60 max-w-2xl mx-auto">
-            Each signal examines a different dimension of project data. Some are live in the
-            prototype; others are designed for future extension.
+            {t("signals.body")}
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {DETECTION_SIGNALS.map((signal) => (
+          {DETECTION_SIGNALS.map((signal, i) => (
             <div
               key={signal.name}
               className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-saffron/20 hover:bg-white/8"
@@ -583,8 +608,8 @@ export default function LandingPage() {
                   {signal.status === "live" ? "Live in Prototype" : "Planned"}
                 </span>
               </div>
-              <h3 className="text-base font-bold text-white mb-2">{signal.name}</h3>
-              <p className="text-sm text-white/60 leading-relaxed mb-3">{signal.description}</p>
+              <h3 className="text-base font-bold text-white mb-2">{t(["signal.cost.name", "signal.timeline.name", "signal.spatial.name", "signal.agency.name", "signal.progress.name"][i] as Parameters<typeof t>[0])}</h3>
+              <p className="text-sm text-white/60 leading-relaxed mb-3">{t(["signal.cost.description", "signal.timeline.description", "signal.spatial.description", "signal.agency.description", "signal.progress.description"][i] as Parameters<typeof t>[0])}</p>
               <p className="text-xs text-saffron/80 font-mono leading-relaxed">{signal.example}</p>
             </div>
           ))}
@@ -594,10 +619,10 @@ export default function LandingPage() {
       {/* ─── 10. Audit Priority Score Explainer ─── */}
       <Section id="score">
         <div className="text-center mb-12">
-          <h2 className={`text-3xl sm:text-4xl font-extrabold mb-4 ${isDark ? "text-white" : "text-navy"}`}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
             Audit Priority Score
           </h2>
-          <p className={`max-w-2xl mx-auto ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
+          <p className="max-w-2xl mx-auto text-gov-muted">
             A weighted composite of all five signals, producing a traceable score from 0 to 100.
             Weights are configurable — they reflect current model tuning, not fixed truths.
           </p>
@@ -606,11 +631,7 @@ export default function LandingPage() {
           {SCORE_BANDS.map((band) => (
             <div
               key={band.label}
-              className={`rounded-xl border p-6 text-center transition-all ${
-                isDark
-                  ? "border-gov-border-dark bg-navy-light/40 hover:shadow-lg"
-                  : "border-gov-border-light bg-white hover:shadow-lg"
-              }`}
+              className="rounded-xl border border-gov-border p-6 text-center transition-all bg-gov-card hover:shadow-lg"
             >
               <div className={`text-xs font-bold uppercase tracking-wider mb-3 ${
                 band.color === "risk-critical" ? "text-risk-critical"
@@ -620,19 +641,17 @@ export default function LandingPage() {
               }`}>
                 {band.label}
               </div>
-              <div className={`text-2xl font-extrabold font-mono mb-2 ${isDark ? "text-white" : "text-navy"}`}>
+              <div className="text-2xl font-extrabold font-mono mb-2 text-gov-text">
                 {band.range}
               </div>
-              <p className={`text-sm ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
+              <p className="text-sm text-gov-muted">
                 {band.description}
               </p>
             </div>
           ))}
         </div>
-        <div className={`text-center px-6 py-4 rounded-lg border ${
-          isDark ? "border-saffron/20 bg-saffron/5" : "border-saffron/15 bg-saffron/5"
-        }`}>
-          <p className={`text-sm font-semibold ${isDark ? "text-saffron" : "text-saffron-dark"}`}>
+        <div className="text-center px-6 py-4 rounded-lg border border-saffron/15 bg-saffron/5">
+          <p className="text-sm font-semibold text-saffron-dark">
             {SCORE_EXPLAINER_DISCLAIMER}
           </p>
         </div>
@@ -642,39 +661,39 @@ export default function LandingPage() {
       <Section id="evidence">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className={`text-3xl sm:text-4xl font-extrabold mb-4 ${isDark ? "text-white" : "text-navy"}`}>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
               Why Was This Flagged?
             </h2>
-            <p className={`text-sm italic ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
+            <p className="text-sm italic text-gov-muted">
               Illustrative example — project ID and data shown for demonstration purposes.
             </p>
           </div>
-          <div className={`rounded-xl border overflow-hidden ${isDark ? "border-gov-border-dark" : "border-gov-border-light"}`}>
+          <div className="rounded-xl border border-gov-border overflow-hidden">
             {/* Project header */}
-            <div className={`px-6 py-4 border-b flex flex-wrap items-center gap-3 ${
-              isDark ? "border-gov-border-dark bg-navy-light/30" : "border-gov-border-light bg-gov-bg-light"
-            }`}>
-              <span className={`font-mono text-sm font-bold ${isDark ? "text-saffron" : "text-navy"}`}>
-                MPL/KA/24081
-              </span>
-              <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-risk-critical/15 text-risk-critical">
-                Critical
-              </span>
-              <span className={`text-sm ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
-                Construction of Community Hall, Belagavi, Karnataka
-              </span>
+            <div className="px-6 py-4 border-b border-gov-border bg-[var(--bg-secondary)]">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="font-mono text-sm font-bold text-gov-text">
+                  MPL/KA/24081
+                </span>
+                <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-risk-critical/15 text-risk-critical">
+                  Critical
+                </span>
+                <span className="text-sm text-gov-muted">
+                  Construction of Community Hall, Belagavi, Karnataka
+                </span>
+              </div>
             </div>
             {/* Evidence grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2">
               {EXAMPLE_EVIDENCE.map((ev, i) => (
                 <div
                   key={ev.factor}
-                  className={`px-6 py-5 border-b last:border-b-0 sm:last:border-b-0 sm:border-r ${
+                  className={`px-6 py-5 border-b border-gov-border last:border-b-0 sm:last:border-b-0 sm:border-r ${
                     i < EXAMPLE_EVIDENCE.length - 2 || i === EXAMPLE_EVIDENCE.length - 1 ? "sm:border-r-0" : ""
-                  } ${isDark ? "border-gov-border-dark" : "border-gov-border-light"}`}
+                  }`}
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <span className={`text-sm font-bold ${isDark ? "text-white" : "text-navy"}`}>
+                    <span className="text-sm font-bold text-gov-text">
                       {ev.factor}
                     </span>
                     <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
@@ -687,16 +706,14 @@ export default function LandingPage() {
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs">
-                      <span className={isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}>Observed</span>
-                      <span className={`font-mono font-semibold ${isDark ? "text-white" : "text-navy"}`}>{ev.observed}</span>
+                      <span className="text-gov-muted">Observed</span>
+                      <span className="font-mono font-semibold text-gov-text">{ev.observed}</span>
                     </div>
                     <div className="flex justify-between text-xs">
-                      <span className={isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}>Benchmark</span>
-                      <span className={`font-mono font-semibold ${isDark ? "text-white" : "text-navy"}`}>{ev.benchmark}</span>
+                      <span className="text-gov-muted">Benchmark</span>
+                      <span className="font-mono font-semibold text-gov-text">{ev.benchmark}</span>
                     </div>
-                    <div className={`flex justify-between text-xs font-bold pt-2 border-t ${
-                      isDark ? "border-gov-border-dark" : "border-gov-border-light"
-                    }`}>
+                    <div className="flex justify-between text-xs font-bold pt-2 border-t border-gov-border">
                       <span className={ev.riskClass === "critical" || ev.riskClass === "high" ? "text-risk-critical" : "text-risk-high"}>Deviation</span>
                       <span className={`font-mono ${ev.riskClass === "critical" || ev.riskClass === "high" ? "text-risk-critical" : "text-risk-high"}`}>{ev.deviation}</span>
                     </div>
@@ -711,11 +728,11 @@ export default function LandingPage() {
       {/* ─── 12. Human-in-the-Loop ─── */}
       <Section id="auditors">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <Icon name="user-check" className={`w-12 h-12 mx-auto mb-6 ${isDark ? "text-saffron" : "text-navy"}`} />
-          <h2 className={`text-3xl sm:text-4xl font-extrabold mb-4 ${isDark ? "text-white" : "text-navy"}`}>
+          <Icon name="user-check" className="w-12 h-12 mx-auto mb-6 text-teal" />
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
             AI Prioritizes. Humans Decide.
           </h2>
-          <p className={`text-base leading-relaxed ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
+          <p className="text-base leading-relaxed text-gov-muted">
             Sentinel never auto-declares fraud or triggers punitive action. Every flag is
             an invitation for a human auditor to examine the evidence. The final determination
             always rests with authorized officials.
@@ -731,13 +748,13 @@ export default function LandingPage() {
             <div key={step.label} className="flex items-center gap-4">
               <div className={`flex items-center gap-2 px-4 py-3 rounded-lg border ${
                 i === 2
-                  ? isDark ? "border-saffron bg-saffron/10 text-saffron" : "border-navy bg-navy/5 text-navy"
-                  : isDark ? "border-gov-border-dark bg-navy-light/40 text-white/70" : "border-gov-border-light bg-white text-gov-muted-light"
+                  ? "border-navy bg-navy/5 text-gov-text"
+                  : "border-gov-border bg-gov-card text-gov-muted"
               }`}>
                 <Icon name={step.icon} className="w-5 h-5" />
                 <span className="text-sm font-semibold">{step.label}</span>
               </div>
-              {i < 3 && <Icon name="chevron-right" className={`w-5 h-5 hidden sm:block ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`} />}
+              {i < 3 && <Icon name="chevron-right" className="w-5 h-5 hidden sm:block text-gov-muted" />}
             </div>
           ))}
         </div>
@@ -772,7 +789,7 @@ export default function LandingPage() {
       {/* ─── 14. Data Transparency ─── */}
       <Section id="transparency">
         <div className="max-w-3xl mx-auto">
-          <h2 className={`text-3xl sm:text-4xl font-extrabold text-center mb-8 ${isDark ? "text-white" : "text-navy"}`}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-8 text-gov-text">
             Data Transparency
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -795,21 +812,17 @@ export default function LandingPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className={`rounded-xl border p-6 text-center transition-all ${
-                  isDark
-                    ? "border-gov-border-dark bg-navy-light/40 hover:shadow-md"
-                    : "border-gov-border-light bg-white hover:shadow-lg hover:shadow-navy/5"
-                }`}
+                className="rounded-xl border border-gov-border p-6 text-center transition-all bg-gov-card hover:shadow-lg hover:shadow-navy/5"
               >
                 <div className={`w-2 h-2 rounded-full mx-auto mb-4 ${
                   item.color === "india-green" ? "bg-india-green"
                     : item.color === "saffron" ? "bg-saffron"
                     : "bg-navy"
                 }`} />
-                <h3 className={`text-sm font-bold mb-2 ${isDark ? "text-white" : "text-navy"}`}>
+                <h3 className="text-sm font-bold mb-2 text-gov-text">
                   {item.title}
                 </h3>
-                <p className={`text-sm leading-relaxed ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
+                <p className="text-sm leading-relaxed text-gov-muted">
                   {item.description}
                 </p>
               </div>
@@ -847,19 +860,15 @@ export default function LandingPage() {
       {/* ─── 16. Final CTA ─── */}
       <Section id="cta">
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className={`text-3xl sm:text-4xl font-extrabold mb-4 ${isDark ? "text-white" : "text-navy"}`}>
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
             {FINAL_CTA_HEADLINE}
           </h2>
-          <p className={`text-base mb-8 ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
+          <p className="text-base mb-8 text-gov-muted">
             {FINAL_CTA_SUBTEXT}
           </p>
           <a
             href="#"
-            className={`inline-flex items-center gap-2 px-8 py-4 text-base font-bold rounded-lg transition-all shadow-lg ${
-              isDark
-                ? "bg-saffron text-navy-dark hover:bg-saffron-light shadow-saffron/20"
-                : "bg-navy text-white hover:bg-navy-light shadow-navy/20"
-            }`}
+            className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold rounded-lg transition-all shadow-lg bg-navy text-white hover:bg-navy-light shadow-navy/20"
           >
             {HERO_CTA_PRIMARY}
             <Icon name="arrow-right" className="w-5 h-5" />
@@ -868,49 +877,50 @@ export default function LandingPage() {
       </Section>
 
       {/* ─── 17. Footer ─── */}
-      <footer className={`border-t px-6 py-10 ${isDark ? "border-gov-border-dark bg-navy-dark" : "border-gov-border-light bg-gov-bg-light"}`}>
+      <footer className="border-t border-gov-border px-6 py-10 bg-[var(--bg-secondary)]">
         <div className="container-gov">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
             {/* Wordmark */}
-            <div className="flex items-center gap-2.5">
-              <Icon name="shield-alert" className={`w-6 h-6 ${isDark ? "text-saffron" : "text-navy"}`} />
+            <div className="flex items-center gap-3">
+              <svg className="w-7 h-7 text-navy shrink-0" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+                <circle cx="20" cy="20" r="16" stroke="currentColor" strokeWidth="1" opacity="0.2" />
+                <path d="M20 8 L24 16 L20 14 L16 16 Z" fill="currentColor" opacity="0.9" />
+                <path d="M20 8 L26 18 L20 15 L14 18 Z" fill="currentColor" opacity="0.6" />
+                <circle cx="20" cy="22" r="3" fill="currentColor" opacity="0.7" />
+                <path d="M14 28 L20 25 L26 28" stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.5" />
+              </svg>
               <div className="flex flex-col leading-tight">
-                <span className={`text-base font-extrabold ${isDark ? "text-white" : "text-navy"}`}>
-                  MPLADS SENTINEL
+                <span className="text-sm font-extrabold text-gov-text">
+                  MPLADS Sentinel
                 </span>
-                <span className={`text-[10px] font-medium ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
-                  {DISCLAIMER}
+                <span className="text-[10px] font-medium text-gov-muted">
+                  {t("footer.disclaimer")}
                 </span>
               </div>
             </div>
             {/* Links */}
             <div className="flex flex-wrap gap-4">
-              {FOOTER_LINKS.map((link) => (
+              {FOOTER_LINKS.map((link, i) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors ${
-                    isDark ? "text-gov-muted-dark hover:text-white" : "text-gov-muted-light hover:text-navy"
-                  }`}
+                  className="text-sm font-medium transition-colors text-gov-muted hover:text-navy"
                 >
-                  {link.label}
+                  {t(footerKeys[i])}
                 </a>
               ))}
             </div>
           </div>
-          <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t ${
-            isDark ? "border-gov-border-dark" : "border-gov-border-light"
-          }`}>
-            <p className={`text-xs ${isDark ? "text-gov-muted-dark" : "text-gov-muted-light"}`}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-gov-border">
+            <p className="text-xs text-gov-muted">
               Smart India Hackathon 2026 · Problem Statement SIH26102
             </p>
             <a
               href="https://mplads.mospi.gov.in"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1.5 text-xs font-semibold transition-colors ${
-                isDark ? "text-saffron hover:text-saffron-light" : "text-navy hover:text-navy-light"
-              }`}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors text-gov-text hover:text-saffron"
             >
               Official MPLADS–eSAKSHI portal (external)
               <Icon name="external-link" className="w-3.5 h-3.5" />
