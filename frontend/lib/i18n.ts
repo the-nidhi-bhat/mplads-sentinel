@@ -1,8 +1,17 @@
 "use client";
 
-import { createContext, createElement, useContext, useState, type ReactNode } from "react";
+import {
+  createContext,
+  createElement,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 export type Locale = "en" | "hi";
+
+export const I18N_STORAGE_KEY = "mplads-locale";
 
 const dictionary = {
   en: {
@@ -85,7 +94,18 @@ type I18nContextValue = { locale: Locale; setLocale: (locale: Locale) => void; t
 const I18nContext = createContext<I18nContextValue | null>(null);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
+  const [locale, setLocaleState] = useState<Locale>("en");
+
+  useEffect(() => {
+    const stored = localStorage.getItem(I18N_STORAGE_KEY);
+    if (stored === "en" || stored === "hi") setLocaleState(stored);
+  }, []);
+
+  const setLocale = (next: Locale) => {
+    setLocaleState(next);
+    localStorage.setItem(I18N_STORAGE_KEY, next);
+  };
+
   const t = (key: TranslationKey) => dictionary[locale][key] ?? dictionary.en[key];
   return createElement(I18nContext.Provider, { value: { locale, setLocale, t } }, children);
 }

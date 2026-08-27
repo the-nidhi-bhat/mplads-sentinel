@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { storeAuth } from "@/lib/auth";
 
 type AuthMode = "signin" | "signup";
 type Role = "Auditor" | "Administrator" | "Monitoring Officer";
@@ -72,7 +73,14 @@ export default function SignInPage() {
     
     // TODO: replace with real API call to ${process.env.NEXT_PUBLIC_API_URL}/auth/sign-in or /auth/sign-up
     console.log(mode === "signin" ? { email: form.email, password: form.password, remember: form.remember } : form);
-    
+
+    // Mock session: a localStorage flag is enough to route the app for the
+    // hackathon — sign-in doesn't collect a name, so default to "Demo User".
+    storeAuth({
+      name: mode === "signup" && form.fullName.trim() ? form.fullName.trim() : "Demo User",
+      email: form.email.trim().toLowerCase(),
+    });
+
     window.setTimeout(() => router.push("/dashboard"), 800);
   };
 

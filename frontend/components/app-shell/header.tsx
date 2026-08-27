@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bell, Menu, Settings, LogOut } from "lucide-react";
+import { getStoredProfile } from "@/lib/auth";
 import { getPageTitle } from "./navigation";
 
 type Notification = {
@@ -40,6 +41,16 @@ function useClickOutside(onClose: () => void) {
   return ref;
 }
 
+function getNameInitials(name: string): string {
+  const initials = name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join("");
+  return initials || "U";
+}
+
 export default function Header({
   onOpenSidebar,
 }: {
@@ -49,6 +60,17 @@ export default function Header({
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
+  const [user, setUser] = useState({
+    name: "Ananya Sharma",
+    email: "a.sharma@example.com",
+  });
+
+  useEffect(() => {
+    // Reflect whoever signed in, falling back to the mock defaults for direct
+    // dev access when nothing is stored yet.
+    const stored = getStoredProfile();
+    if (stored) setUser(stored);
+  }, []);
 
   const unreadCount = notifications.filter((notification) => notification.unread).length;
 
@@ -147,14 +169,14 @@ export default function Header({
             aria-expanded={userMenuOpen}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--primary-blue)] text-sm font-bold text-white transition-transform hover:scale-105"
           >
-            AS
+            {getNameInitials(user.name)}
           </button>
 
           {userMenuOpen && (
             <div className="absolute right-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-xl border border-gov-border bg-white shadow-lg shadow-black/5">
               <div className="border-b border-gov-border px-4 py-3">
-                <p className="text-sm font-bold text-[var(--text-primary)]">A. Sharma</p>
-                <p className="text-xs text-[var(--text-muted)]">a.sharma@example.com</p>
+                <p className="text-sm font-bold text-[var(--text-primary)]">{user.name}</p>
+                <p className="text-xs text-[var(--text-muted)]">{user.email}</p>
                 <span className="mt-1.5 inline-block rounded-full bg-[var(--bg-card-hover)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text-secondary)]">
                   Auditor
                 </span>

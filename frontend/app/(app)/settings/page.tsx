@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import {
   Bell,
@@ -18,6 +18,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { projectsData } from "@/lib/mock-data";
+import { getStoredProfile, updateStoredProfile } from "@/lib/auth";
 
 const FIELD_CLASS =
   "w-full rounded-lg border border-gov-border bg-[var(--bg-card)] px-3 py-2.5 text-sm text-[var(--text-primary)] outline-none transition-colors focus:border-[var(--border-focus)] focus:ring-2 focus:ring-[var(--border-glow)]";
@@ -38,9 +39,6 @@ const RISK_LEVELS = [
   { value: "high", label: "High" },
   { value: "critical", label: "Critical" },
 ];
-
-// Same locale list the landing page top strip uses.
-const LANGUAGES = ["English", "हिन्दी"];
 
 const DATE_FORMATS = ["DD/MM/YYYY", "MM/DD/YYYY", "YYYY-MM-DD"];
 
@@ -219,14 +217,16 @@ function SelectField({
   value,
   options,
   onChange,
+  className,
 }: {
   label: string;
   value: string;
   options: readonly string[];
   onChange: (value: string) => void;
+  className?: string;
 }) {
   return (
-    <div>
+    <div className={className}>
       <FieldLabel>{label}</FieldLabel>
       <select value={value} onChange={(event) => onChange(event.target.value)} className={FIELD_CLASS}>
         {options.map((option) => (
@@ -291,14 +291,24 @@ export default function SettingsPage() {
 
   const [savedNote, setSavedNote] = useState("");
   const [editingProfile, setEditingProfile] = useState(false);
+  // Profile starts from mock defaults and is overridden below by whoever
+  // signed in (name + email from localStorage), falling back when none yet.
+  const [defaultProfile, setDefaultProfile] = useState(MOCK_PROFILE);
   const [profile, setProfile] = useState(MOCK_PROFILE);
+
+  useEffect(() => {
+    const stored = getStoredProfile();
+    if (!stored) return;
+    const merged = { ...MOCK_PROFILE, name: stored.name, email: stored.email };
+    setDefaultProfile(merged);
+    setProfile(merged);
+  }, []);
 
   const [prefs, setPrefs] = useState({
     state: states[0] ?? "All",
     district: SAMPLE_DISTRICTS[0],
     riskLevel: "All",
     workType: SAMPLE_WORK_TYPES[0],
-    language: LANGUAGES[0],
     dateFormat: DATE_FORMATS[0],
   });
 
@@ -320,10 +330,14 @@ export default function SettingsPage() {
 
   const handleProfileSave = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Persist the identity we own (name + email); the remaining fields stay
+    // mock until the backend exposes a profile API.
+    updateStoredProfile({ name: profile.name, email: profile.email });
+    setDefaultProfile({ ...profile });
     // TODO: connect to backend — persist profile updates.
     console.log("profile update (mock)", profile);
     setEditingProfile(false);
-    flash("Profile saved (demo — nothing persisted).");
+    flash("Profile saved (name & email stored locally).");
   };
 
   const handlePasswordSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -435,7 +449,7 @@ export default function SettingsPage() {
               <button
                 type="button"
                 onClick={() => {
-                  setProfile(MOCK_PROFILE);
+                  setProfile(defaultProfile);
                   setEditingProfile(false);
                 }}
                 className={SECONDARY_BTN}
@@ -508,21 +522,17 @@ export default function SettingsPage() {
             onChange={(workType) => setPrefs({ ...prefs, workType })}
           />
           <SelectField
-            label="Language"
-            value={prefs.language}
-            options={LANGUAGES}
-            onChange={(language) => setPrefs({ ...prefs, language })}
-          />
-          <SelectField
             label="Date format"
             value={prefs.dateFormat}
             options={DATE_FORMATS}
             onChange={(dateFormat) => setPrefs({ ...prefs, dateFormat })}
+            className="sm:col-span-2"
           />
         </div>
         <p className="mt-4 text-xs text-[var(--text-muted)]">
-          Demo only — these choices live in local state until the backend exposes a
-          user settings API.
+          Demo only — language switching lives on the landing page top strip,
+          and these remaining choices stay in local state until the backend
+          exposes a user settings API.
         </p>
       </Section>
 
