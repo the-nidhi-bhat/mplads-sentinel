@@ -1,0 +1,591 @@
+export type RiskLevel = "critical" | "high" | "medium" | "low";
+
+export type EvidenceFactor = {
+  factor: string;
+  icon: string;
+  observed: string;
+  benchmark: string;
+  deviation: string;
+  points: string;
+  riskClass: RiskLevel;
+  devClass: "bad" | "warning" | "good";
+};
+
+export type Investigation = {
+  caseId: string;
+  currentStep: number;
+  stepDates: string[];
+  notes: string;
+};
+
+export type Project = {
+  id: string;
+  title: string;
+  district: string;
+  state: string;
+  constituency: string;
+  riskLevel: RiskLevel;
+  riskScore: number;
+  confidence: number;
+  primaryFinding: string;
+  exposure: string;
+  assignedTo: string;
+  agency: string;
+  workType: string;
+  sanctionedAmount: string;
+  expenditure: string;
+  expenditurePercent: number;
+  sanctionDate: string;
+  expectedCompletion: string;
+  actualStatus: string;
+  physicalProgress: number;
+  financialProgress: number;
+  coordinates: [number, number];
+  evidence: EvidenceFactor[];
+  investigation: Investigation | null;
+};
+
+export const projectsData: Project[] = [
+  {
+    id: "MPL/KA/24081",
+    title: "Construction of Community Hall",
+    district: "Belagavi",
+    state: "Karnataka",
+    constituency: "Belagavi City",
+    riskLevel: "critical",
+    riskScore: 91,
+    confidence: 87,
+    primaryFinding: "Cost anomaly (+34.6%)",
+    exposure: "₹42.0L",
+    assignedTo: "Ravi Kumar",
+    agency: "Zilla Panchayat Belagavi",
+    workType: "Community Infrastructure",
+    sanctionedAmount: "₹82.40 Lakh",
+    expenditure: "₹79.80 Lakh",
+    expenditurePercent: 96.8,
+    sanctionDate: "12 May 2023",
+    expectedCompletion: "10 Nov 2023",
+    actualStatus: "In Progress (Delay)",
+    physicalProgress: 48,
+    financialProgress: 96.8,
+    coordinates: [15.8497, 74.4977],
+    evidence: [
+      {
+        factor: "Cost Anomaly",
+        icon: "dollar-sign",
+        observed: "₹82.40 Lakh",
+        benchmark: "₹61.20 Lakh",
+        deviation: "+34.6%",
+        points: "+28 Points",
+        riskClass: "critical",
+        devClass: "bad",
+      },
+      {
+        factor: "Payment Pattern",
+        icon: "activity",
+        observed: "78% spent in last 12 days",
+        benchmark: "Gradual expenditure over time",
+        deviation: "High concentration",
+        points: "+21 Points",
+        riskClass: "critical",
+        devClass: "bad",
+      },
+      {
+        factor: "Project Delay",
+        icon: "clock",
+        observed: "326 days elapsed",
+        benchmark: "180 days limit",
+        deviation: "+146 days",
+        points: "+16 Points",
+        riskClass: "high",
+        devClass: "warning",
+      },
+      {
+        factor: "Progress-Payment Mismatch",
+        icon: "percent",
+        observed: "Fin: 96.8% | Phys: 48%",
+        benchmark: "Proportional progress matching",
+        deviation: "High mismatch",
+        points: "+14 Points",
+        riskClass: "high",
+        devClass: "bad",
+      },
+    ],
+    investigation: {
+      caseId: "INV-24081",
+      currentStep: 2,
+      stepDates: ["21 May 2024", "25 May 2024", "Pending", "Pending", "Pending"],
+      notes:
+        "Initial risk assessment suggests significant deviation in cost metrics compared to similar community halls in the region. Progress and payments mismatch also needs verification.\n\n-- 25 May 2024: Assigned to Nodal Officer for Karnataka for field validation.",
+    },
+  },
+  {
+    id: "MPL/KA/24102",
+    title: "Water Supply Scheme",
+    district: "Dharwad",
+    state: "Karnataka",
+    constituency: "Dharwad",
+    riskLevel: "high",
+    riskScore: 78,
+    confidence: 82,
+    primaryFinding: "Delayed by 146 days",
+    exposure: "₹18.0L",
+    assignedTo: "Anita Patil",
+    agency: "Rural Water Supply Dept",
+    workType: "Water & Sanitation",
+    sanctionedAmount: "₹45.00 Lakh",
+    expenditure: "₹22.50 Lakh",
+    expenditurePercent: 50.0,
+    sanctionDate: "18 Jun 2023",
+    expectedCompletion: "18 Dec 2023",
+    actualStatus: "In Progress (Delay)",
+    physicalProgress: 30,
+    financialProgress: 50.0,
+    coordinates: [15.4589, 75.0078],
+    evidence: [
+      {
+        factor: "Project Delay",
+        icon: "clock",
+        observed: "350 days elapsed",
+        benchmark: "180 days limit",
+        deviation: "+170 days",
+        points: "+45 Points",
+        riskClass: "critical",
+        devClass: "bad",
+      },
+      {
+        factor: "Progress-Payment Mismatch",
+        icon: "percent",
+        observed: "Fin: 50% | Phys: 30%",
+        benchmark: "Proportional matching",
+        deviation: "Moderate mismatch",
+        points: "+12 Points",
+        riskClass: "medium",
+        devClass: "warning",
+      },
+      {
+        factor: "Cost Anomaly",
+        icon: "dollar-sign",
+        observed: "₹45.00 Lakh",
+        benchmark: "₹43.00 Lakh",
+        deviation: "+4.6%",
+        points: "+5 Points",
+        riskClass: "low",
+        devClass: "good",
+      },
+    ],
+    investigation: {
+      caseId: "INV-24102",
+      currentStep: 1,
+      stepDates: ["22 May 2024", "Pending", "Pending", "Pending", "Pending"],
+      notes:
+        "Case opened automatically due to chronic completion delays exceeding 5 months.",
+    },
+  },
+  {
+    id: "MPL/MH/23821",
+    title: "Road Construction",
+    district: "Kolhapur",
+    state: "Maharashtra",
+    constituency: "Kolhapur City",
+    riskLevel: "high",
+    riskScore: 74,
+    confidence: 89,
+    primaryFinding: "Similar work nearby",
+    exposure: "₹26.0L",
+    assignedTo: "S. Deshmukh",
+    agency: "Public Works Department",
+    workType: "Roads & Bridges",
+    sanctionedAmount: "₹65.00 Lakh",
+    expenditure: "₹32.50 Lakh",
+    expenditurePercent: 50.0,
+    sanctionDate: "05 Jan 2023",
+    expectedCompletion: "05 Jul 2023",
+    actualStatus: "In Progress",
+    physicalProgress: 45,
+    financialProgress: 50.0,
+    coordinates: [16.705, 74.2433],
+    evidence: [
+      {
+        factor: "Duplicate / Similar Work",
+        icon: "copy",
+        observed: "Work overlapping existing road",
+        benchmark: "No identical work within 2km",
+        deviation: "92% similarity rating",
+        points: "+35 Points",
+        riskClass: "critical",
+        devClass: "bad",
+      },
+      {
+        factor: "Project Delay",
+        icon: "clock",
+        observed: "420 days elapsed",
+        benchmark: "180 days limit",
+        deviation: "+240 days",
+        points: "+25 Points",
+        riskClass: "high",
+        devClass: "warning",
+      },
+    ],
+    investigation: {
+      caseId: "INV-23821",
+      currentStep: 1,
+      stepDates: ["23 May 2024", "Pending", "Pending", "Pending", "Pending"],
+      notes:
+        "Cross-referencing satellite mappings to verify if road work overlaps with a municipality road completed in late 2022.",
+    },
+  },
+  {
+    id: "MPL/KA/23911",
+    title: "Drainage System",
+    district: "Vijayapura",
+    state: "Karnataka",
+    constituency: "Vijayapura City",
+    riskLevel: "high",
+    riskScore: 72,
+    confidence: 76,
+    primaryFinding: "Payment pattern anomaly",
+    exposure: "₹31.2L",
+    assignedTo: "Meera N.",
+    agency: "Municipal Corporation",
+    workType: "Drainage & Sewerage",
+    sanctionedAmount: "₹52.00 Lakh",
+    expenditure: "₹48.00 Lakh",
+    expenditurePercent: 92.3,
+    sanctionDate: "10 Sep 2023",
+    expectedCompletion: "10 Mar 2024",
+    actualStatus: "Completed",
+    physicalProgress: 100,
+    financialProgress: 92.3,
+    coordinates: [16.8244, 75.7242],
+    evidence: [
+      {
+        factor: "Payment Pattern",
+        icon: "activity",
+        observed: "65% of budget paid on Mar 30",
+        benchmark: "Gradual phase payments",
+        deviation: "Severe end-of-year spike",
+        points: "+40 Points",
+        riskClass: "critical",
+        devClass: "bad",
+      },
+      {
+        factor: "Cost Anomaly",
+        icon: "dollar-sign",
+        observed: "₹52.00 Lakh",
+        benchmark: "₹46.00 Lakh",
+        deviation: "+13.0%",
+        points: "+18 Points",
+        riskClass: "medium",
+        devClass: "warning",
+      },
+    ],
+    investigation: {
+      caseId: "INV-23911",
+      currentStep: 1,
+      stepDates: ["24 May 2024", "Pending", "Pending", "Pending", "Pending"],
+      notes:
+        "High disbursement concentration on March 30. Checking if payment matches field certification dates.",
+    },
+  },
+  {
+    id: "MPL/KA/24177",
+    title: "School Building",
+    district: "Haveri",
+    state: "Karnataka",
+    constituency: "Haveri",
+    riskLevel: "medium",
+    riskScore: 58,
+    confidence: 80,
+    primaryFinding: "Low utilization (22%)",
+    exposure: "₹15.7L",
+    assignedTo: "Pooja S.",
+    agency: "Zilla Panchayat Haveri",
+    workType: "Education Infrastructure",
+    sanctionedAmount: "₹71.50 Lakh",
+    expenditure: "₹15.70 Lakh",
+    expenditurePercent: 22.0,
+    sanctionDate: "01 Nov 2023",
+    expectedCompletion: "01 May 2024",
+    actualStatus: "In Progress",
+    physicalProgress: 20,
+    financialProgress: 22.0,
+    coordinates: [14.7963, 75.3995],
+    evidence: [
+      {
+        factor: "Fund Utilization Anomaly",
+        icon: "alert-triangle",
+        observed: "22% spent after 270 days",
+        benchmark: "Expected >60% utilization",
+        deviation: "Severe underutilization",
+        points: "+30 Points",
+        riskClass: "high",
+        devClass: "warning",
+      },
+      {
+        factor: "Project Delay",
+        icon: "clock",
+        observed: "300 days elapsed",
+        benchmark: "180 days limit",
+        deviation: "+120 days",
+        points: "+15 Points",
+        riskClass: "medium",
+        devClass: "warning",
+      },
+    ],
+    investigation: {
+      caseId: "INV-24177",
+      currentStep: 1,
+      stepDates: ["25 May 2024", "Pending", "Pending", "Pending", "Pending"],
+      notes: "Investigating slow deployment of educational infrastructure funds.",
+    },
+  },
+  {
+    id: "MPL/KA/24220",
+    title: "Park Development & Landscaping",
+    district: "Bengaluru",
+    state: "Karnataka",
+    constituency: "Bengaluru South",
+    riskLevel: "low",
+    riskScore: 32,
+    confidence: 91,
+    primaryFinding: "Normal progression",
+    exposure: "₹0.0L",
+    assignedTo: "K. Reddy",
+    agency: "BBMP",
+    workType: "Community Infrastructure",
+    sanctionedAmount: "₹35.00 Lakh",
+    expenditure: "₹28.00 Lakh",
+    expenditurePercent: 80.0,
+    sanctionDate: "15 Oct 2023",
+    expectedCompletion: "15 Apr 2024",
+    actualStatus: "Completed",
+    physicalProgress: 100,
+    financialProgress: 80.0,
+    coordinates: [12.9716, 77.5946],
+    evidence: [],
+    investigation: null,
+  },
+  {
+    id: "MPL/KA/24231",
+    title: "Digital Library Building",
+    district: "Mysuru",
+    state: "Karnataka",
+    constituency: "Mysuru City",
+    riskLevel: "low",
+    riskScore: 25,
+    confidence: 88,
+    primaryFinding: "Normal progression",
+    exposure: "₹0.0L",
+    assignedTo: "M. Kumar",
+    agency: "Zilla Panchayat Mysuru",
+    workType: "Education Infrastructure",
+    sanctionedAmount: "₹48.00 Lakh",
+    expenditure: "₹24.00 Lakh",
+    expenditurePercent: 50.0,
+    sanctionDate: "05 Dec 2023",
+    expectedCompletion: "05 Jun 2024",
+    actualStatus: "In Progress",
+    physicalProgress: 55,
+    financialProgress: 50.0,
+    coordinates: [12.2958, 76.6394],
+    evidence: [],
+    investigation: null,
+  },
+  {
+    id: "MPL/KA/24244",
+    title: "Drinking Water Storage Tank",
+    district: "Shimoga",
+    state: "Karnataka",
+    constituency: "Shivamogga",
+    riskLevel: "medium",
+    riskScore: 55,
+    confidence: 84,
+    primaryFinding: "Slight milestone lag",
+    exposure: "₹5.2L",
+    assignedTo: "P. Gowda",
+    agency: "Rural Water Supply Shimoga",
+    workType: "Water & Sanitation",
+    sanctionedAmount: "₹28.00 Lakh",
+    expenditure: "₹18.00 Lakh",
+    expenditurePercent: 64.3,
+    sanctionDate: "10 Aug 2023",
+    expectedCompletion: "10 Feb 2024",
+    actualStatus: "In Progress",
+    physicalProgress: 50,
+    financialProgress: 64.3,
+    coordinates: [13.9299, 75.5681],
+    evidence: [
+      {
+        factor: "Project Delay",
+        icon: "clock",
+        observed: "380 days elapsed",
+        benchmark: "180 days limit",
+        deviation: "+200 days",
+        points: "+25 Points",
+        riskClass: "high",
+        devClass: "warning",
+      },
+    ],
+    investigation: null,
+  },
+  {
+    id: "MPL/KA/24255",
+    title: "Link Road Repair & Patching",
+    district: "Mangaluru",
+    state: "Karnataka",
+    constituency: "Mangaluru City",
+    riskLevel: "low",
+    riskScore: 18,
+    confidence: 93,
+    primaryFinding: "Normal progression",
+    exposure: "₹0.0L",
+    assignedTo: "J. D'Souza",
+    agency: "PWD Mangaluru",
+    workType: "Roads & Bridges",
+    sanctionedAmount: "₹22.00 Lakh",
+    expenditure: "₹21.00 Lakh",
+    expenditurePercent: 95.4,
+    sanctionDate: "01 Jan 2024",
+    expectedCompletion: "01 May 2024",
+    actualStatus: "Completed",
+    physicalProgress: 100,
+    financialProgress: 95.4,
+    coordinates: [12.9141, 74.856],
+    evidence: [],
+    investigation: null,
+  },
+  {
+    id: "MPL/KA/24266",
+    title: "Multipurpose Community Hall",
+    district: "Gulbarga",
+    state: "Karnataka",
+    constituency: "Kalaburagi",
+    riskLevel: "high",
+    riskScore: 76,
+    confidence: 81,
+    primaryFinding: "Cost deviation (+24%)",
+    exposure: "₹18.5L",
+    assignedTo: "K. Siddharamaiah",
+    agency: "Zilla Panchayat Kalaburagi",
+    workType: "Community Infrastructure",
+    sanctionedAmount: "₹76.00 Lakh",
+    expenditure: "₹72.00 Lakh",
+    expenditurePercent: 94.7,
+    sanctionDate: "20 May 2023",
+    expectedCompletion: "20 Nov 2023",
+    actualStatus: "In Progress (Delay)",
+    physicalProgress: 70,
+    financialProgress: 94.7,
+    coordinates: [17.3297, 76.8343],
+    evidence: [
+      {
+        factor: "Cost Anomaly",
+        icon: "dollar-sign",
+        observed: "₹76.00 Lakh",
+        benchmark: "₹61.20 Lakh",
+        deviation: "+24.2%",
+        points: "+20 Points",
+        riskClass: "high",
+        devClass: "warning",
+      },
+      {
+        factor: "Progress-Payment Mismatch",
+        icon: "percent",
+        observed: "Fin: 94.7% | Phys: 70%",
+        benchmark: "Proportional progress matching",
+        deviation: "Moderate mismatch",
+        points: "+12 Points",
+        riskClass: "medium",
+        devClass: "warning",
+      },
+    ],
+    investigation: {
+      caseId: "INV-24266",
+      currentStep: 1,
+      stepDates: ["26 May 2024", "Pending", "Pending", "Pending", "Pending"],
+      notes:
+        "Flagged for administrative review of high unit costs and lagging progress metrics.",
+    },
+  },
+  {
+    id: "MPL/KA/24278",
+    title: "Drinking Water Borewell Project",
+    district: "Chitradurga",
+    state: "Karnataka",
+    constituency: "Chitradurga",
+    riskLevel: "critical",
+    riskScore: 92,
+    confidence: 85,
+    primaryFinding: "Severe delay & payment mismatch",
+    exposure: "₹24.0L",
+    assignedTo: "H. Naik",
+    agency: "Rural Water Supply Chitradurga",
+    workType: "Water & Sanitation",
+    sanctionedAmount: "₹32.00 Lakh",
+    expenditure: "₹30.40 Lakh",
+    expenditurePercent: 95.0,
+    sanctionDate: "05 Apr 2023",
+    expectedCompletion: "05 Oct 2023",
+    actualStatus: "In Progress (Delay)",
+    physicalProgress: 15,
+    financialProgress: 95.0,
+    coordinates: [14.2251, 76.398],
+    evidence: [
+      {
+        factor: "Progress-Payment Mismatch",
+        icon: "percent",
+        observed: "Fin: 95.0% | Phys: 15%",
+        benchmark: "Proportional progress matching",
+        deviation: "Severe mismatch",
+        points: "+38 Points",
+        riskClass: "critical",
+        devClass: "bad",
+      },
+      {
+        factor: "Project Delay",
+        icon: "clock",
+        observed: "508 days elapsed",
+        benchmark: "180 days limit",
+        deviation: "+328 days",
+        points: "+30 Points",
+        riskClass: "critical",
+        devClass: "bad",
+      },
+      {
+        factor: "Cost Anomaly",
+        icon: "dollar-sign",
+        observed: "₹32.00 Lakh",
+        benchmark: "₹25.00 Lakh",
+        deviation: "+28.0%",
+        points: "+15 Points",
+        riskClass: "high",
+        devClass: "warning",
+      },
+    ],
+    investigation: {
+      caseId: "INV-24278",
+      currentStep: 2,
+      stepDates: ["20 May 2024", "24 May 2024", "Pending", "Pending", "Pending"],
+      notes:
+        "Critical mismatch. Funds nearly completely spent with minimal physical work done. Administrative hold recommended.",
+    },
+  },
+];
+
+export function countByRiskLevel(projects: Project[]): {
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+} {
+  const counts = { critical: 0, high: 0, medium: 0, low: 0 };
+  projects.forEach((project) => {
+    if (project.riskLevel in counts) counts[project.riskLevel] += 1;
+  });
+  return counts;
+}
+
+export function countTotalAnomalies(projects: Project[]): number {
+  return projects.reduce((total, project) => total + project.evidence.length, 0);
+}
