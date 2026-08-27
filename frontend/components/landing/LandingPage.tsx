@@ -378,17 +378,17 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-wrap items-center gap-4 mb-8">
               <a
-                href="#"
+                href="/dashboard"
                 className="inline-flex items-center gap-2 px-6 py-3 text-base font-bold rounded-lg transition-all bg-saffron text-white hover:bg-saffron-dark shadow-lg shadow-saffron/30"
               >
-                {t("hero.explore")}
+                {t("hero.enter")}
                 <Icon name="arrow-right" className="w-5 h-5" />
               </a>
               <a
-                href="#how-it-works"
+                href="/dashboard"
                 className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold rounded-lg border border-white/30 text-white transition-all hover:bg-white/10"
               >
-                {t("hero.howItWorks")}
+                {t("hero.explore")}
               </a>
             </div>
             <p className="text-sm font-medium tracking-wide text-white/60">
@@ -830,7 +830,7 @@ export default function LandingPage() {
             {t("cta.body")}
           </p>
           <a
-            href="#"
+            href="/dashboard"
             className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold rounded-lg transition-all shadow-lg bg-navy text-white hover:bg-navy-light shadow-navy/20"
           >
             {t("hero.explore")}
