@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import ThemeToggle from "./ThemeToggle";
+import { useState, useEffect, useRef } from "react";
 import HeroCarousel from "./HeroCarousel";
+import DocumentsModal from "./DocumentsModal";
+import VideoModal from "./VideoModal";
 import { useI18n } from "../../lib/i18n";
 import {
   NAV_ITEMS,
@@ -16,11 +17,6 @@ import {
   FOOTER_LINKS,
   POSITIONING_LINE,
   DISCLAIMER,
-  HERO_HEADLINE,
-  HERO_PITCH,
-  HERO_CTA_PRIMARY,
-  HERO_CTA_SECONDARY,
-  HERO_TRUST_LINE,
   FINAL_CTA_HEADLINE,
   FINAL_CTA_SUBTEXT,
   SCORE_EXPLAINER_DISCLAIMER,
@@ -192,19 +188,17 @@ function Section({
   id,
   children,
   className = "",
-  dark = false,
 }: {
   id?: string;
   children: React.ReactNode;
   className?: string;
-  dark?: boolean;
 }) {
   const ref = useReveal();
   return (
     <section
       id={id}
       ref={ref}
-      className={`reveal section-padding ${dark ? "bg-[var(--bg-secondary)] text-white" : ""} ${className}`}
+      className={`reveal section-padding ${className}`}
     >
       <div className="container-gov">{children}</div>
     </section>
@@ -215,32 +209,11 @@ function Section({
    MAIN LANDING PAGE
    ═══════════════════════════════════════════════════ */
 export default function LandingPage() {
-  const [isDark, setIsDark] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [showDocsModal, setShowDocsModal] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
   const [fontScale, setFontScale] = useState<0.9 | 1 | 1.1>(1);
   const { locale, setLocale, t } = useI18n();
-
-  useEffect(() => {
-    const stored = localStorage.getItem("mplads-theme");
-    if (stored) {
-      setIsDark(stored === "dark");
-    } else {
-      setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
-    }
-  }, []);
-
-  const toggleTheme = useCallback(() => {
-    setIsDark((prev) => {
-      const next = !prev;
-      localStorage.setItem("mplads-theme", next ? "dark" : "light");
-      document.documentElement.setAttribute("data-theme", next ? "dark" : "light");
-      return next;
-    });
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
-  }, [isDark]);
 
   useEffect(() => {
     const stored = localStorage.getItem("mplads-font-scale");
@@ -260,12 +233,16 @@ export default function LandingPage() {
   const stepKeys = ["data", "ingestion", "analysis", "score", "evidence", "human"] as const;
   const signalKeys = ["cost", "timeline", "spatial", "agency", "progress"] as const;
   const footerKeys = ["footer.about", "footer.methodology", "footer.dataSources", "footer.privacy", "footer.accessibility"] as const;
+  const scoreKeys = ["low", "medium", "high", "critical"] as const;
+  const scoreDescriptionKeys = ["lowDesc", "mediumDesc", "highDesc", "criticalDesc"] as const;
+  const evidenceKeys = ["cost", "payment", "delay", "progress"] as const;
+  const roleKeys = ["district", "monitoring", "state", "mospi"] as const;
   const heroHeadline = t("hero.headline").split(/(MPLADS:)/g);
 
   return (
     <div className="min-h-screen transition-colors duration-300">
       {/* ─── 1. Top Government Strip ─── */}
-      <div className="border-b border-gov-border px-6 py-1.5 text-[11px] font-medium bg-[var(--bg-secondary)] text-gov-muted">
+      <div className="border-b border-navy-light px-6 py-1.5 text-[11px] font-medium bg-navy text-white/75">
         <div className="container-gov flex items-center justify-between">
           <span className="flex items-center gap-1.5">
             {t("topStrip")}
@@ -296,12 +273,12 @@ export default function LandingPage() {
       </div>
 
       {/* ─── 2. Header ─── */}
-      <header className="sticky top-0 z-50 border-b border-gov-border bg-[var(--bg-secondary)] transition-colors">
+      <header className="sticky top-0 z-50 border-b border-navy-light bg-navy transition-colors">
         <div className="container-gov flex items-center justify-between px-6 py-3">
           {/* Logo: emblem + stacked text */}
           <a href="#hero" className="flex items-center gap-3 shrink-0" aria-label="MPLADS Sentinel home">
             {/* Emblem placeholder — shield with Ashoka-style four lions silhouette */}
-            <svg className="w-10 h-10 text-white shrink-0" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <svg className="hidden h-10 w-10 text-white shrink-0 sm:block" viewBox="0 0 40 40" fill="none" aria-hidden="true">
               <circle cx="20" cy="20" r="19" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
               <circle cx="20" cy="20" r="16" stroke="currentColor" strokeWidth="1" opacity="0.2" />
               <path d="M20 8 L24 16 L20 14 L16 16 Z" fill="currentColor" opacity="0.9" />
@@ -339,7 +316,6 @@ export default function LandingPage() {
 
           {/* Actions */}
           <div className="flex items-center gap-2 shrink-0">
-            <ThemeToggle isDark={isDark} onToggle={toggleTheme} size="sm" />
             <a
               href="/sign-in"
               className="hidden sm:inline-flex items-center px-4 py-1.5 text-sm font-semibold rounded-full bg-white text-navy hover:bg-white/90 transition-colors"
@@ -365,7 +341,7 @@ export default function LandingPage() {
 
         {/* Mobile Nav Dropdown */}
         {mobileNavOpen && (
-          <nav className="lg:hidden border-t border-white/10 px-6 py-4 bg-[var(--bg-secondary)]" aria-label="Mobile navigation">
+          <nav className="lg:hidden border-t border-white/10 px-6 py-4 bg-navy" aria-label="Mobile navigation">
             {NAV_ITEMS.map((item, i) => (
               <a
                 key={item.href}
@@ -391,7 +367,7 @@ export default function LandingPage() {
 
       {/* ─── 3. Hero ─── */}
       <section id="hero" className="relative min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
-        <HeroCarousel isDark={isDark} />
+        <HeroCarousel />
         <div className="relative z-20 container-gov px-6 py-20">
           <div className="max-w-2xl">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-white">
@@ -419,28 +395,30 @@ export default function LandingPage() {
               {t("hero.trust")}
             </p>
             <div className="mt-8 flex items-start gap-6">
-              <a href="#" className="flex w-20 flex-col items-center gap-2 text-center text-xs font-semibold text-white/75 hover:text-white" aria-label="Documentation">
+              <button type="button" onClick={() => setShowDocsModal(true)} className="flex w-20 flex-col items-center gap-2 text-center text-xs font-semibold text-white/75 hover:text-white" aria-label="Documentation">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-black/70 text-white shadow-lg ring-1 ring-white/20"><Icon name="file-text" className="h-5 w-5" /></span>
                 Documentation
-              </a>
-              <a href="#" className="flex w-20 flex-col items-center gap-2 text-center text-xs font-semibold text-white/75 hover:text-white" aria-label="Demo Video">
+              </button>
+              <button type="button" onClick={() => setShowVideoModal(true)} className="flex w-20 flex-col items-center gap-2 text-center text-xs font-semibold text-white/75 hover:text-white" aria-label="Demo Video">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-black/70 text-white shadow-lg ring-1 ring-white/20"><Icon name="play" className="ml-0.5 h-5 w-5" /></span>
                 Demo Video
-              </a>
+              </button>
             </div>
           </div>
         </div>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-8" aria-hidden="true">
-          <svg className="h-full w-full" viewBox="0 0 1200 32" preserveAspectRatio="none">
-            <path d="M0 8C200 30 400 30 600 8s400-22 600 0v24H0Z" fill="var(--saffron)" />
-            <path d="M0 14C200 36 400 36 600 14s400-22 600 0v12H0Z" fill="white" />
-            <path d="M0 20C200 42 400 42 600 20s400-22 600 0v12H0Z" fill="var(--india-green)" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-32" aria-hidden="true">
+          <svg className="h-full w-full" viewBox="0 0 1200 64" preserveAspectRatio="none">
+            <path d="M0 14C200 46 400 46 600 14s400-32 600 0v50H0Z" fill="var(--saffron)" />
+            <path d="M0 28C200 60 400 60 600 28s400-32 600 0v28H0Z" fill="white" />
+            <path d="M0 42C200 74 400 74 600 42s400-32 600 0v22H0Z" fill="var(--india-green)" />
           </svg>
         </div>
+        {showDocsModal && <DocumentsModal onClose={() => setShowDocsModal(false)} />}
+        {showVideoModal && <VideoModal onClose={() => setShowVideoModal(false)} />}
       </section>
 
       {/* ─── 4. Stats Strip ─── */}
-      <Section id="stats" className="bg-[var(--bg-secondary)] border-y border-gov-border">
+      <Section id="stats" className="bg-navy border-y border-navy-light text-white">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {STATS.map((stat, i) => (
             <div key={stat.label} className="text-center">
@@ -492,7 +470,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ─── 6. The Problem ─── */}
-      <Section id="problem" dark>
+      <Section id="problem" className="bg-navy text-white">
         <div className="max-w-3xl mx-auto text-center">
           <Icon name="alert_triangle" className="w-12 h-12 text-saffron mx-auto mb-6" />
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">
@@ -581,7 +559,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ─── 9. Five Detection Signals ─── */}
-      <Section id="signals" dark>
+      <Section id="signals" className="bg-navy text-white">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
             {t("signals.heading")}
@@ -620,15 +598,14 @@ export default function LandingPage() {
       <Section id="score">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
-            Audit Priority Score
+            {t("score.heading")}
           </h2>
           <p className="max-w-2xl mx-auto text-gov-muted">
-            A weighted composite of all five signals, producing a traceable score from 0 to 100.
-            Weights are configurable — they reflect current model tuning, not fixed truths.
+            {t("score.body")}
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-          {SCORE_BANDS.map((band) => (
+          {SCORE_BANDS.map((band, i) => (
             <div
               key={band.label}
               className="rounded-xl border border-gov-border p-6 text-center transition-all bg-gov-card hover:shadow-lg"
@@ -639,20 +616,20 @@ export default function LandingPage() {
                   : band.color === "risk-medium" ? "text-risk-medium"
                   : "text-risk-low"
               }`}>
-                {band.label}
+                {t(`score.${scoreKeys[i]}` as Parameters<typeof t>[0])}
               </div>
               <div className="text-2xl font-extrabold font-mono mb-2 text-gov-text">
                 {band.range}
               </div>
               <p className="text-sm text-gov-muted">
-                {band.description}
+                {t(`score.${scoreDescriptionKeys[i]}` as Parameters<typeof t>[0])}
               </p>
             </div>
           ))}
         </div>
         <div className="text-center px-6 py-4 rounded-lg border border-saffron/15 bg-saffron/5">
           <p className="text-sm font-semibold text-saffron-dark">
-            {SCORE_EXPLAINER_DISCLAIMER}
+            {t("score.note")}
           </p>
         </div>
       </Section>
@@ -662,10 +639,10 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
-              Why Was This Flagged?
+              {t("evidence.heading")}
             </h2>
             <p className="text-sm italic text-gov-muted">
-              Illustrative example — project ID and data shown for demonstration purposes.
+              {t("evidence.intro")}
             </p>
           </div>
           <div className="rounded-xl border border-gov-border overflow-hidden">
@@ -676,10 +653,10 @@ export default function LandingPage() {
                   MPL/KA/24081
                 </span>
                 <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-risk-critical/15 text-risk-critical">
-                  Critical
+                  {t("evidence.critical")}
                 </span>
                 <span className="text-sm text-gov-muted">
-                  Construction of Community Hall, Belagavi, Karnataka
+                  {t("evidence.project")}
                 </span>
               </div>
             </div>
@@ -694,7 +671,7 @@ export default function LandingPage() {
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-sm font-bold text-gov-text">
-                      {ev.factor}
+                      {t(`evidence.${evidenceKeys[i]}` as Parameters<typeof t>[0])}
                     </span>
                     <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
                       ev.riskClass === "critical" ? "bg-risk-critical/15 text-risk-critical"
@@ -706,15 +683,15 @@ export default function LandingPage() {
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs">
-                      <span className="text-gov-muted">Observed</span>
+                      <span className="text-gov-muted">{t("evidence.observed")}</span>
                       <span className="font-mono font-semibold text-gov-text">{ev.observed}</span>
                     </div>
                     <div className="flex justify-between text-xs">
-                      <span className="text-gov-muted">Benchmark</span>
+                      <span className="text-gov-muted">{t("evidence.benchmark")}</span>
                       <span className="font-mono font-semibold text-gov-text">{ev.benchmark}</span>
                     </div>
                     <div className="flex justify-between text-xs font-bold pt-2 border-t border-gov-border">
-                      <span className={ev.riskClass === "critical" || ev.riskClass === "high" ? "text-risk-critical" : "text-risk-high"}>Deviation</span>
+                      <span className={ev.riskClass === "critical" || ev.riskClass === "high" ? "text-risk-critical" : "text-risk-high"}>{t("evidence.deviation")}</span>
                       <span className={`font-mono ${ev.riskClass === "critical" || ev.riskClass === "high" ? "text-risk-critical" : "text-risk-high"}`}>{ev.deviation}</span>
                     </div>
                   </div>
@@ -730,20 +707,18 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto text-center mb-12">
           <Icon name="user-check" className="w-12 h-12 mx-auto mb-6 text-teal" />
           <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
-            AI Prioritizes. Humans Decide.
+            {t("human.heading")}
           </h2>
           <p className="text-base leading-relaxed text-gov-muted">
-            Sentinel never auto-declares fraud or triggers punitive action. Every flag is
-            an invitation for a human auditor to examine the evidence. The final determination
-            always rests with authorized officials.
+            {t("human.body")}
           </p>
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
           {[
-            { label: "AI Analysis", icon: "cpu" },
-            { label: "Evidence Pack", icon: "file-text" },
-            { label: "Human Review", icon: "user-check" },
-            { label: "Decision", icon: "shield" },
+            { label: "human.ai", icon: "cpu" },
+            { label: "human.pack", icon: "file-text" },
+            { label: "human.review", icon: "user-check" },
+            { label: "human.decision", icon: "shield" },
           ].map((step, i) => (
             <div key={step.label} className="flex items-center gap-4">
               <div className={`flex items-center gap-2 px-4 py-3 rounded-lg border ${
@@ -752,7 +727,7 @@ export default function LandingPage() {
                   : "border-gov-border bg-gov-card text-gov-muted"
               }`}>
                 <Icon name={step.icon} className="w-5 h-5" />
-                <span className="text-sm font-semibold">{step.label}</span>
+                <span className="text-sm font-semibold">{t(step.label as Parameters<typeof t>[0])}</span>
               </div>
               {i < 3 && <Icon name="chevron-right" className="w-5 h-5 hidden sm:block text-gov-muted" />}
             </div>
@@ -761,17 +736,17 @@ export default function LandingPage() {
       </Section>
 
       {/* ─── 13. Who It's For ─── */}
-      <Section id="roles" dark>
+      <Section id="roles" className="bg-navy text-white">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-            Who It&apos;s For
+            {t("roles.heading")}
           </h2>
           <p className="text-white/60 max-w-xl mx-auto">
-            Designed for the different roles involved in MPLADS oversight.
+            {t("roles.body")}
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {AUDITOR_ROLES.map((role) => (
+          {AUDITOR_ROLES.map((role, i) => (
             <div
               key={role.role}
               className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-saffron/20"
@@ -779,8 +754,8 @@ export default function LandingPage() {
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-saffron/15 text-saffron mb-4">
                 <Icon name={role.icon} className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white mb-2">{role.role}</h3>
-              <p className="text-sm text-white/60 leading-relaxed">{role.description}</p>
+              <h3 className="text-base font-bold text-white mb-2">{t(`role.${roleKeys[i]}` as Parameters<typeof t>[0])}</h3>
+              <p className="text-sm text-white/60 leading-relaxed">{t(`role.${roleKeys[i]}Desc` as Parameters<typeof t>[0])}</p>
             </div>
           ))}
         </div>
@@ -790,25 +765,13 @@ export default function LandingPage() {
       <Section id="transparency">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-8 text-gov-text">
-            Data Transparency
+            {t("transparency.heading")}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
-              {
-                title: "Public & Real Data",
-                description: "Sourced from official MPLADS records and the eSAKSHI portal where publicly available.",
-                color: "india-green",
-              },
-              {
-                title: "Synthetic Validation",
-                description: "Prototype testing uses clearly-labelled synthetic data that mimics real-world patterns.",
-                color: "saffron",
-              },
-              {
-                title: "Evidence Provenance",
-                description: "Every result is traceable to its source record — no black-box outputs.",
-                color: "navy",
-              },
+              { title: "transparency.public", description: "transparency.publicDesc", color: "india-green" },
+              { title: "transparency.synthetic", description: "transparency.syntheticDesc", color: "saffron" },
+              { title: "transparency.provenance", description: "transparency.provenanceDesc", color: "navy" },
             ].map((item) => (
               <div
                 key={item.title}
@@ -820,10 +783,10 @@ export default function LandingPage() {
                     : "bg-navy"
                 }`} />
                 <h3 className="text-sm font-bold mb-2 text-gov-text">
-                  {item.title}
+                  {t(item.title as Parameters<typeof t>[0])}
                 </h3>
                 <p className="text-sm leading-relaxed text-gov-muted">
-                  {item.description}
+                  {t(item.description as Parameters<typeof t>[0])}
                 </p>
               </div>
             ))}
@@ -832,25 +795,25 @@ export default function LandingPage() {
       </Section>
 
       {/* ─── 15. Responsible AI / Limitations ─── */}
-      <Section id="responsible-ai" dark>
+      <Section id="responsible-ai" className="bg-navy text-white">
         <div className="max-w-3xl mx-auto text-center">
           <Icon name="shield" className="w-12 h-12 text-saffron mx-auto mb-6" />
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-6">
-            Responsible AI & Limitations
+            {t("responsible.heading")}
           </h2>
           <div className="space-y-4 text-left max-w-2xl mx-auto">
             {[
-              "An anomaly is not evidence of fraud. It is a statistical signal that warrants human review.",
-              "Every investigation requires a qualified human auditor to examine the evidence and make a determination.",
-              "Real-world data is always distinguished from synthetic validation data within the platform.",
-              "Sentinel is an analytical layer — it does not have enforcement authority or access to classified data.",
+              "responsible.one",
+              "responsible.two",
+              "responsible.three",
+              "responsible.four",
             ].map((item, i) => (
               <div
                 key={i}
                 className="flex items-start gap-3 text-white/70 text-sm leading-relaxed"
               >
                 <Icon name="check" className="w-5 h-5 text-india-green flex-shrink-0 mt-0.5" />
-                <span>{item}</span>
+                <span>{t(item as Parameters<typeof t>[0])}</span>
               </div>
             ))}
           </div>
@@ -861,16 +824,16 @@ export default function LandingPage() {
       <Section id="cta">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-gov-text">
-            {FINAL_CTA_HEADLINE}
+            {t("cta.heading")}
           </h2>
           <p className="text-base mb-8 text-gov-muted">
-            {FINAL_CTA_SUBTEXT}
+            {t("cta.body")}
           </p>
           <a
             href="#"
             className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold rounded-lg transition-all shadow-lg bg-navy text-white hover:bg-navy-light shadow-navy/20"
           >
-            {HERO_CTA_PRIMARY}
+            {t("hero.explore")}
             <Icon name="arrow-right" className="w-5 h-5" />
           </a>
         </div>

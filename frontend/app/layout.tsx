@@ -29,31 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className="antialiased">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('mplads-theme');
-                  if (!theme) {
-                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches
-                      ? 'dark' : 'light';
-                  }
-                  document.documentElement.setAttribute('data-theme', theme);
-                  var scale = localStorage.getItem('mplads-font-scale');
-                  if (scale === '0.9' || scale === '1' || scale === '1.1') {
-                    document.documentElement.style.setProperty('--font-scale', scale);
-                  }
-                } catch(e) {}
-              })();
-            `,
-          }}
-        />
         <I18nProvider>{children}</I18nProvider>
       </body>
     </html>

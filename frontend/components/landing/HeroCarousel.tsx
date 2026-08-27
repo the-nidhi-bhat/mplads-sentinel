@@ -3,11 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { LANDMARK_IMAGES, type LandmarkImage } from "./content";
 
-interface HeroCarouselProps {
-  isDark: boolean;
-}
-
-export default function HeroCarousel({ isDark }: HeroCarouselProps) {
+export default function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
@@ -98,9 +94,7 @@ export default function HeroCarousel({ isDark }: HeroCarouselProps) {
       <div
         className="absolute inset-0 z-10"
         style={{
-          background: isDark
-            ? "linear-gradient(180deg, rgba(10,31,61,0.92) 0%, rgba(11,18,32,0.88) 100%)"
-            : "linear-gradient(180deg, rgba(10,31,61,0.82) 0%, rgba(10,31,61,0.78) 100%)",
+          background: "linear-gradient(180deg, rgba(10,31,61,0.82) 0%, rgba(10,31,61,0.78) 100%)",
         }}
       />
 

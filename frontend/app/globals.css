@@ -59,57 +59,6 @@
   --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Dark Mode ── */
-[data-theme="dark"] {
-  --bg-primary: #0d1117;
-  --bg-secondary: #161b22;
-  --bg-card: #1c2128;
-  --bg-card-hover: #1c2533;
-  --border-color: rgba(255,255,255,0.1);
-  --border-glow: rgba(96, 165, 250, 0.15);
-  --border-focus: rgba(96, 165, 250, 0.4);
-
-  --text-primary: #e6edf3;
-  --text-secondary: #8b949e;
-  --text-muted: #6e7681;
-
-  --primary-blue: #60a5fa;
-  --primary-blue-glow: rgba(96, 165, 250, 0.3);
-  --primary-blue-hover: #93bbfd;
-
-  /* Landing page accent palette — dark overrides (desaturated) */
-  --navy: #0F2E5C;
-  --navy-light: #1A3F6F;
-  --navy-dark: #0B1220;
-  --saffron: #d99a4e;
-  --saffron-light: #f0b06a;
-  --saffron-dark: #cc7e2e;
-  --india-green: #3fb950;
-  --teal: #4fb8d0;
-  --teal-light: #5ccfe0;
-  --teal-dark: #0d9ab0;
-
-  --color-critical: #EF4444;
-  --color-critical-bg: rgba(239, 68, 68, 0.12);
-  --color-critical-border: rgba(239, 68, 68, 0.3);
-  --color-critical-glow: rgba(239, 68, 68, 0.4);
-
-  --color-high: #F97316;
-  --color-high-bg: rgba(249, 115, 22, 0.12);
-  --color-high-border: rgba(249, 115, 22, 0.3);
-  --color-high-glow: rgba(249, 115, 22, 0.4);
-
-  --color-medium: #EAB308;
-  --color-medium-bg: rgba(234, 179, 8, 0.1);
-  --color-medium-border: rgba(234, 179, 8, 0.25);
-  --color-medium-glow: rgba(234, 179, 8, 0.3);
-
-  --color-low: #10B981;
-  --color-low-bg: rgba(16, 185, 129, 0.1);
-  --color-low-border: rgba(16, 185, 129, 0.25);
-  --color-low-glow: rgba(16, 185, 129, 0.3);
-}
-
 /* ── Global Reset & Base ── */
 * {
   box-sizing: border-box;
