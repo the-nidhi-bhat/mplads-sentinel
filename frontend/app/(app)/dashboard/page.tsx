@@ -33,7 +33,7 @@ function parseDate(value: string): Date | null {
 }
 
 function uniqueSorted(values: string[]): string[] {
-  return ["All", ...Array.from(new Set(values)).sort()];
+  return ["All", ...Array.from(new Set(values)).filter((v) => v && v !== "All").sort()];
 }
 
 export default function DashboardPage() {

@@ -1,0 +1,361 @@
+State/UT,Project ID,Project Name,Executing Agency,AI Risk Score,Risk Level,Primary Flag Reason
+Andhra Pradesh,MPL/IN/261001,Public Park & Sports Ground,Urban Development Authority,32,Low,Normal progression
+Andhra Pradesh,MPL/IN/261002,Construction of Community Hall,Zilla Panchayat,50,Medium,Low utilization (18%)
+Andhra Pradesh,MPL/IN/261003,Link Road Repair & Patching,PWD,13,Low,Normal progression
+Andhra Pradesh,MPL/IN/261004,Water Supply Scheme,Rural Water Supply Dept,33,Low,Normal progression
+Andhra Pradesh,MPL/IN/261005,Digital Library Infrastructure,Information Technology Cell,31,Low,Zero photo compliance on 100% drawdown
+Andhra Pradesh,MPL/IN/261006,Drainage & Sewage System,Municipal Corporation,76,High,Payment pattern anomaly
+Andhra Pradesh,MPL/IN/261007,Solar Street Lighting Grid,Renewable Energy Dev Agency,86,High,Component cost anomaly
+Andhra Pradesh,MPL/IN/261008,Primary Health Centre,Health & Family Welfare,41,Medium,Delayed by 180 days
+Andhra Pradesh,MPL/IN/261009,School Building Construction,Education Infrastructure Dept,72,Medium,Low utilization (15%)
+Andhra Pradesh,MPL/IN/261010,Anganwadi Centre Construction,Social Welfare Dept,31,Low,Normal progression
+Arunachal Pradesh,MPL/IN/261011,Solar Street Lighting Grid,Renewable Energy Dev Agency,89,High,Component cost anomaly
+Arunachal Pradesh,MPL/IN/261012,Link Road Repair & Patching,PWD,28,Low,Material cost spike (+28%)
+Arunachal Pradesh,MPL/IN/261013,Anganwadi Centre Construction,Social Welfare Dept,42,Medium,Low asset utilization
+Arunachal Pradesh,MPL/IN/261014,Primary Health Centre,Health & Family Welfare,93,Critical,Out-of-constituency funding deviation
+Arunachal Pradesh,MPL/IN/261015,School Building Construction,Education Infrastructure Dept,30,Low,Normal progression
+Arunachal Pradesh,MPL/IN/261016,Construction of Community Hall,Zilla Panchayat,81,High,Severe delay & payment mismatch
+Arunachal Pradesh,MPL/IN/261017,Digital Library Infrastructure,Information Technology Cell,13,Low,Normal progression
+Arunachal Pradesh,MPL/IN/261018,Drainage & Sewage System,Municipal Corporation,88,High,Payment pattern anomaly
+Arunachal Pradesh,MPL/IN/261019,Water Supply Scheme,Rural Water Supply Dept,83,High,Severe delay & payment mismatch
+Arunachal Pradesh,MPL/IN/261020,Public Park & Sports Ground,Urban Development Authority,41,Medium,Minor delay in execution
+Assam,MPL/IN/261021,Public Park & Sports Ground,Urban Development Authority,41,Medium,Minor delay in execution
+Assam,MPL/IN/261022,Link Road Repair & Patching,PWD,15,Low,Material cost spike (+28%)
+Assam,MPL/IN/261023,Construction of Community Hall,Zilla Panchayat,84,High,Cost deviation (+22%)
+Assam,MPL/IN/261024,Digital Library Infrastructure,Information Technology Cell,31,Low,Normal progression
+Assam,MPL/IN/261025,Water Supply Scheme,Rural Water Supply Dept,92,Critical,Cost anomaly (+31.2%)
+Assam,MPL/IN/261026,Drainage & Sewage System,Municipal Corporation,21,Low,Zero photo compliance on 100% drawdown
+Assam,MPL/IN/261027,Primary Health Centre,Health & Family Welfare,49,Medium,Delayed by 180 days
+Assam,MPL/IN/261028,Solar Street Lighting Grid,Renewable Energy Dev Agency,78,High,Component cost anomaly
+Assam,MPL/IN/261029,Anganwadi Centre Construction,Social Welfare Dept,25,Low,Normal progression
+Assam,MPL/IN/261030,School Building Construction,Education Infrastructure Dept,17,Low,Normal progression
+Bihar,MPL/IN/261031,School Building Construction,Education Infrastructure Dept,87,High,Milestone lag & cost overrun (+15%)
+Bihar,MPL/IN/261032,Digital Library Infrastructure,Information Technology Cell,38,Low,Zero photo compliance on 100% drawdown
+Bihar,MPL/IN/261033,Water Supply Scheme,Rural Water Supply Dept,40,Medium,Slight milestone lag
+Bihar,MPL/IN/261034,Drainage & Sewage System,Municipal Corporation,81,High,Payment pattern anomaly
+Bihar,MPL/IN/261035,Construction of Community Hall,Zilla Panchayat,75,High,Severe delay & payment mismatch
+Bihar,MPL/IN/261036,Solar Street Lighting Grid,Renewable Energy Dev Agency,82,High,Component cost anomaly
+Bihar,MPL/IN/261037,Primary Health Centre,Health & Family Welfare,20,Low,Normal progression
+Bihar,MPL/IN/261038,Link Road Repair & Patching,PWD,56,Medium,Delayed milestones
+Bihar,MPL/IN/261039,Public Park & Sports Ground,Urban Development Authority,72,Medium,Minor delay in execution
+Bihar,MPL/IN/261040,Anganwadi Centre Construction,Social Welfare Dept,44,Medium,Low asset utilization
+Chhattisgarh,MPL/IN/261041,Drainage & Sewage System,Municipal Corporation,32,Low,Normal progression
+Chhattisgarh,MPL/IN/261042,Primary Health Centre,Health & Family Welfare,63,Medium,Delayed by 180 days
+Chhattisgarh,MPL/IN/261043,Digital Library Infrastructure,Information Technology Cell,12,Low,Zero photo compliance on 100% drawdown
+Chhattisgarh,MPL/IN/261044,Link Road Repair & Patching,PWD,36,Low,Material cost spike (+28%)
+Chhattisgarh,MPL/IN/261045,Public Park & Sports Ground,Urban Development Authority,10,Low,Normal progression
+Chhattisgarh,MPL/IN/261046,School Building Construction,Education Infrastructure Dept,14,Low,Normal progression
+Chhattisgarh,MPL/IN/261047,Water Supply Scheme,Rural Water Supply Dept,53,Medium,Slight milestone lag
+Chhattisgarh,MPL/IN/261048,Construction of Community Hall,Zilla Panchayat,40,Medium,Low utilization (18%)
+Chhattisgarh,MPL/IN/261049,Anganwadi Centre Construction,Social Welfare Dept,65,Medium,Suspicious rapid advance withdrawal
+Chhattisgarh,MPL/IN/261050,Solar Street Lighting Grid,Renewable Energy Dev Agency,23,Low,Normal progression
+Goa,MPL/IN/261051,Primary Health Centre,Health & Family Welfare,16,Low,Normal progression
+Goa,MPL/IN/261052,Drainage & Sewage System,Municipal Corporation,94,Critical,Payment pattern anomaly
+Goa,MPL/IN/261053,Water Supply Scheme,Rural Water Supply Dept,78,High,Cost anomaly (+31.2%)
+Goa,MPL/IN/261054,School Building Construction,Education Infrastructure Dept,79,High,Milestone lag & cost overrun (+15%)
+Goa,MPL/IN/261055,Link Road Repair & Patching,PWD,54,Medium,Delayed milestones
+Goa,MPL/IN/261056,Construction of Community Hall,Zilla Panchayat,68,Medium,Low utilization (18%)
+Goa,MPL/IN/261057,Digital Library Infrastructure,Information Technology Cell,22,Low,Normal progression
+Goa,MPL/IN/261058,Solar Street Lighting Grid,Renewable Energy Dev Agency,81,High,Component cost anomaly
+Goa,MPL/IN/261059,Public Park & Sports Ground,Urban Development Authority,28,Low,Normal progression
+Goa,MPL/IN/261060,Anganwadi Centre Construction,Social Welfare Dept,37,Low,Normal progression
+Gujarat,MPL/IN/261061,Water Supply Scheme,Rural Water Supply Dept,67,Medium,Slight milestone lag
+Gujarat,MPL/IN/261062,Drainage & Sewage System,Municipal Corporation,81,High,Payment pattern anomaly
+Gujarat,MPL/IN/261063,Solar Street Lighting Grid,Renewable Energy Dev Agency,75,High,Component cost anomaly
+Gujarat,MPL/IN/261064,Digital Library Infrastructure,Information Technology Cell,34,Low,Zero photo compliance on 100% drawdown
+Gujarat,MPL/IN/261065,Anganwadi Centre Construction,Social Welfare Dept,52,Medium,Low asset utilization
+Gujarat,MPL/IN/261066,School Building Construction,Education Infrastructure Dept,42,Medium,Low utilization (15%)
+Gujarat,MPL/IN/261067,Link Road Repair & Patching,PWD,45,Medium,Delayed milestones
+Gujarat,MPL/IN/261068,Primary Health Centre,Health & Family Welfare,18,Low,Normal progression
+Gujarat,MPL/IN/261069,Public Park & Sports Ground,Urban Development Authority,72,Medium,Minor delay in execution
+Gujarat,MPL/IN/261070,Construction of Community Hall,Zilla Panchayat,63,Medium,Low utilization (18%)
+Haryana,MPL/IN/261071,Drainage & Sewage System,Municipal Corporation,12,Low,Zero photo compliance on 100% drawdown
+Haryana,MPL/IN/261072,Primary Health Centre,Health & Family Welfare,79,High,Out-of-constituency funding deviation
+Haryana,MPL/IN/261073,Anganwadi Centre Construction,Social Welfare Dept,56,Medium,Suspicious rapid advance withdrawal
+Haryana,MPL/IN/261074,Construction of Community Hall,Zilla Panchayat,41,Medium,Low utilization (18%)
+Haryana,MPL/IN/261075,Solar Street Lighting Grid,Renewable Energy Dev Agency,96,Critical,Component cost anomaly
+Haryana,MPL/IN/261076,Public Park & Sports Ground,Urban Development Authority,14,Low,Normal progression
+Haryana,MPL/IN/261077,School Building Construction,Education Infrastructure Dept,40,Medium,Low utilization (15%)
+Haryana,MPL/IN/261078,Water Supply Scheme,Rural Water Supply Dept,41,Medium,Slight milestone lag
+Haryana,MPL/IN/261079,Digital Library Infrastructure,Information Technology Cell,21,Low,Zero photo compliance on 100% drawdown
+Haryana,MPL/IN/261080,Link Road Repair & Patching,PWD,15,Low,Material cost spike (+28%)
+Himachal Pradesh,MPL/IN/261081,Primary Health Centre,Health & Family Welfare,94,Critical,Out-of-constituency funding deviation
+Himachal Pradesh,MPL/IN/261082,Public Park & Sports Ground,Urban Development Authority,45,Medium,Minor delay in execution
+Himachal Pradesh,MPL/IN/261083,Construction of Community Hall,Zilla Panchayat,85,High,Cost deviation (+22%)
+Himachal Pradesh,MPL/IN/261084,Link Road Repair & Patching,PWD,55,Medium,Delayed milestones
+Himachal Pradesh,MPL/IN/261085,Water Supply Scheme,Rural Water Supply Dept,83,High,Cost anomaly (+31.2%)
+Himachal Pradesh,MPL/IN/261086,Digital Library Infrastructure,Information Technology Cell,36,Low,Normal progression
+Himachal Pradesh,MPL/IN/261087,Drainage & Sewage System,Municipal Corporation,25,Low,Zero photo compliance on 100% drawdown
+Himachal Pradesh,MPL/IN/261088,Solar Street Lighting Grid,Renewable Energy Dev Agency,12,Low,Normal progression
+Himachal Pradesh,MPL/IN/261089,School Building Construction,Education Infrastructure Dept,13,Low,Normal progression
+Himachal Pradesh,MPL/IN/261090,Anganwadi Centre Construction,Social Welfare Dept,65,Medium,Low asset utilization
+Jharkhand,MPL/IN/261091,Link Road Repair & Patching,PWD,20,Low,Normal progression
+Jharkhand,MPL/IN/261092,Construction of Community Hall,Zilla Panchayat,34,Low,Normal progression
+Jharkhand,MPL/IN/261093,Public Park & Sports Ground,Urban Development Authority,27,Low,Normal progression
+Jharkhand,MPL/IN/261094,Primary Health Centre,Health & Family Welfare,19,Low,Normal progression
+Jharkhand,MPL/IN/261095,Water Supply Scheme,Rural Water Supply Dept,46,Medium,Slight milestone lag
+Jharkhand,MPL/IN/261096,Digital Library Infrastructure,Information Technology Cell,25,Low,Normal progression
+Jharkhand,MPL/IN/261097,Anganwadi Centre Construction,Social Welfare Dept,25,Low,Normal progression
+Jharkhand,MPL/IN/261098,School Building Construction,Education Infrastructure Dept,41,Medium,Low utilization (15%)
+Jharkhand,MPL/IN/261099,Solar Street Lighting Grid,Renewable Energy Dev Agency,25,Low,Normal progression
+Jharkhand,MPL/IN/261100,Drainage & Sewage System,Municipal Corporation,21,Low,Zero photo compliance on 100% drawdown
+Karnataka,MPL/IN/261101,Public Park & Sports Ground,Urban Development Authority,42,Medium,Minor delay in execution
+Karnataka,MPL/IN/261102,Construction of Community Hall,Zilla Panchayat,33,Low,Normal progression
+Karnataka,MPL/IN/261103,School Building Construction,Education Infrastructure Dept,75,High,Milestone lag & cost overrun (+15%)
+Karnataka,MPL/IN/261104,Anganwadi Centre Construction,Social Welfare Dept,47,Medium,Low asset utilization
+Karnataka,MPL/IN/261105,Link Road Repair & Patching,PWD,17,Low,Material cost spike (+28%)
+Karnataka,MPL/IN/261106,Water Supply Scheme,Rural Water Supply Dept,12,Low,Normal progression
+Karnataka,MPL/IN/261107,Drainage & Sewage System,Municipal Corporation,34,Low,Zero photo compliance on 100% drawdown
+Karnataka,MPL/IN/261108,Digital Library Infrastructure,Information Technology Cell,34,Low,Zero photo compliance on 100% drawdown
+Karnataka,MPL/IN/261109,Solar Street Lighting Grid,Renewable Energy Dev Agency,27,Low,Normal progression
+Karnataka,MPL/IN/261110,Primary Health Centre,Health & Family Welfare,57,Medium,Delayed by 180 days
+Kerala,MPL/IN/261111,Digital Library Infrastructure,Information Technology Cell,25,Low,Zero photo compliance on 100% drawdown
+Kerala,MPL/IN/261112,Solar Street Lighting Grid,Renewable Energy Dev Agency,82,High,Component cost anomaly
+Kerala,MPL/IN/261113,Anganwadi Centre Construction,Social Welfare Dept,42,Medium,Low asset utilization
+Kerala,MPL/IN/261114,Public Park & Sports Ground,Urban Development Authority,10,Low,Normal progression
+Kerala,MPL/IN/261115,School Building Construction,Education Infrastructure Dept,28,Low,Normal progression
+Kerala,MPL/IN/261116,Water Supply Scheme,Rural Water Supply Dept,97,Critical,Severe delay & payment mismatch
+Kerala,MPL/IN/261117,Primary Health Centre,Health & Family Welfare,69,Medium,Delayed by 180 days
+Kerala,MPL/IN/261118,Drainage & Sewage System,Municipal Corporation,15,Low,Zero photo compliance on 100% drawdown
+Kerala,MPL/IN/261119,Link Road Repair & Patching,PWD,28,Low,Normal progression
+Kerala,MPL/IN/261120,Construction of Community Hall,Zilla Panchayat,82,High,Cost deviation (+22%)
+Madhya Pradesh,MPL/IN/261121,Drainage & Sewage System,Municipal Corporation,13,Low,Normal progression
+Madhya Pradesh,MPL/IN/261122,Solar Street Lighting Grid,Renewable Energy Dev Agency,26,Low,Normal progression
+Madhya Pradesh,MPL/IN/261123,Digital Library Infrastructure,Information Technology Cell,26,Low,Normal progression
+Madhya Pradesh,MPL/IN/261124,Public Park & Sports Ground,Urban Development Authority,67,Medium,Minor delay in execution
+Madhya Pradesh,MPL/IN/261125,Anganwadi Centre Construction,Social Welfare Dept,38,Low,Normal progression
+Madhya Pradesh,MPL/IN/261126,School Building Construction,Education Infrastructure Dept,95,Critical,Milestone lag & cost overrun (+15%)
+Madhya Pradesh,MPL/IN/261127,Water Supply Scheme,Rural Water Supply Dept,77,High,Severe delay & payment mismatch
+Madhya Pradesh,MPL/IN/261128,Link Road Repair & Patching,PWD,14,Low,Normal progression
+Madhya Pradesh,MPL/IN/261129,Primary Health Centre,Health & Family Welfare,91,Critical,Out-of-constituency funding deviation
+Madhya Pradesh,MPL/IN/261130,Construction of Community Hall,Zilla Panchayat,95,Critical,Cost deviation (+22%)
+Maharashtra,MPL/IN/261131,Construction of Community Hall,Zilla Panchayat,12,Low,Normal progression
+Maharashtra,MPL/IN/261132,Public Park & Sports Ground,Urban Development Authority,57,Medium,Minor delay in execution
+Maharashtra,MPL/IN/261133,Solar Street Lighting Grid,Renewable Energy Dev Agency,19,Low,Normal progression
+Maharashtra,MPL/IN/261134,Digital Library Infrastructure,Information Technology Cell,31,Low,Zero photo compliance on 100% drawdown
+Maharashtra,MPL/IN/261135,Link Road Repair & Patching,PWD,12,Low,Material cost spike (+28%)
+Maharashtra,MPL/IN/261136,Primary Health Centre,Health & Family Welfare,63,Medium,Delayed by 180 days
+Maharashtra,MPL/IN/261137,Anganwadi Centre Construction,Social Welfare Dept,24,Low,Normal progression
+Maharashtra,MPL/IN/261138,School Building Construction,Education Infrastructure Dept,97,Critical,Milestone lag & cost overrun (+15%)
+Maharashtra,MPL/IN/261139,Water Supply Scheme,Rural Water Supply Dept,84,High,Severe delay & payment mismatch
+Maharashtra,MPL/IN/261140,Drainage & Sewage System,Municipal Corporation,35,Low,Zero photo compliance on 100% drawdown
+Manipur,MPL/IN/261141,Anganwadi Centre Construction,Social Welfare Dept,64,Medium,Low asset utilization
+Manipur,MPL/IN/261142,School Building Construction,Education Infrastructure Dept,46,Medium,Low utilization (15%)
+Manipur,MPL/IN/261143,Link Road Repair & Patching,PWD,13,Low,Normal progression
+Manipur,MPL/IN/261144,Construction of Community Hall,Zilla Panchayat,94,Critical,Severe delay & payment mismatch
+Manipur,MPL/IN/261145,Primary Health Centre,Health & Family Welfare,82,High,Out-of-constituency funding deviation
+Manipur,MPL/IN/261146,Drainage & Sewage System,Municipal Corporation,25,Low,Zero photo compliance on 100% drawdown
+Manipur,MPL/IN/261147,Public Park & Sports Ground,Urban Development Authority,51,Medium,Minor delay in execution
+Manipur,MPL/IN/261148,Solar Street Lighting Grid,Renewable Energy Dev Agency,32,Low,Normal progression
+Manipur,MPL/IN/261149,Digital Library Infrastructure,Information Technology Cell,37,Low,Zero photo compliance on 100% drawdown
+Manipur,MPL/IN/261150,Water Supply Scheme,Rural Water Supply Dept,76,High,Severe delay & payment mismatch
+Meghalaya,MPL/IN/261151,Solar Street Lighting Grid,Renewable Energy Dev Agency,91,Critical,Component cost anomaly
+Meghalaya,MPL/IN/261152,Digital Library Infrastructure,Information Technology Cell,19,Low,Normal progression
+Meghalaya,MPL/IN/261153,School Building Construction,Education Infrastructure Dept,89,High,Milestone lag & cost overrun (+15%)
+Meghalaya,MPL/IN/261154,Public Park & Sports Ground,Urban Development Authority,72,Medium,Minor delay in execution
+Meghalaya,MPL/IN/261155,Primary Health Centre,Health & Family Welfare,86,High,Out-of-constituency funding deviation
+Meghalaya,MPL/IN/261156,Construction of Community Hall,Zilla Panchayat,14,Low,Normal progression
+Meghalaya,MPL/IN/261157,Water Supply Scheme,Rural Water Supply Dept,43,Medium,Slight milestone lag
+Meghalaya,MPL/IN/261158,Drainage & Sewage System,Municipal Corporation,22,Low,Zero photo compliance on 100% drawdown
+Meghalaya,MPL/IN/261159,Link Road Repair & Patching,PWD,24,Low,Material cost spike (+28%)
+Meghalaya,MPL/IN/261160,Anganwadi Centre Construction,Social Welfare Dept,55,Medium,Low asset utilization
+Mizoram,MPL/IN/261161,Digital Library Infrastructure,Information Technology Cell,35,Low,Zero photo compliance on 100% drawdown
+Mizoram,MPL/IN/261162,Primary Health Centre,Health & Family Welfare,97,Critical,Out-of-constituency funding deviation
+Mizoram,MPL/IN/261163,Link Road Repair & Patching,PWD,48,Medium,Delayed milestones
+Mizoram,MPL/IN/261164,Solar Street Lighting Grid,Renewable Energy Dev Agency,95,Critical,Component cost anomaly
+Mizoram,MPL/IN/261165,School Building Construction,Education Infrastructure Dept,40,Medium,Low utilization (15%)
+Mizoram,MPL/IN/261166,Public Park & Sports Ground,Urban Development Authority,11,Low,Normal progression
+Mizoram,MPL/IN/261167,Anganwadi Centre Construction,Social Welfare Dept,31,Low,Normal progression
+Mizoram,MPL/IN/261168,Water Supply Scheme,Rural Water Supply Dept,34,Low,Normal progression
+Mizoram,MPL/IN/261169,Drainage & Sewage System,Municipal Corporation,95,Critical,Payment pattern anomaly
+Mizoram,MPL/IN/261170,Construction of Community Hall,Zilla Panchayat,90,High,Severe delay & payment mismatch
+Nagaland,MPL/IN/261171,Solar Street Lighting Grid,Renewable Energy Dev Agency,88,High,Component cost anomaly
+Nagaland,MPL/IN/261172,Water Supply Scheme,Rural Water Supply Dept,14,Low,Normal progression
+Nagaland,MPL/IN/261173,Digital Library Infrastructure,Information Technology Cell,26,Low,Zero photo compliance on 100% drawdown
+Nagaland,MPL/IN/261174,Construction of Community Hall,Zilla Panchayat,88,High,Cost deviation (+22%)
+Nagaland,MPL/IN/261175,School Building Construction,Education Infrastructure Dept,94,Critical,Milestone lag & cost overrun (+15%)
+Nagaland,MPL/IN/261176,Drainage & Sewage System,Municipal Corporation,86,High,Payment pattern anomaly
+Nagaland,MPL/IN/261177,Public Park & Sports Ground,Urban Development Authority,65,Medium,Minor delay in execution
+Nagaland,MPL/IN/261178,Link Road Repair & Patching,PWD,25,Low,Material cost spike (+28%)
+Nagaland,MPL/IN/261179,Primary Health Centre,Health & Family Welfare,81,High,Out-of-constituency funding deviation
+Nagaland,MPL/IN/261180,Anganwadi Centre Construction,Social Welfare Dept,69,Medium,Suspicious rapid advance withdrawal
+Odisha,MPL/IN/261181,Water Supply Scheme,Rural Water Supply Dept,49,Medium,Slight milestone lag
+Odisha,MPL/IN/261182,Drainage & Sewage System,Municipal Corporation,28,Low,Zero photo compliance on 100% drawdown
+Odisha,MPL/IN/261183,Public Park & Sports Ground,Urban Development Authority,71,Medium,Minor delay in execution
+Odisha,MPL/IN/261184,School Building Construction,Education Infrastructure Dept,44,Medium,Low utilization (15%)
+Odisha,MPL/IN/261185,Solar Street Lighting Grid,Renewable Energy Dev Agency,13,Low,Normal progression
+Odisha,MPL/IN/261186,Link Road Repair & Patching,PWD,41,Medium,Delayed milestones
+Odisha,MPL/IN/261187,Digital Library Infrastructure,Information Technology Cell,37,Low,Zero photo compliance on 100% drawdown
+Odisha,MPL/IN/261188,Construction of Community Hall,Zilla Panchayat,36,Low,Normal progression
+Odisha,MPL/IN/261189,Anganwadi Centre Construction,Social Welfare Dept,12,Low,Normal progression
+Odisha,MPL/IN/261190,Primary Health Centre,Health & Family Welfare,75,High,Out-of-constituency funding deviation
+Punjab,MPL/IN/261191,Anganwadi Centre Construction,Social Welfare Dept,52,Medium,Suspicious rapid advance withdrawal
+Punjab,MPL/IN/261192,Public Park & Sports Ground,Urban Development Authority,70,Medium,Minor delay in execution
+Punjab,MPL/IN/261193,Construction of Community Hall,Zilla Panchayat,76,High,Cost deviation (+22%)
+Punjab,MPL/IN/261194,Digital Library Infrastructure,Information Technology Cell,28,Low,Zero photo compliance on 100% drawdown
+Punjab,MPL/IN/261195,Link Road Repair & Patching,PWD,12,Low,Material cost spike (+28%)
+Punjab,MPL/IN/261196,Water Supply Scheme,Rural Water Supply Dept,56,Medium,Slight milestone lag
+Punjab,MPL/IN/261197,Solar Street Lighting Grid,Renewable Energy Dev Agency,82,High,Component cost anomaly
+Punjab,MPL/IN/261198,School Building Construction,Education Infrastructure Dept,65,Medium,Low utilization (15%)
+Punjab,MPL/IN/261199,Primary Health Centre,Health & Family Welfare,65,Medium,Delayed by 180 days
+Punjab,MPL/IN/261200,Drainage & Sewage System,Municipal Corporation,11,Low,Zero photo compliance on 100% drawdown
+Rajasthan,MPL/IN/261201,Digital Library Infrastructure,Information Technology Cell,33,Low,Zero photo compliance on 100% drawdown
+Rajasthan,MPL/IN/261202,Solar Street Lighting Grid,Renewable Energy Dev Agency,95,Critical,Component cost anomaly
+Rajasthan,MPL/IN/261203,Water Supply Scheme,Rural Water Supply Dept,78,High,Cost anomaly (+31.2%)
+Rajasthan,MPL/IN/261204,Link Road Repair & Patching,PWD,14,Low,Material cost spike (+28%)
+Rajasthan,MPL/IN/261205,Primary Health Centre,Health & Family Welfare,77,High,Out-of-constituency funding deviation
+Rajasthan,MPL/IN/261206,Construction of Community Hall,Zilla Panchayat,77,High,Severe delay & payment mismatch
+Rajasthan,MPL/IN/261207,School Building Construction,Education Infrastructure Dept,91,Critical,Milestone lag & cost overrun (+15%)
+Rajasthan,MPL/IN/261208,Anganwadi Centre Construction,Social Welfare Dept,71,Medium,Low asset utilization
+Rajasthan,MPL/IN/261209,Public Park & Sports Ground,Urban Development Authority,62,Medium,Minor delay in execution
+Rajasthan,MPL/IN/261210,Drainage & Sewage System,Municipal Corporation,14,Low,Zero photo compliance on 100% drawdown
+Sikkim,MPL/IN/261211,Digital Library Infrastructure,Information Technology Cell,29,Low,Zero photo compliance on 100% drawdown
+Sikkim,MPL/IN/261212,School Building Construction,Education Infrastructure Dept,61,Medium,Low utilization (15%)
+Sikkim,MPL/IN/261213,Construction of Community Hall,Zilla Panchayat,93,Critical,Severe delay & payment mismatch
+Sikkim,MPL/IN/261214,Link Road Repair & Patching,PWD,13,Low,Normal progression
+Sikkim,MPL/IN/261215,Drainage & Sewage System,Municipal Corporation,83,High,Payment pattern anomaly
+Sikkim,MPL/IN/261216,Solar Street Lighting Grid,Renewable Energy Dev Agency,21,Low,Normal progression
+Sikkim,MPL/IN/261217,Public Park & Sports Ground,Urban Development Authority,16,Low,Normal progression
+Sikkim,MPL/IN/261218,Primary Health Centre,Health & Family Welfare,70,Medium,Delayed by 180 days
+Sikkim,MPL/IN/261219,Anganwadi Centre Construction,Social Welfare Dept,55,Medium,Low asset utilization
+Sikkim,MPL/IN/261220,Water Supply Scheme,Rural Water Supply Dept,79,High,Cost anomaly (+31.2%)
+Tamil Nadu,MPL/IN/261221,Link Road Repair & Patching,PWD,16,Low,Normal progression
+Tamil Nadu,MPL/IN/261222,Construction of Community Hall,Zilla Panchayat,95,Critical,Severe delay & payment mismatch
+Tamil Nadu,MPL/IN/261223,Anganwadi Centre Construction,Social Welfare Dept,35,Low,Normal progression
+Tamil Nadu,MPL/IN/261224,Water Supply Scheme,Rural Water Supply Dept,53,Medium,Slight milestone lag
+Tamil Nadu,MPL/IN/261225,Digital Library Infrastructure,Information Technology Cell,35,Low,Zero photo compliance on 100% drawdown
+Tamil Nadu,MPL/IN/261226,Primary Health Centre,Health & Family Welfare,77,High,Out-of-constituency funding deviation
+Tamil Nadu,MPL/IN/261227,Solar Street Lighting Grid,Renewable Energy Dev Agency,38,Low,Normal progression
+Tamil Nadu,MPL/IN/261228,School Building Construction,Education Infrastructure Dept,20,Low,Normal progression
+Tamil Nadu,MPL/IN/261229,Public Park & Sports Ground,Urban Development Authority,51,Medium,Minor delay in execution
+Tamil Nadu,MPL/IN/261230,Drainage & Sewage System,Municipal Corporation,84,High,Payment pattern anomaly
+Telangana,MPL/IN/261231,Drainage & Sewage System,Municipal Corporation,36,Low,Zero photo compliance on 100% drawdown
+Telangana,MPL/IN/261232,Public Park & Sports Ground,Urban Development Authority,41,Medium,Minor delay in execution
+Telangana,MPL/IN/261233,Construction of Community Hall,Zilla Panchayat,79,High,Severe delay & payment mismatch
+Telangana,MPL/IN/261234,School Building Construction,Education Infrastructure Dept,93,Critical,Milestone lag & cost overrun (+15%)
+Telangana,MPL/IN/261235,Digital Library Infrastructure,Information Technology Cell,25,Low,Normal progression
+Telangana,MPL/IN/261236,Anganwadi Centre Construction,Social Welfare Dept,40,Medium,Suspicious rapid advance withdrawal
+Telangana,MPL/IN/261237,Link Road Repair & Patching,PWD,29,Low,Material cost spike (+28%)
+Telangana,MPL/IN/261238,Primary Health Centre,Health & Family Welfare,81,High,Out-of-constituency funding deviation
+Telangana,MPL/IN/261239,Water Supply Scheme,Rural Water Supply Dept,87,High,Cost anomaly (+31.2%)
+Telangana,MPL/IN/261240,Solar Street Lighting Grid,Renewable Energy Dev Agency,78,High,Component cost anomaly
+Tripura,MPL/IN/261241,Digital Library Infrastructure,Information Technology Cell,12,Low,Zero photo compliance on 100% drawdown
+Tripura,MPL/IN/261242,Water Supply Scheme,Rural Water Supply Dept,87,High,Cost anomaly (+31.2%)
+Tripura,MPL/IN/261243,Anganwadi Centre Construction,Social Welfare Dept,37,Low,Normal progression
+Tripura,MPL/IN/261244,Construction of Community Hall,Zilla Panchayat,94,Critical,Cost deviation (+22%)
+Tripura,MPL/IN/261245,Public Park & Sports Ground,Urban Development Authority,47,Medium,Minor delay in execution
+Tripura,MPL/IN/261246,Solar Street Lighting Grid,Renewable Energy Dev Agency,18,Low,Normal progression
+Tripura,MPL/IN/261247,School Building Construction,Education Infrastructure Dept,10,Low,Normal progression
+Tripura,MPL/IN/261248,Primary Health Centre,Health & Family Welfare,22,Low,Normal progression
+Tripura,MPL/IN/261249,Drainage & Sewage System,Municipal Corporation,34,Low,Zero photo compliance on 100% drawdown
+Tripura,MPL/IN/261250,Link Road Repair & Patching,PWD,64,Medium,Delayed milestones
+Uttar Pradesh,MPL/IN/261251,Drainage & Sewage System,Municipal Corporation,89,High,Payment pattern anomaly
+Uttar Pradesh,MPL/IN/261252,Anganwadi Centre Construction,Social Welfare Dept,55,Medium,Suspicious rapid advance withdrawal
+Uttar Pradesh,MPL/IN/261253,Public Park & Sports Ground,Urban Development Authority,60,Medium,Minor delay in execution
+Uttar Pradesh,MPL/IN/261254,School Building Construction,Education Infrastructure Dept,37,Low,Normal progression
+Uttar Pradesh,MPL/IN/261255,Construction of Community Hall,Zilla Panchayat,78,High,Severe delay & payment mismatch
+Uttar Pradesh,MPL/IN/261256,Solar Street Lighting Grid,Renewable Energy Dev Agency,28,Low,Normal progression
+Uttar Pradesh,MPL/IN/261257,Primary Health Centre,Health & Family Welfare,92,Critical,Out-of-constituency funding deviation
+Uttar Pradesh,MPL/IN/261258,Link Road Repair & Patching,PWD,53,Medium,Delayed milestones
+Uttar Pradesh,MPL/IN/261259,Water Supply Scheme,Rural Water Supply Dept,70,Medium,Slight milestone lag
+Uttar Pradesh,MPL/IN/261260,Digital Library Infrastructure,Information Technology Cell,30,Low,Zero photo compliance on 100% drawdown
+Uttarakhand,MPL/IN/261261,Public Park & Sports Ground,Urban Development Authority,47,Medium,Minor delay in execution
+Uttarakhand,MPL/IN/261262,Primary Health Centre,Health & Family Welfare,51,Medium,Delayed by 180 days
+Uttarakhand,MPL/IN/261263,Construction of Community Hall,Zilla Panchayat,37,Low,Normal progression
+Uttarakhand,MPL/IN/261264,School Building Construction,Education Infrastructure Dept,47,Medium,Low utilization (15%)
+Uttarakhand,MPL/IN/261265,Digital Library Infrastructure,Information Technology Cell,37,Low,Normal progression
+Uttarakhand,MPL/IN/261266,Water Supply Scheme,Rural Water Supply Dept,35,Low,Normal progression
+Uttarakhand,MPL/IN/261267,Anganwadi Centre Construction,Social Welfare Dept,37,Low,Normal progression
+Uttarakhand,MPL/IN/261268,Drainage & Sewage System,Municipal Corporation,37,Low,Zero photo compliance on 100% drawdown
+Uttarakhand,MPL/IN/261269,Solar Street Lighting Grid,Renewable Energy Dev Agency,79,High,Component cost anomaly
+Uttarakhand,MPL/IN/261270,Link Road Repair & Patching,PWD,13,Low,Normal progression
+West Bengal,MPL/IN/261271,Construction of Community Hall,Zilla Panchayat,77,High,Cost deviation (+22%)
+West Bengal,MPL/IN/261272,Drainage & Sewage System,Municipal Corporation,80,High,Payment pattern anomaly
+West Bengal,MPL/IN/261273,Solar Street Lighting Grid,Renewable Energy Dev Agency,93,Critical,Component cost anomaly
+West Bengal,MPL/IN/261274,Anganwadi Centre Construction,Social Welfare Dept,64,Medium,Suspicious rapid advance withdrawal
+West Bengal,MPL/IN/261275,School Building Construction,Education Infrastructure Dept,84,High,Milestone lag & cost overrun (+15%)
+West Bengal,MPL/IN/261276,Primary Health Centre,Health & Family Welfare,44,Medium,Delayed by 180 days
+West Bengal,MPL/IN/261277,Digital Library Infrastructure,Information Technology Cell,33,Low,Zero photo compliance on 100% drawdown
+West Bengal,MPL/IN/261278,Public Park & Sports Ground,Urban Development Authority,31,Low,Normal progression
+West Bengal,MPL/IN/261279,Water Supply Scheme,Rural Water Supply Dept,92,Critical,Cost anomaly (+31.2%)
+West Bengal,MPL/IN/261280,Link Road Repair & Patching,PWD,50,Medium,Delayed milestones
+Andaman and Nicobar Islands,MPL/IN/261281,Digital Library Infrastructure,Information Technology Cell,12,Low,Zero photo compliance on 100% drawdown
+Andaman and Nicobar Islands,MPL/IN/261282,Construction of Community Hall,Zilla Panchayat,40,Medium,Low utilization (18%)
+Andaman and Nicobar Islands,MPL/IN/261283,School Building Construction,Education Infrastructure Dept,45,Medium,Low utilization (15%)
+Andaman and Nicobar Islands,MPL/IN/261284,Solar Street Lighting Grid,Renewable Energy Dev Agency,91,Critical,Component cost anomaly
+Andaman and Nicobar Islands,MPL/IN/261285,Water Supply Scheme,Rural Water Supply Dept,79,High,Cost anomaly (+31.2%)
+Andaman and Nicobar Islands,MPL/IN/261286,Anganwadi Centre Construction,Social Welfare Dept,12,Low,Normal progression
+Andaman and Nicobar Islands,MPL/IN/261287,Drainage & Sewage System,Municipal Corporation,97,Critical,Payment pattern anomaly
+Andaman and Nicobar Islands,MPL/IN/261288,Link Road Repair & Patching,PWD,30,Low,Normal progression
+Andaman and Nicobar Islands,MPL/IN/261289,Public Park & Sports Ground,Urban Development Authority,19,Low,Normal progression
+Andaman and Nicobar Islands,MPL/IN/261290,Primary Health Centre,Health & Family Welfare,58,Medium,Delayed by 180 days
+Chandigarh,MPL/IN/261291,Construction of Community Hall,Zilla Panchayat,10,Low,Normal progression
+Chandigarh,MPL/IN/261292,School Building Construction,Education Infrastructure Dept,71,Medium,Low utilization (15%)
+Chandigarh,MPL/IN/261293,Public Park & Sports Ground,Urban Development Authority,67,Medium,Minor delay in execution
+Chandigarh,MPL/IN/261294,Drainage & Sewage System,Municipal Corporation,17,Low,Normal progression
+Chandigarh,MPL/IN/261295,Anganwadi Centre Construction,Social Welfare Dept,65,Medium,Low asset utilization
+Chandigarh,MPL/IN/261296,Digital Library Infrastructure,Information Technology Cell,11,Low,Normal progression
+Chandigarh,MPL/IN/261297,Solar Street Lighting Grid,Renewable Energy Dev Agency,96,Critical,Component cost anomaly
+Chandigarh,MPL/IN/261298,Link Road Repair & Patching,PWD,51,Medium,Delayed milestones
+Chandigarh,MPL/IN/261299,Primary Health Centre,Health & Family Welfare,96,Critical,Out-of-constituency funding deviation
+Chandigarh,MPL/IN/261300,Water Supply Scheme,Rural Water Supply Dept,14,Low,Normal progression
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261301,Drainage & Sewage System,Municipal Corporation,16,Low,Normal progression
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261302,Solar Street Lighting Grid,Renewable Energy Dev Agency,76,High,Component cost anomaly
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261303,School Building Construction,Education Infrastructure Dept,92,Critical,Milestone lag & cost overrun (+15%)
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261304,Construction of Community Hall,Zilla Panchayat,92,Critical,Cost deviation (+22%)
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261305,Link Road Repair & Patching,PWD,24,Low,Material cost spike (+28%)
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261306,Primary Health Centre,Health & Family Welfare,28,Low,Normal progression
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261307,Anganwadi Centre Construction,Social Welfare Dept,73,Medium,Low asset utilization
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261308,Digital Library Infrastructure,Information Technology Cell,34,Low,Normal progression
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261309,Water Supply Scheme,Rural Water Supply Dept,75,High,Severe delay & payment mismatch
+Dadra and Nagar Haveli and Daman and Diu,MPL/IN/261310,Public Park & Sports Ground,Urban Development Authority,54,Medium,Minor delay in execution
+Delhi,MPL/IN/261311,Public Park & Sports Ground,Urban Development Authority,37,Low,Normal progression
+Delhi,MPL/IN/261312,Link Road Repair & Patching,PWD,11,Low,Normal progression
+Delhi,MPL/IN/261313,Digital Library Infrastructure,Information Technology Cell,30,Low,Normal progression
+Delhi,MPL/IN/261314,Construction of Community Hall,Zilla Panchayat,87,High,Cost deviation (+22%)
+Delhi,MPL/IN/261315,School Building Construction,Education Infrastructure Dept,85,High,Milestone lag & cost overrun (+15%)
+Delhi,MPL/IN/261316,Solar Street Lighting Grid,Renewable Energy Dev Agency,25,Low,Normal progression
+Delhi,MPL/IN/261317,Primary Health Centre,Health & Family Welfare,28,Low,Normal progression
+Delhi,MPL/IN/261318,Water Supply Scheme,Rural Water Supply Dept,62,Medium,Slight milestone lag
+Delhi,MPL/IN/261319,Drainage & Sewage System,Municipal Corporation,25,Low,Normal progression
+Delhi,MPL/IN/261320,Anganwadi Centre Construction,Social Welfare Dept,50,Medium,Low asset utilization
+Jammu and Kashmir,MPL/IN/261321,Construction of Community Hall,Zilla Panchayat,92,Critical,Severe delay & payment mismatch
+Jammu and Kashmir,MPL/IN/261322,Solar Street Lighting Grid,Renewable Energy Dev Agency,35,Low,Normal progression
+Jammu and Kashmir,MPL/IN/261323,Primary Health Centre,Health & Family Welfare,28,Low,Normal progression
+Jammu and Kashmir,MPL/IN/261324,Anganwadi Centre Construction,Social Welfare Dept,44,Medium,Suspicious rapid advance withdrawal
+Jammu and Kashmir,MPL/IN/261325,Drainage & Sewage System,Municipal Corporation,37,Low,Zero photo compliance on 100% drawdown
+Jammu and Kashmir,MPL/IN/261326,Water Supply Scheme,Rural Water Supply Dept,96,Critical,Severe delay & payment mismatch
+Jammu and Kashmir,MPL/IN/261327,Public Park & Sports Ground,Urban Development Authority,15,Low,Normal progression
+Jammu and Kashmir,MPL/IN/261328,School Building Construction,Education Infrastructure Dept,44,Medium,Low utilization (15%)
+Jammu and Kashmir,MPL/IN/261329,Digital Library Infrastructure,Information Technology Cell,21,Low,Zero photo compliance on 100% drawdown
+Jammu and Kashmir,MPL/IN/261330,Link Road Repair & Patching,PWD,23,Low,Material cost spike (+28%)
+Ladakh,MPL/IN/261331,Digital Library Infrastructure,Information Technology Cell,34,Low,Zero photo compliance on 100% drawdown
+Ladakh,MPL/IN/261332,School Building Construction,Education Infrastructure Dept,89,High,Milestone lag & cost overrun (+15%)
+Ladakh,MPL/IN/261333,Anganwadi Centre Construction,Social Welfare Dept,20,Low,Normal progression
+Ladakh,MPL/IN/261334,Public Park & Sports Ground,Urban Development Authority,25,Low,Normal progression
+Ladakh,MPL/IN/261335,Drainage & Sewage System,Municipal Corporation,91,Critical,Payment pattern anomaly
+Ladakh,MPL/IN/261336,Primary Health Centre,Health & Family Welfare,40,Medium,Delayed by 180 days
+Ladakh,MPL/IN/261337,Solar Street Lighting Grid,Renewable Energy Dev Agency,91,Critical,Component cost anomaly
+Ladakh,MPL/IN/261338,Link Road Repair & Patching,PWD,54,Medium,Delayed milestones
+Ladakh,MPL/IN/261339,Water Supply Scheme,Rural Water Supply Dept,61,Medium,Slight milestone lag
+Ladakh,MPL/IN/261340,Construction of Community Hall,Zilla Panchayat,97,Critical,Cost deviation (+22%)
+Lakshadweep,MPL/IN/261341,Anganwadi Centre Construction,Social Welfare Dept,62,Medium,Low asset utilization
+Lakshadweep,MPL/IN/261342,Water Supply Scheme,Rural Water Supply Dept,85,High,Severe delay & payment mismatch
+Lakshadweep,MPL/IN/261343,Solar Street Lighting Grid,Renewable Energy Dev Agency,37,Low,Normal progression
+Lakshadweep,MPL/IN/261344,School Building Construction,Education Infrastructure Dept,57,Medium,Low utilization (15%)
+Lakshadweep,MPL/IN/261345,Drainage & Sewage System,Municipal Corporation,15,Low,Zero photo compliance on 100% drawdown
+Lakshadweep,MPL/IN/261346,Link Road Repair & Patching,PWD,54,Medium,Delayed milestones
+Lakshadweep,MPL/IN/261347,Public Park & Sports Ground,Urban Development Authority,64,Medium,Minor delay in execution
+Lakshadweep,MPL/IN/261348,Primary Health Centre,Health & Family Welfare,14,Low,Normal progression
+Lakshadweep,MPL/IN/261349,Construction of Community Hall,Zilla Panchayat,19,Low,Normal progression
+Lakshadweep,MPL/IN/261350,Digital Library Infrastructure,Information Technology Cell,34,Low,Zero photo compliance on 100% drawdown
+Puducherry,MPL/IN/261351,Public Park & Sports Ground,Urban Development Authority,64,Medium,Minor delay in execution
+Puducherry,MPL/IN/261352,Drainage & Sewage System,Municipal Corporation,12,Low,Zero photo compliance on 100% drawdown
+Puducherry,MPL/IN/261353,Primary Health Centre,Health & Family Welfare,87,High,Out-of-constituency funding deviation
+Puducherry,MPL/IN/261354,Solar Street Lighting Grid,Renewable Energy Dev Agency,89,High,Component cost anomaly
+Puducherry,MPL/IN/261355,School Building Construction,Education Infrastructure Dept,31,Low,Normal progression
+Puducherry,MPL/IN/261356,Digital Library Infrastructure,Information Technology Cell,24,Low,Normal progression
+Puducherry,MPL/IN/261357,Construction of Community Hall,Zilla Panchayat,17,Low,Normal progression
+Puducherry,MPL/IN/261358,Link Road Repair & Patching,PWD,21,Low,Normal progression
+Puducherry,MPL/IN/261359,Anganwadi Centre Construction,Social Welfare Dept,45,Medium,Low asset utilization
+Puducherry,MPL/IN/261360,Water Supply Scheme,Rural Water Supply Dept,35,Low,Normal progression

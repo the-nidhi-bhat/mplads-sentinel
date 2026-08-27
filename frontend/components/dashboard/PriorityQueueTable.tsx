@@ -1,12 +1,15 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Eye } from "lucide-react";
+import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import type { Project } from "@/lib/mock-data";
 
 type PriorityQueueTableProps = {
   projects: Project[];
 };
+
+const PAGE_SIZE = 20;
 
 const RISK_BADGE_CLASSES: Record<string, string> = {
   critical: "bg-[var(--color-critical-bg)] text-[var(--color-critical)] border-[var(--color-critical-border)]",
@@ -17,6 +20,19 @@ const RISK_BADGE_CLASSES: Record<string, string> = {
 };
 
 export default function PriorityQueueTable({ projects }: PriorityQueueTableProps) {
+  const [page, setPage] = useState(0);
+
+  const pageCount = Math.max(1, Math.ceil(projects.length / PAGE_SIZE));
+  const clampedPage = Math.min(page, pageCount - 1);
+
+  const visibleProjects = useMemo(
+    () => projects.slice(clampedPage * PAGE_SIZE, clampedPage * PAGE_SIZE + PAGE_SIZE),
+    [projects, clampedPage]
+  );
+
+  const from = projects.length === 0 ? 0 : clampedPage * PAGE_SIZE + 1;
+  const to = Math.min(projects.length, (clampedPage + 1) * PAGE_SIZE);
+
   return (
     <div className="overflow-hidden rounded-xl border border-gov-border bg-[var(--bg-card)]">
       <div className="border-b border-gov-border px-5 py-4">
@@ -53,7 +69,7 @@ export default function PriorityQueueTable({ projects }: PriorityQueueTableProps
                 </td>
               </tr>
             ) : (
-              projects.map((project) => (
+              visibleProjects.map((project) => (
                 <tr
                   key={project.id}
                   className="border-b border-gov-border last:border-b-0 hover:bg-[var(--bg-card-hover)]"
@@ -96,6 +112,36 @@ export default function PriorityQueueTable({ projects }: PriorityQueueTableProps
           </tbody>
         </table>
       </div>
+      {projects.length > PAGE_SIZE && (
+        <div className="flex items-center justify-between border-t border-gov-border px-5 py-3">
+          <p className="text-xs text-[var(--text-muted)]">
+            Showing {from}–{to} of {projects.length}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+              disabled={clampedPage === 0}
+              className="inline-flex items-center gap-1 rounded-lg border border-gov-border px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-card-hover)] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ChevronLeft className="h-3.5 w-3.5" />
+              Prev
+            </button>
+            <span className="text-xs font-semibold text-[var(--text-secondary)]">
+              Page {clampedPage + 1} of {pageCount}
+            </span>
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
+              disabled={clampedPage === pageCount - 1}
+              className="inline-flex items-center gap-1 rounded-lg border border-gov-border px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-card-hover)] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Next
+              <ChevronRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
