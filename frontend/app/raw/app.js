@@ -2,7 +2,7 @@
    MPLADS AI Monitor Platform - Core Logic
    Features: Dynamic routing, mock data engine, Leaflet GIS Map, ApexCharts, investigation state
 */
-
+// app.js
 // ==================== MOCK DATA ENGINE ====================
 const projectsData = [
   {

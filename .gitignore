@@ -29,3 +29,7 @@ backend/data/*.csv
 # OS
 .DS_Store
 Thumbs.db
+
+MPLADS/
+next-env.d.ts
+*.tsbuildinfo
