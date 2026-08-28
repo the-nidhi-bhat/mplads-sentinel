@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Sidebar from "@/components/app-shell/sidebar";
 import Header from "@/components/app-shell/header";
 import { isAuthenticated } from "@/lib/auth";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
@@ -15,11 +13,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     // TODO: replace with real session/JWT validation — this is a mock
     // localStorage flag that is trivially bypassed (hackathon only).
     if (!isAuthenticated()) {
-      router.push("/sign-in");
+      window.location.replace("/sign-in");
       return;
     }
     setCheckingAuth(false);
-  }, [router]);
+  }, []);
 
   if (checkingAuth) {
     return (

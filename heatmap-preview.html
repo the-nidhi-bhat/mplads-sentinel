@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MPLADS Sentinel - Heatmap Preview</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --bg-primary: #050505;
+      --bg-secondary: #0a0a0a;
+      --bg-card: rgba(15, 15, 15, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(96, 165, 250, 0.2);
+      --border-focus: rgba(96, 165, 250, 0.5);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #475569;
+      --primary-blue: #60a5fa;
+      --primary-blue-glow: rgba(96, 165, 250, 0.4);
+      --primary-blue-hover: #ef4444;
+      --color-critical: #ef4444;
+      --color-critical-bg: rgba(239, 68, 68, 0.12);
+      --color-critical-border: rgba(239, 68, 68, 0.3);
+      --color-critical-glow: rgba(239, 68, 68, 0.4);
+      --color-high: #f97316;
+      --color-high-bg: rgba(249, 115, 22, 0.12);
+      --color-high-border: rgba(249, 115, 22, 0.3);
+      --color-medium: #eab308;
+      --color-medium-bg: rgba(234, 179, 8, 0.1);
+      --color-low: #10b981;
+      --color-low-bg: rgba(16, 185, 129, 0.1);
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.6rem 1.5rem; background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color); font-size: 0.85rem; flex-shrink: 0;
+    }
+    .top-bar-left { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--text-primary); }
+    .top-bar-right { display: flex; align-items: center; gap: 1rem; color: var(--text-secondary); }
+
+    /* Header */
+    .app-header {
+      height: 56px; border-bottom: 1px solid var(--border-color);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem; background: rgba(11, 17, 30, 0.5); backdrop-filter: blur(10px); flex-shrink: 0;
+    }
+    .header-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+    .header-subtitle { font-size: 0.7rem; color: var(--text-secondary); }
+    .header-badge { font-size: 0.65rem; background: var(--color-critical-bg); color: var(--color-critical); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 700; border: 1px solid var(--color-critical-border); }
+
+    /* Map Container */
+    .map-wrapper { flex: 1; display: flex; flex-direction: column; position: relative; }
+
+    /* Map Controls */
+    .map-controls {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.6rem 1.25rem; background: rgba(11, 17, 30, 0.8);
+      border-bottom: 1px solid var(--border-color); z-index: 10; backdrop-filter: blur(10px);
+    }
+    .map-controls-left { display: flex; align-items: center; gap: 1.5rem; }
+    .toggle-group { display: flex; align-items: center; gap: 0.4rem; }
+    .toggle-label { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; }
+    .toggle-switch { position: relative; display: inline-block; width: 38px; height: 20px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #334155; transition: .3s; border-radius: 20px; }
+    .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background: white; transition: .3s; border-radius: 50%; }
+    input:checked + .slider { background: var(--primary-blue); }
+    input:checked + .slider:before { transform: translateX(18px); }
+
+    /* KPI strip */
+    .kpi-strip {
+      display: flex; gap: 0.75rem; padding: 0.6rem 1.25rem; background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color); flex-shrink: 0;
+    }
+    .kpi-pill {
+      display: flex; align-items: center; gap: 0.5rem; background: var(--bg-card);
+      border: 1px solid var(--border-color); border-radius: 8px; padding: 0.4rem 0.75rem;
+    }
+    .kpi-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .kpi-dot.critical { background: var(--color-critical); box-shadow: 0 0 6px var(--color-critical); }
+    .kpi-dot.high { background: var(--color-high); box-shadow: 0 0 6px var(--color-high); }
+    .kpi-dot.medium { background: var(--color-medium); box-shadow: 0 0 6px var(--color-medium); }
+    .kpi-dot.low { background: var(--color-low); box-shadow: 0 0 6px var(--color-low); }
+    .kpi-pill-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+    .kpi-pill-value { font-size: 0.8rem; font-weight: 700; color: var(--text-primary); }
+    .kpi-pill-total { font-size: 0.75rem; font-weight: 700; color: var(--primary-blue); background: rgba(96,165,250,0.1); padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: auto; }
+
+    /* Leaflet map */
+    #leaflet-map { flex: 1; width: 100%; background: #0b111e; z-index: 1; }
+    .leaflet-container { background: #0b111e !important; }
+    .dark-tiles { filter: brightness(0.55) invert(1) contrast(2.5) hue-rotate(180deg) saturate(0.3) brightness(0.7); }
+
+    /* Custom markers */
+    .custom-map-marker {
+      width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6); cursor: pointer; transition: transform var(--transition-fast);
+    }
+    .custom-map-marker:hover { transform: scale(1.3); z-index: 999 !important; }
+    .custom-map-marker.critical { background: var(--color-critical); box-shadow: 0 0 10px var(--color-critical), 0 0 20px var(--color-critical-glow); }
+    .custom-map-marker.high { background: var(--color-high); box-shadow: 0 0 10px var(--color-high), 0 0 20px var(--color-high); }
+    .custom-map-marker.medium { background: var(--color-medium); box-shadow: 0 0 10px var(--color-medium), 0 0 20px var(--color-medium); }
+    .custom-map-marker.low { background: var(--color-low); box-shadow: 0 0 10px var(--color-low), 0 0 20px var(--color-low); }
+    .custom-map-marker::after { content: ''; width: 5px; height: 5px; background: white; border-radius: 50%; }
+
+    /* Marker clusters */
+    .marker-cluster { background: rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .marker-cluster div { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; color: #fff; }
+    .marker-cluster-small { background: rgba(16,185,129,0.3); }
+    .marker-cluster-small div { background: rgba(16,185,129,0.85); }
+    .marker-cluster-medium { background: rgba(234,179,8,0.3); }
+    .marker-cluster-medium div { background: rgba(234,179,8,0.85); }
+    .marker-cluster-large { background: rgba(239,68,68,0.3); }
+    .marker-cluster-large div { background: rgba(239,68,68,0.85); }
+
+    /* Legend */
+    .map-legend {
+      position: absolute; bottom: 1.5rem; left: 1.5rem; background: rgba(11,17,30,0.92);
+      border: 1px solid var(--border-color); backdrop-filter: blur(10px); padding: 0.8rem 1rem;
+      border-radius: 8px; z-index: 5; display: flex; flex-direction: column; gap: 0.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .legend-title { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .legend-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.75rem; color: var(--text-primary); font-weight: 500; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .legend-dot.critical { background: var(--color-critical); box-shadow: 0 0 6px var(--color-critical-glow); }
+    .legend-dot.high { background: var(--color-high); box-shadow: 0 0 6px var(--color-high); }
+    .legend-dot.medium { background: var(--color-medium); box-shadow: 0 0 6px rgba(234,179,8,0.3); }
+    .legend-dot.low { background: var(--color-low); box-shadow: 0 0 6px rgba(16,185,129,0.3); }
+    .legend-count { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); background: rgba(255,255,255,0.08); padding: 0.1rem 0.35rem; border-radius: 3px; }
+
+    /* Heatmap legend */
+    .heatmap-legend {
+      position: absolute; bottom: 1.5rem; right: 1.5rem; background: rgba(11,17,30,0.92);
+      border: 1px solid var(--border-color); backdrop-filter: blur(10px); padding: 0.8rem 1rem;
+      border-radius: 8px; z-index: 5; display: none; flex-direction: column; gap: 0.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .heatmap-legend.visible { display: flex; }
+    .heatmap-gradient-bar {
+      width: 140px; height: 10px; border-radius: 3px;
+      background: linear-gradient(to right, #10b981, #eab308, #f97316, #ef4444, #dc2626);
+    }
+    .heatmap-labels { display: flex; justify-content: space-between; font-size: 0.6rem; color: var(--text-muted); font-weight: 600; }
+
+    /* Popup styles */
+    .leaflet-popup-content-wrapper { background: rgba(11,17,30,0.95) !important; border: 1px solid var(--border-color); color: var(--text-primary) !important; border-radius: 12px !important; backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important; }
+    .leaflet-popup-tip { background: rgba(11,17,30,0.95) !important; }
+    .leaflet-popup-content { margin: 12px 16px !important; width: 240px !important; }
+    .popup-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.5rem; margin-bottom: 0.5rem; }
+    .popup-id { font-family: monospace; font-weight: 800; color: var(--primary-blue); font-size: 0.85rem; }
+    .popup-badge { font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; }
+    .popup-badge.critical { background: var(--color-critical-bg); color: var(--color-critical); }
+    .popup-badge.high { background: var(--color-high-bg); color: var(--color-high); }
+    .popup-badge.medium { background: rgba(234,179,8,0.1); color: var(--color-medium); }
+    .popup-badge.low { background: var(--color-low-bg); color: var(--color-low); }
+    .popup-title { font-weight: 800; font-size: 0.9rem; color: #fff; line-height: 1.3; margin-bottom: 0.3rem; }
+    .popup-loc { font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 0.4rem; }
+    .popup-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; margin-bottom: 0.4rem; }
+    .popup-metric-label { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .popup-metric-val { font-size: 0.75rem; font-weight: 700; color: #fff; }
+    .popup-progress { margin-bottom: 0.4rem; }
+    .popup-progress-header { display: flex; justify-content: space-between; font-size: 0.6rem; color: var(--text-secondary); margin-bottom: 0.15rem; }
+    .popup-progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+    .popup-progress-fill { height: 100%; border-radius: 2px; }
+    .popup-finding { background: rgba(255,255,255,0.03); border-radius: 4px; padding: 0.4rem; font-size: 0.7rem; color: var(--text-secondary); border-left: 3px solid var(--color-critical); line-height: 1.4; margin-top: 0.3rem; }
+
+    /* Basemap control */
+    .basemap-control { display: flex; flex-direction: column; gap: 2px; background: rgba(11,17,30,0.92); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; backdrop-filter: blur(10px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+    .basemap-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: transparent; border: none; color: var(--text-secondary); cursor: pointer; transition: background 0.2s; }
+    .basemap-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .basemap-btn.active { background: var(--primary-blue); color: #fff; }
+
+    .map-tooltip { background: rgba(11,17,30,0.92) !important; border: 1px solid var(--border-color) !important; color: #fff !important; border-radius: 8px !important; padding: 0.4rem 0.6rem !important; font-size: 0.75rem !important; box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important; }
+
+    /* Filter Controls */
+    .map-controls-right { display: flex; align-items: flex-end; gap: 0.6rem; margin-left: 1rem; padding-left: 1rem; border-left: 1px solid var(--border-color); }
+    .filter-group { display: flex; flex-direction: column; gap: 0.2rem; }
+    .filter-group label { font-size: 0.6rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; }
+    .filter-select {
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border-color); color: var(--text-primary);
+      padding: 0.3rem 0.5rem; border-radius: 5px; font-size: 0.72rem; font-weight: 500;
+      outline: none; cursor: pointer; min-width: 100px; transition: var(--transition-fast);
+    }
+    .filter-select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 2px var(--border-glow); }
+    .filter-select option { background: #1a1a2e; color: #fff; }
+    .filter-active-badge {
+      display: none; font-size: 0.6rem; font-weight: 700; color: var(--primary-blue);
+      background: rgba(96,165,250,0.12); padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.25rem;
+    }
+    .filter-active-badge.visible { display: inline-block; }
+    .btn-filter-reset {
+      background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
+      padding: 0.25rem 0.6rem; border-radius: 5px; font-size: 0.68rem; cursor: pointer; font-weight: 600;
+      transition: var(--transition-fast); white-space: nowrap;
+    }
+    .btn-filter-reset:hover { background: rgba(255,255,255,0.06); color: var(--text-primary); }
+    .filter-results {
+      position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      background: rgba(11,17,30,0.92); border: 1px solid var(--border-color); backdrop-filter: blur(10px);
+      padding: 0.4rem 0.8rem; border-radius: 6px; z-index: 5; display: none;
+      font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .filter-results.visible { display: block; }
+    .filter-results strong { color: var(--primary-blue); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">🇮🇳 GOVERNMENT OF INDIA</div>
+    <div class="top-bar-right">
+      <span>mplads.gov.in</span>
+      <span>|</span>
+      <span>MPLADS Sentinel Heatmap Preview</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="app-header">
+    <div>
+      <div class="header-title">MPLADS SENTINEL — GIS Risk Heatmap</div>
+      <div class="header-subtitle">AI-Powered Monitoring & Analytics Platform</div>
+    </div>
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <span class="header-badge">DEMO DATA</span>
+      <span style="font-size:0.8rem; color:var(--text-secondary);">Nodal Officer — Karnataka Region</span>
+    </div>
+  </div>
+
+  <!-- KPI Strip -->
+  <div class="kpi-strip">
+    <div class="kpi-pill">
+      <span class="kpi-dot critical"></span>
+      <span class="kpi-pill-label">Critical</span>
+      <span class="kpi-pill-value" id="kpi-critical">0</span>
+    </div>
+    <div class="kpi-pill">
+      <span class="kpi-dot high"></span>
+      <span class="kpi-pill-label">High</span>
+      <span class="kpi-pill-value" id="kpi-high">0</span>
+    </div>
+    <div class="kpi-pill">
+      <span class="kpi-dot medium"></span>
+      <span class="kpi-pill-label">Medium</span>
+      <span class="kpi-pill-value" id="kpi-medium">0</span>
+    </div>
+    <div class="kpi-pill">
+      <span class="kpi-dot low"></span>
+      <span class="kpi-pill-label">Low</span>
+      <span class="kpi-pill-value" id="kpi-low">0</span>
+    </div>
+    <span class="kpi-pill-total" id="kpi-total">0 Total Works</span>
+  </div>
+
+  <!-- Map Wrapper -->
+  <div class="map-wrapper">
+    <!-- Controls -->
+    <div class="map-controls">
+      <div class="map-controls-left">
+        <div class="toggle-group">
+          <span class="toggle-label">Clusters</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-clusters" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-group">
+          <span class="toggle-label">🔥 Heatmap</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-heat" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-group">
+          <span class="toggle-label">Boundaries</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-boundaries">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <button id="btn-fit" style="background:transparent; border:1px solid var(--border-color); color:var(--text-secondary); padding:0.3rem 0.7rem; border-radius:5px; font-size:0.75rem; cursor:pointer; font-weight:600;">⊞ Fit View</button>
+      </div>
+      <!-- Filter Controls -->
+      <div class="map-controls-right">
+        <span style="font-size:0.65rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Filter:</span>
+        <div class="filter-group">
+          <label for="filter-risk">Risk Level</label>
+          <select id="filter-risk" class="filter-select">
+            <option value="All">All Levels</option>
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-type">Work Type</label>
+          <select id="filter-type" class="filter-select">
+            <option value="All">All Types</option>
+            <option value="Community Infrastructure">Community Infra</option>
+            <option value="Water & Sanitation">Water & Sanitation</option>
+            <option value="Roads & Bridges">Roads & Bridges</option>
+            <option value="Drainage & Sewerage">Drainage</option>
+            <option value="Education Infrastructure">Education Infra</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-expenditure">Expenditure</label>
+          <select id="filter-expenditure" class="filter-select">
+            <option value="All">All</option>
+            <option value="high">&gt;₹75L</option>
+            <option value="mid">₹25L–₹75L</option>
+            <option value="low">&lt;₹25L</option>
+          </select>
+        </div>
+        <button class="btn-filter-reset" id="btn-filter-reset">↻ Reset</button>
+        <span class="filter-active-badge" id="filter-badge">FILTERED</span>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div id="leaflet-map"></div>
+
+    <!-- Legend -->
+    <div class="map-legend">
+      <span class="legend-title">Risk Level</span>
+      <div class="legend-item"><span class="legend-dot critical"></span>Critical (91–100) <span class="legend-count" id="lc">0</span></div>
+      <div class="legend-item"><span class="legend-dot high"></span>High (71–90) <span class="legend-count" id="lh">0</span></div>
+      <div class="legend-item"><span class="legend-dot medium"></span>Medium (41–70) <span class="legend-count" id="lm">0</span></div>
+      <div class="legend-item"><span class="legend-dot low"></span>Low (0–40) <span class="legend-count" id="ll">0</span></div>
+    </div>
+
+    <!-- Heatmap Legend -->
+    <div class="heatmap-legend" id="heatmap-legend">
+      <span class="legend-title">Heatmap Intensity (Risk Score)</span>
+      <div class="heatmap-gradient-bar"></div>
+      <div class="heatmap-labels"><span>Low</span><span>Medium</span><span>High</span><span>Critical</span></div>
+    </div>
+
+    <!-- Filter Results Banner -->
+    <div class="filter-results" id="filter-results"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script>
+    // ==================== MOCK PROJECT DATA ====================
+    const projectsData = [
+      { id: "MPL/KA/24081", title: "Construction of Community Hall", district: "Belagavi", state: "Karnataka", riskLevel: "critical", riskScore: 92, primaryFinding: "Financial–physical progress gap: 48.8% deviation indicates possible fund misappropriation", sanctionedAmount: "₹82.40L", expenditure: "₹79.80L", expenditurePercent: 96.8, physicalProgress: 48, financialProgress: 96.8, workType: "Community Infrastructure", coordinates: [16.23, 74.38], agency: "ZP Belagavi", assignedTo: "Officer Ramesh" },
+      { id: "MPL/KA/24095", title: "Water Supply Pipeline Extension", district: "Dharwad", state: "Karnataka", riskLevel: "critical", riskScore: 88, primaryFinding: "Duplicate pipeline work detected across two MPLADS allocations", sanctionedAmount: "₹65.20L", expenditure: "₹63.10L", expenditurePercent: 96.8, physicalProgress: 35, financialProgress: 96.8, workType: "Water & Sanitation", coordinates: [15.46, 75.01], agency: "ZP Dharwad", assignedTo: "Officer Priya" },
+      { id: "MPL/KA/24112", title: "Road Resurfacing NH Link", district: "Vijayapura", state: "Karnataka", riskLevel: "critical", riskScore: 95, primaryFinding: "Payment anomaly: 3 payments to same contractor within 48 hours", sanctionedAmount: "₹120.50L", expenditure: "₹118.00L", expenditurePercent: 97.9, physicalProgress: 22, financialProgress: 97.9, workType: "Roads & Bridges", coordinates: [16.83, 75.71], agency: "PWD Vijayapura", assignedTo: "Officer Anand" },
+      { id: "MPL/KA/24089", title: "Drainage Canal Construction", district: "Haveri", state: "Karnataka", riskLevel: "high", riskScore: 82, primaryFinding: "Timeline delay of 180+ days with 87% fund utilization", sanctionedAmount: "₹45.80L", expenditure: "₹39.85L", expenditurePercent: 87.0, physicalProgress: 42, financialProgress: 87.0, workType: "Drainage & Sewerage", coordinates: [14.80, 75.40], agency: "ZP Haveri", assignedTo: "Officer Sunita" },
+      { id: "MPL/MH/24201", title: "School Building Renovation", district: "Kolhapur", state: "Maharashtra", riskLevel: "high", riskScore: 78, primaryFinding: "Cost outlier: per-unit cost 3.2x district benchmark", sanctionedAmount: "₹55.30L", expenditure: "₹52.10L", expenditurePercent: 94.2, physicalProgress: 55, financialProgress: 94.2, workType: "Education Infrastructure", coordinates: [16.70, 74.24], agency: "ZP Kolhapur", assignedTo: "Officer Vikram" },
+      { id: "MPL/KA/24130", title: "CC Road in Grame Panchayat", district: "Belagavi", state: "Karnataka", riskLevel: "high", riskScore: 75, primaryFinding: "Fiscal spike: 60% of funds disbursed in final quarter", sanctionedAmount: "₹38.50L", expenditure: "₹35.20L", expenditurePercent: 91.4, physicalProgress: 60, financialProgress: 91.4, workType: "Roads & Bridges", coordinates: [16.35, 74.50], agency: "ZP Belagavi", assignedTo: "Officer Ramesh" },
+      { id: "MPL/KA/24145", title: "Anganwadi Centre Construction", district: "Dharwad", state: "Karnataka", riskLevel: "medium", riskScore: 62, primaryFinding: "Minor deviation in material procurement schedule", sanctionedAmount: "₹28.90L", expenditure: "₹24.60L", expenditurePercent: 85.1, physicalProgress: 70, financialProgress: 85.1, workType: "Community Infrastructure", coordinates: [15.52, 74.98], agency: "ZP Dharwad", assignedTo: "Officer Priya" },
+      { id: "MPL/KA/24158", title: "Public Toilet Block", district: "Vijayapura", state: "Karnataka", riskLevel: "medium", riskScore: 55, primaryFinding: "Slight cost overrun above peer average", sanctionedAmount: "₹15.40L", expenditure: "₹14.80L", expenditurePercent: 96.1, physicalProgress: 80, financialProgress: 96.1, workType: "Water & Sanitation", coordinates: [16.85, 75.68], agency: "ZP Vijayapura", assignedTo: "Officer Anand" },
+      { id: "MPL/MH/24215", title: "Footpath Repair Work", district: "Kolhapur", state: "Maharashtra", riskLevel: "medium", riskScore: 48, primaryFinding: "Physical verification pending for final tranche release", sanctionedAmount: "₹12.80L", expenditure: "₹9.60L", expenditurePercent: 75.0, physicalProgress: 65, financialProgress: 75.0, workType: "Roads & Bridges", coordinates: [16.68, 74.28], agency: "ZP Kolhapur", assignedTo: "Officer Vikram" },
+      { id: "MPL/KA/24170", title: "Street Light Installation", district: "Haveri", state: "Karnataka", riskLevel: "low", riskScore: 32, primaryFinding: "On track — no anomalies detected", sanctionedAmount: "₹18.20L", expenditure: "₹11.50L", expenditurePercent: 63.2, physicalProgress: 60, financialProgress: 63.2, workType: "Community Infrastructure", coordinates: [14.78, 75.38], agency: "ZP Haveri", assignedTo: "Officer Sunita" },
+      { id: "MPL/KA/24182", title: "Playground Development", district: "Belagavi", state: "Karnataka", riskLevel: "low", riskScore: 28, primaryFinding: "Normal progress — within benchmarks", sanctionedAmount: "₹22.60L", expenditure: "₹12.30L", expenditurePercent: 54.4, physicalProgress: 52, financialProgress: 54.4, workType: "Community Infrastructure", coordinates: [16.20, 74.42], agency: "ZP Belagavi", assignedTo: "Officer Ramesh" },
+      { id: "MPL/KA/24195", title: "Library Building Renovation", district: "Dharwad", state: "Karnataka", riskLevel: "low", riskScore: 22, primaryFinding: "All metrics within normal range", sanctionedAmount: "₹30.10L", expenditure: "₹15.40L", expenditurePercent: 51.2, physicalProgress: 48, financialProgress: 51.2, workType: "Education Infrastructure", coordinates: [15.48, 75.03], agency: "ZP Dharwad", assignedTo: "Officer Priya" },
+      { id: "MPL/MH/24230", title: "Rural Water Tank", district: "Kolhapur", state: "Maharashtra", riskLevel: "critical", riskScore: 90, primaryFinding: "Expenditure 95% but physical progress only 30% — severe mismatch", sanctionedAmount: "₹72.80L", expenditure: "₹69.20L", expenditurePercent: 95.0, physicalProgress: 30, financialProgress: 95.0, workType: "Water & Sanitation", coordinates: [16.72, 74.20], agency: "ZP Kolhapur", assignedTo: "Officer Vikram" },
+      { id: "MPL/KA/24200", title: "Bridge Approach Road", district: "Vijayapura", state: "Karnataka", riskLevel: "high", riskScore: 80, primaryFinding: "Contractor has 3 other delayed projects in same district", sanctionedAmount: "₹95.00L", expenditure: "₹88.50L", expenditurePercent: 93.2, physicalProgress: 45, financialProgress: 93.2, workType: "Roads & Bridges", coordinates: [16.80, 75.75], agency: "PWD Vijayapura", assignedTo: "Officer Anand" },
+      { id: "MPL/KA/24210", title: "Sewage Treatment Unit", district: "Haveri", state: "Karnataka", riskLevel: "medium", riskScore: 58, primaryFinding: "Minor delay — expected to recover", sanctionedAmount: "₹42.30L", expenditure: "₹32.10L", expenditurePercent: 75.9, physicalProgress: 62, financialProgress: 75.9, workType: "Drainage & Sewerage", coordinates: [14.82, 75.42], agency: "ZP Haveri", assignedTo: "Officer Sunita" },
+      { id: "MPL/KA/24220", title: "Veterinary Hospital Upgrade", district: "Belagavi", state: "Karnataka", riskLevel: "low", riskScore: 18, primaryFinding: "Routine project — all signals green", sanctionedAmount: "₹20.50L", expenditure: "₹8.20L", expenditurePercent: 40.0, physicalProgress: 38, financialProgress: 40.0, workType: "Community Infrastructure", coordinates: [16.28, 74.35], agency: "ZP Belagavi", assignedTo: "Officer Ramesh" },
+      { id: "MPL/MH/24245", title: "Market Yard Renovation", district: "Kolhapur", state: "Maharashtra", riskLevel: "high", riskScore: 84, primaryFinding: "Suspicious procurement pattern across 2 billing cycles", sanctionedAmount: "₹48.70L", expenditure: "₹46.30L", expenditurePercent: 95.1, physicalProgress: 40, financialProgress: 95.1, workType: "Community Infrastructure", coordinates: [16.65, 74.22], agency: "ZP Kolhapur", assignedTo: "Officer Vikram" },
+      { id: "MPL/KA/24235", title: "Solar Panel Installation", district: "Dharwad", state: "Karnataka", riskLevel: "medium", riskScore: 45, primaryFinding: "Slight procurement delay — 2 weeks behind schedule", sanctionedAmount: "₹35.60L", expenditure: "₹22.40L", expenditurePercent: 62.9, physicalProgress: 55, financialProgress: 62.9, workType: "Education Infrastructure", coordinates: [15.44, 75.05], agency: "ZP Dharwad", assignedTo: "Officer Priya" },
+      { id: "MPL/KA/24250", title: "Bus Shelter Construction", district: "Vijayapura", state: "Karnataka", riskLevel: "low", riskScore: 15, primaryFinding: "On track — minimal risk indicators", sanctionedAmount: "₹8.50L", expenditure: "₹4.20L", expenditurePercent: 49.4, physicalProgress: 45, financialProgress: 49.4, workType: "Community Infrastructure", coordinates: [16.82, 75.70], agency: "ZP Vijayapura", assignedTo: "Officer Anand" }
+    ];
+
+    // ==================== FILTER STATE ====================
+    let activeFilters = { risk: 'All', type: 'All', expenditure: 'All' };
+
+    function getFilteredProjects() {
+      return projectsData.filter(p => {
+        if (activeFilters.risk !== 'All' && p.riskLevel !== activeFilters.risk) return false;
+        if (activeFilters.type !== 'All' && p.workType !== activeFilters.type) return false;
+        if (activeFilters.expenditure !== 'All') {
+          const amt = parseFloat(p.sanctionedAmount.replace(/[₹L]/g, ''));
+          if (activeFilters.expenditure === 'high' && amt <= 75) return false;
+          if (activeFilters.expenditure === 'mid' && (amt < 25 || amt > 75)) return false;
+          if (activeFilters.expenditure === 'low' && amt >= 25) return false;
+        }
+        return true;
+      });
+    }
+
+    function isFiltering() {
+      return activeFilters.risk !== 'All' || activeFilters.type !== 'All' || activeFilters.expenditure !== 'All';
+    }
+
+    function updateFilterResults() {
+      const el = document.getElementById('filter-results');
+      const badge = document.getElementById('filter-badge');
+      if (isFiltering()) {
+        const filtered = getFilteredProjects();
+        el.innerHTML = 'Showing <strong>' + filtered.length + '</strong> of ' + projectsData.length + ' projects';
+        el.classList.add('visible');
+        badge.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+        badge.classList.remove('visible');
+      }
+    }
+
+    // ==================== MAP STATE ====================
+    let map = null;
+    let clusterGroup = null;
+    let markersGroup = null;
+    let heatLayer = null;
+    let boundariesLayer = null;
+    let currentBasemap = 'dark';
+    let basemapLayer = null;
+
+    const basemaps = {
+      dark: { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', opts: { attribution: '© OpenStreetMap', subdomains: 'abc', maxZoom: 19, className: 'dark-tiles' } },
+      street: { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', opts: { attribution: '© OpenStreetMap', subdomains: 'abc', maxZoom: 19 } },
+      satellite: { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', opts: { attribution: '© Esri', maxZoom: 18 } }
+    };
+
+    // ==================== INIT MAP ====================
+    function initMap() {
+      map = L.map('leaflet-map', { zoomControl: false, zoomSnap: 0.5 }).setView([15.8, 75.0], 7);
+      L.control.zoom({ position: 'topright' }).addTo(map);
+
+      basemapLayer = L.tileLayer(basemaps.dark.url, basemaps.dark.opts).addTo(map);
+
+      // Basemap control
+      const BasemapCtrl = L.Control.extend({
+        options: { position: 'topleft' },
+        onAdd: function() {
+          const c = L.DomUtil.create('div', 'basemap-control');
+          c.innerHTML = `
+            <button class="basemap-btn active" data-bm="dark" title="Dark">🌙</button>
+            <button class="basemap-btn" data-bm="street" title="Street">🗺️</button>
+            <button class="basemap-btn" data-bm="satellite" title="Satellite">🛰️</button>`;
+          L.DomEvent.disableClickPropagation(c);
+          c.querySelectorAll('.basemap-btn').forEach(b => {
+            b.addEventListener('click', () => {
+              map.removeLayer(basemapLayer);
+              basemapLayer = L.tileLayer(basemaps[b.dataset.bm].url, basemaps[b.dataset.bm].opts).addTo(map);
+              currentBasemap = b.dataset.bm;
+              c.querySelectorAll('.basemap-btn').forEach(x => x.classList.remove('active'));
+              b.classList.add('active');
+            });
+          });
+          return c;
+        }
+      });
+      new BasemapCtrl().addTo(map);
+
+      // Cluster group
+      clusterGroup = L.markerClusterGroup({
+        maxClusterRadius: 50, spiderfyOnMaxZoom: true, showCoverageOnHover: false, chunkedLoading: true,
+        iconCreateFunction: function(cluster) {
+          const n = cluster.getChildCount();
+          let cls = 'small', sz = 36;
+          if (n >= 10) { cls = 'large'; sz = 52; } else if (n >= 5) { cls = 'medium'; sz = 44; }
+          return L.divIcon({ html: '<div><span>' + n + '</span></div>', className: 'marker-cluster marker-cluster-' + cls, iconSize: L.point(sz, sz) });
+        }
+      });
+      map.addLayer(clusterGroup);
+
+      addMarkers();
+      addHeatmap();
+      updateKPIs();
+
+      // Toggle handlers
+      document.getElementById('toggle-clusters').addEventListener('change', addMarkers);
+      document.getElementById('toggle-heat').addEventListener('change', function(e) {
+        if (e.target.checked) addHeatmap(); else removeHeatmap();
+      });
+      document.getElementById('toggle-boundaries').addEventListener('change', function(e) {
+        if (e.target.checked) addBoundaries(); else removeBoundaries();
+      });
+      document.getElementById('btn-fit').addEventListener('click', fitView);
+
+      // Filter handlers
+      document.getElementById('filter-risk').addEventListener('change', function(e) {
+        activeFilters.risk = e.target.value;
+        refreshAll();
+      });
+      document.getElementById('filter-type').addEventListener('change', function(e) {
+        activeFilters.type = e.target.value;
+        refreshAll();
+      });
+      document.getElementById('filter-expenditure').addEventListener('change', function(e) {
+        activeFilters.expenditure = e.target.value;
+        refreshAll();
+      });
+      document.getElementById('btn-filter-reset').addEventListener('click', function() {
+        activeFilters = { risk: 'All', type: 'All', expenditure: 'All' };
+        document.getElementById('filter-risk').value = 'All';
+        document.getElementById('filter-type').value = 'All';
+        document.getElementById('filter-expenditure').value = 'All';
+        refreshAll();
+      });
+    }
+
+    // ==================== REFRESH ALL (filter pipeline) ====================
+    function refreshAll() {
+      addMarkers();
+      if (document.getElementById('toggle-heat').checked) {
+        if (heatLayer) { map.removeLayer(heatLayer); heatLayer = null; }
+        addHeatmap();
+      }
+      updateKPIs();
+      updateFilterResults();
+    }
+
+    // ==================== MARKERS ====================
+    function addMarkers() {
+      clusterGroup.clearLayers();
+      const useClusters = document.getElementById('toggle-clusters').checked;
+      const filtered = getFilteredProjects();
+
+      if (!useClusters) {
+        map.removeLayer(clusterGroup);
+        if (!markersGroup) markersGroup = L.layerGroup().addTo(map);
+        markersGroup.clearLayers();
+      } else {
+        if (!map.hasLayer(clusterGroup)) clusterGroup.addTo(map);
+        if (markersGroup && map.hasLayer(markersGroup)) map.removeLayer(markersGroup);
+      }
+      const target = useClusters ? clusterGroup : markersGroup;
+
+      filtered.forEach(p => {
+        if (!p.coordinates) return;
+        const size = 18 + Math.round((p.riskScore / 100) * 18);
+        const icon = L.divIcon({ className: 'custom-map-marker ' + p.riskLevel, html: '', iconSize: [size, size], iconAnchor: [size/2, size/2] });
+        const marker = L.marker(p.coordinates, { icon });
+        marker.bindPopup(buildPopup(p), { maxWidth: 260, minWidth: 220 });
+        marker.bindTooltip('<strong>' + p.id + '</strong><br>' + p.title, { direction: 'top', offset: [0, -size/2-2], className: 'map-tooltip' });
+        target.addLayer(marker);
+      });
+    }
+
+    function buildPopup(p) {
+      const finColor = p.financialProgress > p.physicalProgress + 20 ? 'var(--color-critical)' : 'var(--primary-blue)';
+      return '<div class="popup-header"><span class="popup-id">' + p.id + '</span><span class="popup-badge ' + p.riskLevel + '">' + p.riskLevel + '</span></div>' +
+        '<div class="popup-title">' + p.title + '</div>' +
+        '<div class="popup-loc">📍 ' + p.district + ', ' + p.state + ' — ' + p.workType + '</div>' +
+        '<div class="popup-metrics"><div><div class="popup-metric-label">Sanctioned</div><div class="popup-metric-val">' + p.sanctionedAmount + '</div></div>' +
+        '<div><div class="popup-metric-label">Risk Score</div><div class="popup-metric-val">' + p.riskScore + '/100</div></div>' +
+        '<div><div class="popup-metric-label">Expenditure</div><div class="popup-metric-val">' + p.expenditure + ' (' + p.expenditurePercent + '%)</div></div>' +
+        '<div><div class="popup-metric-label">Agency</div><div class="popup-metric-val" style="font-size:0.65rem;">' + p.agency + '</div></div></div>' +
+        '<div class="popup-progress"><div class="popup-progress-header"><span>Physical: ' + p.physicalProgress + '%</span><span>Financial: ' + p.financialProgress + '%</span></div>' +
+        '<div class="popup-progress-track"><div class="popup-progress-fill" style="width:' + p.physicalProgress + '%;background:var(--color-' + p.riskLevel + ');"></div></div>' +
+        '<div class="popup-progress-track" style="margin-top:2px;"><div class="popup-progress-fill" style="width:' + p.financialProgress + '%;background:' + finColor + ';opacity:0.5;"></div></div></div>' +
+        '<div class="popup-finding ' + p.riskLevel + '"><strong>🔍 Finding:</strong> ' + p.primaryFinding + '</div>';
+    }
+
+    // ==================== HEATMAP ====================
+    function addHeatmap() {
+      if (heatLayer) return;
+      const filtered = getFilteredProjects();
+      const heatData = filtered.map(p => [p.coordinates[0], p.coordinates[1], p.riskScore / 100]);
+      heatLayer = L.heatLayer(heatData, {
+        radius: 40, blur: 30, maxZoom: 10, max: 1.0,
+        gradient: { 0.2: '#10b981', 0.4: '#eab308', 0.6: '#f97316', 0.8: '#ef4444', 1.0: '#dc2626' }
+      }).addTo(map);
+      document.getElementById('heatmap-legend').classList.add('visible');
+    }
+
+    function removeHeatmap() {
+      if (heatLayer) { map.removeLayer(heatLayer); heatLayer = null; }
+      document.getElementById('heatmap-legend').classList.remove('visible');
+    }
+
+    // ==================== BOUNDARIES ====================
+    function addBoundaries() {
+      if (boundariesLayer) return;
+      fetch('https://raw.githubusercontent.com/geohacker/india/master/state/india_state.geojson')
+        .then(r => r.json())
+        .then(geo => {
+          boundariesLayer = L.geoJSON(geo, {
+            style: () => ({ color: '#3b82f6', weight: 1.5, opacity: 0.45, fillColor: '#3b82f6', fillOpacity: 0.04, dashArray: '4,4' }),
+            onEachFeature: (f, l) => { if (f.properties && f.properties.NAME_1) l.bindTooltip(f.properties.NAME_1, { sticky: true, className: 'map-tooltip' }); }
+          }).addTo(map);
+        }).catch(() => {});
+    }
+
+    function removeBoundaries() {
+      if (boundariesLayer) { map.removeLayer(boundariesLayer); boundariesLayer = null; }
+    }
+
+    // ==================== KPIs ====================
+    function updateKPIs() {
+      const filtered = getFilteredProjects();
+      const c = { critical: 0, high: 0, medium: 0, low: 0 };
+      filtered.forEach(p => { if (c.hasOwnProperty(p.riskLevel)) c[p.riskLevel]++; });
+      document.getElementById('kpi-critical').textContent = c.critical;
+      document.getElementById('kpi-high').textContent = c.high;
+      document.getElementById('kpi-medium').textContent = c.medium;
+      document.getElementById('kpi-low').textContent = c.low;
+      document.getElementById('kpi-total').textContent = filtered.length + ' of ' + projectsData.length + ' Total Works';
+      document.getElementById('lc').textContent = c.critical;
+      document.getElementById('lh').textContent = c.high;
+      document.getElementById('lm').textContent = c.medium;
+      document.getElementById('ll').textContent = c.low;
+    }
+
+    function fitView() {
+      const coords = projectsData.filter(p => p.coordinates).map(p => p.coordinates);
+      if (coords.length) map.fitBounds(L.latLngBounds(coords), { padding: [50, 50], maxZoom: 12, animate: true });
+    }
+
+    // ==================== BOOT ====================
+    document.addEventListener('DOMContentLoaded', initMap);
+  </script>
+</body>
+</html>

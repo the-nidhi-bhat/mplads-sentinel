@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { MapPinned } from "lucide-react";
 import type { Project } from "@/lib/mock-data";
 
 type PriorityQueueTableProps = {
@@ -46,7 +47,7 @@ export default function PriorityQueueTable({ projects }: PriorityQueueTableProps
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead>
             <tr className="border-b border-gov-border bg-[var(--bg-card-hover)]">
-              {["Project", "District", "Agency", "Risk Score", "Risk Level", "Main Reason", "Action"].map(
+              { ["Project", "District", "Agency", "Risk Score", "Risk Level", "Evidence", "Action"].map(
                 (header) => (
                   <th
                     key={header}
@@ -95,16 +96,22 @@ export default function PriorityQueueTable({ projects }: PriorityQueueTableProps
                     </span>
                   </td>
                   <td className="px-4 py-3 text-[var(--text-secondary)]">
-                    {project.primaryFinding}
+                    <p className="font-medium">{project.primaryFinding}</p>
+                    {project.evidence[0] && (
+                      <p className="mt-1 text-xs text-[var(--text-muted)]">
+                        {project.evidence[0].observed || project.evidence[0].deviation || "Evidence recorded"}
+                      </p>
+                    )}
                   </td>
                   <td className="px-4 py-3">
-                    <Link
-                      href={`/projects/${project.id}`}
-                      className="inline-flex items-center gap-1.5 rounded border border-[var(--primary-blue)] px-3 py-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:bg-[var(--primary-blue)] hover:text-white"
-                    >
-                      <Eye className="h-3.5 w-3.5" />
-                      View Evidence
-                    </Link>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Link href={`/projects/${encodeURIComponent(project.id)}`} className="inline-flex items-center gap-1.5 rounded border border-[var(--primary-blue)] px-3 py-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:bg-[var(--primary-blue)] hover:text-white">
+                        <Eye className="h-3.5 w-3.5" />View Evidence
+                      </Link>
+                      <Link href={`/map?project=${encodeURIComponent(project.id)}`} aria-label={`Open ${project.title} on map`} className="inline-flex items-center justify-center rounded border border-gov-border p-1.5 text-[var(--primary-blue)] transition-colors hover:bg-[var(--bg-card-hover)]">
+                        <MapPinned className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))
