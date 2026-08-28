@@ -11,6 +11,7 @@ export type EvidenceFactor = {
   points: string;
   riskClass: RiskLevel;
   devClass: "bad" | "warning" | "good";
+  isPlaceholder?: boolean;
 };
 
 export type Investigation = {
@@ -28,7 +29,7 @@ export type Project = {
   constituency: string;
   riskLevel: RiskLevel;
   riskScore: number;
-  confidence: number;
+  confidence?: number;
   primaryFinding: string;
   exposure: string;
   assignedTo: string;
@@ -40,8 +41,8 @@ export type Project = {
   sanctionDate: string;
   expectedCompletion: string;
   actualStatus: string;
-  physicalProgress: number;
-  financialProgress: number;
+  physicalProgress?: number;
+  financialProgress?: number;
   coordinates: [number, number];
   evidence: EvidenceFactor[];
   investigation: Investigation | null;
@@ -77,6 +78,7 @@ function rowToProject(row: CsvRow): Project {
       points: "+0 Points",
       riskClass: riskLevel,
       devClass: riskLevel === "critical" || riskLevel === "high" ? "bad" : "warning",
+      isPlaceholder: true,
     },
   ];
 
@@ -88,7 +90,6 @@ function rowToProject(row: CsvRow): Project {
     constituency: "",
     riskLevel,
     riskScore: row.riskScore,
-    confidence: 0,
     primaryFinding: row.primaryFinding,
     exposure: "",
     assignedTo: "",
@@ -100,8 +101,6 @@ function rowToProject(row: CsvRow): Project {
     sanctionDate: "",
     expectedCompletion: "",
     actualStatus: "",
-    physicalProgress: 0,
-    financialProgress: 0,
     coordinates: [0, 0],
     evidence,
     investigation: null,
