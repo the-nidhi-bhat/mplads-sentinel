@@ -197,7 +197,7 @@ export default function PriorityQueueTable({ projects }: PriorityQueueTableProps
                   </td>
                   <td className="px-4 py-3">
                     <Link
-                      href={`/projects/${project.id}`}
+                      href={`/projects/${encodeURIComponent(project.id)}`}
                       className="inline-flex items-center gap-1.5 rounded border border-[var(--primary-blue)] px-3 py-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:bg-[var(--primary-blue)] hover:text-white"
                     >
                       <Eye className="h-3.5 w-3.5" />
