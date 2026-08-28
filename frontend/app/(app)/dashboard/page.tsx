@@ -51,6 +51,44 @@ export default function DashboardPage() {
     };
   }, []);
 
+  const cascadedOptions = useMemo(() => {
+    let districts = filterOptions.districts;
+    let constituencies = filterOptions.constituencies;
+
+    if (filters.state !== "All") {
+      districts = uniqueSorted(
+        projectsData.filter((p) => p.state === filters.state).map((p) => p.district)
+      );
+    }
+    if (filters.district !== "All") {
+      constituencies = uniqueSorted(
+        projectsData.filter((p) => p.district === filters.district).map((p) => p.constituency)
+      );
+    }
+
+    return { ...filterOptions, districts, constituencies };
+  }, [filterOptions, filters.state, filters.district]);
+
+  const handleFilterChange = (next: DashboardFilters) => {
+    let district = next.district;
+    let constituency = next.constituency;
+
+    if (next.state !== "All") {
+      const validDistricts = new Set(
+        projectsData.filter((p) => p.state === next.state).map((p) => p.district)
+      );
+      if (district !== "All" && !validDistricts.has(district)) district = "All";
+    }
+    if (district !== "All") {
+      const validConstituencies = new Set(
+        projectsData.filter((p) => p.district === district).map((p) => p.constituency)
+      );
+      if (constituency !== "All" && !validConstituencies.has(constituency)) constituency = "All";
+    }
+
+    setFilters({ ...next, district, constituency });
+  };
+
   const filteredProjects = useMemo<Project[]>(() => {
     const from = filters.dateFrom ? new Date(filters.dateFrom) : null;
     const to = filters.dateTo ? new Date(filters.dateTo) : null;
@@ -98,7 +136,7 @@ export default function DashboardPage() {
     { title: "Projects Analyzed", value: filteredProjects.length, icon: Cpu, variant: "blue", trend: "neutral", trendLabel: "AI-scored projects" },
     { title: "High-Risk Projects", value: highRiskCount, icon: AlertTriangle, variant: "orange", trend: "up", trendLabel: "Require review" },
     { title: "Critical Projects", value: criticalCount, icon: ShieldAlert, variant: "red", trend: "up", trendLabel: "Highest priority" },
-    { title: "Open Investigations", value: openInvestigations, icon: Eye, variant: "green", trend: "neutral", trendLabel: "Active cases" },
+    { title: "Open Investigations", value: openInvestigations, icon: Eye, variant: "green", trend: "neutral", trendLabel: openInvestigations === 0 ? "No active investigations yet" : "Active cases" },
     { title: "Anomalies Found", value: anomaliesFound, icon: Activity, variant: "red", trend: "up", trendLabel: "Evidence items" },
   ] as const;
 
@@ -123,7 +161,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <FilterBar filters={filters} options={filterOptions} onChange={setFilters} />
+      <FilterBar filters={filters} options={cascadedOptions} onChange={handleFilterChange} />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {kpis.map((kpi) => (
@@ -139,7 +177,7 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      <div className="mt-2 grid grid-cols-1 gap-5 lg:grid-cols-2 pt-1">
         <RiskDistributionChart projects={filteredProjects} />
         <AnomalyDistributionChart projects={filteredProjects} />
       </div>
