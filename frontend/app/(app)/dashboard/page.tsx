@@ -85,7 +85,7 @@ export default function DashboardPage() {
     [filteredProjects]
   );
   const openInvestigations = useMemo(
-    () => filteredProjects.filter((p) => p.investigation !== null).length,
+    () => filteredProjects.filter((p) => p.riskScore >= 60).length,
     [filteredProjects]
   );
   const anomaliesFound = useMemo(

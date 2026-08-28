@@ -46,7 +46,9 @@ export function InvestigationDetail({
   const [action, setAction] = useState("");
 
   const currentIndex = STATUS_FLOW.indexOf(investigation.status);
-  const utilizationPct = Math.round((investigation.utilizedAmount / investigation.sanctionedAmount) * 100);
+  const utilizationPct = investigation.sanctionedAmount
+    ? Math.round((investigation.utilizedAmount / investigation.sanctionedAmount) * 100)
+    : 0;
 
   const submitFinding = () => {
     if (!note.trim()) return;
