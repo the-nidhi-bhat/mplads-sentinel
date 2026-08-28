@@ -1,12 +1,26 @@
+"use client";
+
 import Link from "next/link";
-import { AlertCircle, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
+import { Eye, Search } from "lucide-react";
 import { projectsData } from "@/lib/mock-data";
 
-const riskText = { critical: "text-[var(--color-critical)]", high: "text-[var(--color-high)]", medium: "text-[var(--color-medium)]", low: "text-[var(--color-low)]" };
+const riskClasses = {
+  critical: "text-[var(--color-critical)] border-[var(--color-critical-border)] bg-[var(--color-critical-bg)]",
+  high: "text-[var(--color-high)] border-[var(--color-high-border)] bg-[var(--color-high-bg)]",
+  medium: "text-[var(--color-medium)] border-[var(--color-medium-border)] bg-[var(--color-medium-bg)]",
+  low: "text-[var(--color-low)] border-[var(--color-low-border)] bg-[var(--color-low-bg)]",
+};
 
-export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const project = projectsData.find((item) => item.id === decodeURIComponent(id));
-  if (!project) return <p className="text-sm text-[var(--text-muted)]">Project not found.</p>;
-  return <div className="space-y-5"><Link href="/projects" className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--primary-blue)] hover:underline"><ArrowLeft className="h-3.5 w-3.5" />Back to projects</Link><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--primary-blue)]">{project.id}</p><h1 className="mt-1 text-2xl font-extrabold text-[var(--text-primary)]">{project.title}</h1><p className="mt-1 text-sm text-[var(--text-muted)]">{project.district}, {project.state} · {project.agency}</p></div><div className="grid grid-cols-2 gap-3 md:grid-cols-4">{[["Risk score", `${project.riskScore}/100`], ["Confidence", `${project.confidence}%`], ["Physical", `${project.physicalProgress}%`], ["Financial", `${project.financialProgress}%`]].map(([label, value]) => <div key={label} className="rounded-xl border border-gov-border bg-[var(--bg-card)] p-4"><p className="text-xs text-[var(--text-muted)]">{label}</p><p className="mt-1 text-xl font-extrabold text-[var(--text-primary)]">{value}</p></div>)}</div><div className="rounded-xl border border-gov-border bg-[var(--bg-card)]"><div className="border-b border-gov-border px-5 py-4"><h2 className="text-sm font-bold text-[var(--text-primary)]">Evidence factors</h2></div><div className="divide-y divide-[var(--border-color)]">{project.evidence.map((evidence) => <div key={evidence.factor} className="flex gap-3 px-5 py-4"><div className="mt-0.5">{evidence.devClass === "good" ? <CheckCircle2 className="h-5 w-5 text-[var(--color-low)]" /> : <AlertCircle className={`h-5 w-5 ${riskText[evidence.riskClass]}`} />}</div><div className="min-w-0 flex-1"><div className="flex flex-wrap justify-between gap-2"><p className="font-bold text-[var(--text-primary)]">{evidence.factor}</p><span className="text-xs font-bold text-[var(--text-muted)]">{evidence.points}</span></div><p className="mt-1 text-sm text-[var(--text-secondary)]">{evidence.observed}</p><p className="mt-1 text-xs text-[var(--text-muted)]">Benchmark: {evidence.benchmark} · {evidence.deviation}</p></div></div>)}</div></div></div>;
+export default function ProjectsPage() {
+  return <Suspense fallback={<p className="text-sm text-[var(--text-muted)]">Loading projects...</p>}><ProjectsDirectory /></Suspense>;
 }
+
+function ProjectsDirectory() {
+  const agency = useSearchParams().get("agency");
+  const [search, setSearch] = useState("");
+  const projects = projectsData.filter((project) => {
+    const query = search.toLowerCase().trim();
+    return (!agency || project.agency === agency) && (!query || `${project.id} ${project.title} ${project.district} ${project.agency}`.toLowerCase().includes(query));
+  });
