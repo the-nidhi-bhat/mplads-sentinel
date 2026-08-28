@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-=======
 "use client";
 
 import { useMemo, useState } from "react";
@@ -11,7 +7,6 @@ import { InvestigationCard } from "./components/investigation-card";
 import { InvestigationFilters } from "./components/investigation-filters";
 import { InvestigationDetail } from "./components/investigation-detail";
 import { ShieldAlert, Search as SearchIcon, ClipboardList } from "lucide-react";
->>>>>>> d06f232 (Improve investigation page)
 
 export default function InvestigationsPage() {
   const [investigations, setInvestigations] = useState<Investigation[]>(INITIAL_DATA);
@@ -104,17 +99,6 @@ export default function InvestigationsPage() {
   };
 
   return (
-<<<<<<< HEAD
-    <div className="flex flex-col items-center justify-center gap-4 h-[60vh] text-[var(--text-muted)]">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:text-[var(--primary-blue-hover)]"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" />
-        Home
-      </Link>
-      <p>Investigations — Coming soon</p>
-=======
     <div className="p-6 space-y-5">
       <div>
         <h1 className="text-xl font-bold text-slate-900">Investigation</h1>
@@ -166,7 +150,6 @@ export default function InvestigationsPage() {
           onAddFinding={handleAddFinding}
         />
       )}
->>>>>>> d06f232 (Improve investigation page)
     </div>
   );
 }
