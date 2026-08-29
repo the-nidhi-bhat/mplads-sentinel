@@ -185,9 +185,8 @@ export default function PriorityQueueTable({ projects }: PriorityQueueTableProps
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className={`inline-block rounded px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide border ${
-                        RISK_BADGE_CLASSES[project.riskLevel]
-                      }`}
+                      className={`inline-block rounded px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide border ${RISK_BADGE_CLASSES[project.riskLevel]
+                        }`}
                     >
                       {project.riskLevel}
                     </span>
