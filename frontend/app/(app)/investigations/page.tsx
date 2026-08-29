@@ -1,74 +1,101 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
-import { INVESTIGATIONS as INITIAL_DATA } from "./investigation-data";
+import Link from "next/link";
 import {
+  AlertTriangle,
+  ArrowLeft,
+  CheckCircle2,
+  ClipboardList,
+  RotateCcw,
+  Search,
+  ShieldAlert,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+import { INVESTIGATIONS as INITIAL_DATA } from "./investigation-data";
+import type {
   Investigation,
   InvestigationStatus,
   RiskLevel,
 } from "./types";
+
 import { InvestigationCard } from "./components/investigation-card";
 import { InvestigationFilters } from "./components/investigation-filters";
 import { InvestigationDetail } from "./components/investigation-detail";
-import {
-  ShieldAlert,
-  Search as SearchIcon,
-  ClipboardList,
-  ArrowLeft,
-} from "lucide-react";
+
+type ViewMode = "active" | "history";
+type SortOption = "risk" | "recent";
+type FilterValue<T> = T | "All";
+
+type StatCardProps = {
+  label: string;
+  value: number;
+  icon: LucideIcon;
+  tone: "blue" | "red" | "orange" | "slate";
+};
+
+type TabButtonProps = {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+};
 
 export default function InvestigationsPage() {
   const [investigations, setInvestigations] =
     useState<Investigation[]>(INITIAL_DATA);
-  const [view, setView] = useState<"active" | "history">("active");
+
+  const [view, setView] = useState<ViewMode>("active");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] =
-    useState<InvestigationStatus | "All">("All");
+    useState<FilterValue<InvestigationStatus>>("All");
   const [riskFilter, setRiskFilter] =
-    useState<RiskLevel | "All">("All");
-  const [sortBy, setSortBy] =
-    useState<"risk" | "recent">("risk");
+    useState<FilterValue<RiskLevel>>("All");
+  const [sortBy, setSortBy] = useState<SortOption>("risk");
   const [openId, setOpenId] = useState<string | null>(null);
 
-  const filtered = useMemo(() => {
-    let list = investigations.filter((inv) =>
-      view === "active"
-        ? !["Closed", "Escalated"].includes(inv.status)
-        : ["Closed", "Escalated"].includes(inv.status)
-    );
+  /* -------------------- Filter & Sort -------------------- */
 
-    if (search.trim()) {
-      const q = search.toLowerCase();
+  const filteredInvestigations = useMemo(() => {
+    let result = investigations.filter((investigation) => {
+      const isClosed = ["Closed", "Escalated"].includes(
+        investigation.status
+      );
 
-      list = list.filter(
-        (inv) =>
-          inv.projectName.toLowerCase().includes(q) ||
-          inv.mpName.toLowerCase().includes(q) ||
-          inv.constituency.toLowerCase().includes(q) ||
-          inv.district.toLowerCase().includes(q)
+      return view === "active" ? !isClosed : isClosed;
+    });
+
+    const query = search.trim().toLowerCase();
+
+    if (query) {
+      result = result.filter(
+        (investigation) =>
+          investigation.projectName.toLowerCase().includes(query) ||
+          investigation.mpName.toLowerCase().includes(query) ||
+          investigation.constituency.toLowerCase().includes(query) ||
+          investigation.district.toLowerCase().includes(query)
       );
     }
 
     if (statusFilter !== "All") {
-      list = list.filter(
-        (inv) => inv.status === statusFilter
+      result = result.filter(
+        (investigation) => investigation.status === statusFilter
       );
     }
 
     if (riskFilter !== "All") {
-      list = list.filter(
-        (inv) => inv.riskLevel === riskFilter
+      result = result.filter(
+        (investigation) => investigation.riskLevel === riskFilter
       );
     }
 
-    return [...list].sort((a, b) =>
-      sortBy === "risk"
-        ? b.riskScore - a.riskScore
-        : b.lastUpdated > a.lastUpdated
-          ? 1
-          : -1
-    );
+    return [...result].sort((a, b) => {
+      if (sortBy === "risk") {
+        return b.riskScore - a.riskScore;
+      }
+
+      return b.lastUpdated.localeCompare(a.lastUpdated);
+    });
   }, [
     investigations,
     view,
@@ -78,56 +105,69 @@ export default function InvestigationsPage() {
     sortBy,
   ]);
 
+  /* -------------------- Statistics -------------------- */
+
   const stats = useMemo(() => {
-    const active = investigations.filter(
-      (i) => !["Closed", "Escalated"].includes(i.status)
+    const activeInvestigations = investigations.filter(
+      (investigation) =>
+        !["Closed", "Escalated"].includes(investigation.status)
     );
 
     return {
-      total: active.length,
-      critical: active.filter(
-        (i) => i.riskLevel === "Critical"
+      total: activeInvestigations.length,
+
+      critical: activeInvestigations.filter(
+        (investigation) => investigation.riskLevel === "Critical"
       ).length,
-      highRisk: active.filter(
-        (i) => i.riskLevel === "High"
+
+      highRisk: activeInvestigations.filter(
+        (investigation) => investigation.riskLevel === "High"
       ).length,
+
       escalated: investigations.filter(
-        (i) => i.status === "Escalated"
+        (investigation) => investigation.status === "Escalated"
       ).length,
     };
   }, [investigations]);
 
-  const openInvestigation =
-    investigations.find((i) => i.id === openId) ?? null;
+  /* -------------------- Selected Investigation -------------------- */
+
+  const openInvestigation = investigations.find(
+    (investigation) => investigation.id === openId
+  );
+
+  /* -------------------- Handlers -------------------- */
 
   const handleUpdateStatus = (
     id: string,
     status: InvestigationStatus
   ) => {
-    setInvestigations((prev) =>
-      prev.map((inv) =>
-        inv.id === id
-          ? {
-              ...inv,
-              status,
-              lastUpdated: new Date()
+    const now = new Date();
+
+    setInvestigations((currentInvestigations) =>
+      currentInvestigations.map((investigation) => {
+        if (investigation.id !== id) {
+          return investigation;
+        }
+
+        return {
+          ...investigation,
+          status,
+          lastUpdated: now.toISOString().slice(0, 10),
+          timeline: [
+            ...investigation.timeline,
+            {
+              id: `t-${Date.now()}`,
+              timestamp: now
                 .toISOString()
-                .slice(0, 10),
-              timeline: [
-                ...inv.timeline,
-                {
-                  id: `t-${Date.now()}`,
-                  timestamp: new Date()
-                    .toISOString()
-                    .slice(0, 16)
-                    .replace("T", " "),
-                  actor: "You",
-                  action: `moved the case to "${status}"`,
-                },
-              ],
-            }
-          : inv
-      )
+                .slice(0, 16)
+                .replace("T", " "),
+              actor: "You",
+              action: `moved the case to "${status}"`,
+            },
+          ],
+        };
+      })
     );
   };
 
@@ -136,51 +176,59 @@ export default function InvestigationsPage() {
     note: string,
     actionTaken: string
   ) => {
-    setInvestigations((prev) =>
-      prev.map((inv) =>
-        inv.id === id
-          ? {
-              ...inv,
-              findings: [
-                ...inv.findings,
-                {
-                  id: `f-${Date.now()}`,
-                  author: "You",
-                  timestamp: new Date()
-                    .toISOString()
-                    .slice(0, 16)
-                    .replace("T", " "),
-                  note,
-                  actionTaken: actionTaken || undefined,
-                },
-              ],
-            }
-          : inv
-      )
+    const now = new Date();
+
+    setInvestigations((currentInvestigations) =>
+      currentInvestigations.map((investigation) => {
+        if (investigation.id !== id) {
+          return investigation;
+        }
+
+        return {
+          ...investigation,
+          findings: [
+            ...investigation.findings,
+            {
+              id: `f-${Date.now()}`,
+              author: "You",
+              timestamp: now
+                .toISOString()
+                .slice(0, 16)
+                .replace("T", " "),
+              note,
+              actionTaken: actionTaken || undefined,
+            },
+          ],
+        };
+      })
     );
   };
 
-  return (
-    <div className="p-6 space-y-5">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:text-[var(--primary-blue-hover)]"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" />
-        Home
-      </Link>
+  /* -------------------- UI -------------------- */
 
+  return (
+    <div className="space-y-5 p-6">
+      {/* Header */}
       <div>
-        <h1 className="text-xl font-bold text-slate-900">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:text-[var(--primary-blue-hover)]"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" />
+          Home
+        </Link>
+
+        <h1 className="mt-1 text-xl font-bold text-slate-900">
           Investigation
         </h1>
 
-        <p className="text-sm text-slate-500 mt-0.5">
+        <p className="mt-0.5 text-sm text-slate-500">
           Review projects flagged by the anomaly detection engine
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      {/* Statistics */}
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         <StatCard
           label="Active cases"
           value={stats.total}
@@ -198,7 +246,7 @@ export default function InvestigationsPage() {
         <StatCard
           label="High risk"
           value={stats.highRisk}
-          icon={ShieldAlert}
+          icon={AlertTriangle}
           tone="orange"
         />
 
@@ -210,6 +258,7 @@ export default function InvestigationsPage() {
         />
       </div>
 
+      {/* View Tabs */}
       <div className="flex items-center gap-1 border-b border-slate-200">
         <TabButton
           active={view === "active"}
@@ -224,6 +273,7 @@ export default function InvestigationsPage() {
         />
       </div>
 
+      {/* Filters */}
       <InvestigationFilters
         search={search}
         onSearchChange={setSearch}
@@ -235,30 +285,22 @@ export default function InvestigationsPage() {
         onSortChange={setSortBy}
       />
 
-      {filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <SearchIcon className="h-8 w-8 text-slate-300 mb-2" />
-
-          <p className="text-sm font-medium text-slate-600">
-            No cases match these filters
-          </p>
-
-          <p className="text-xs text-slate-400 mt-1">
-            Try clearing search or filters
-          </p>
-        </div>
+      {/* Investigation List */}
+      {filteredInvestigations.length === 0 ? (
+        <EmptyState />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {filtered.map((inv) => (
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {filteredInvestigations.map((investigation) => (
             <InvestigationCard
-              key={inv.id}
-              investigation={inv}
+              key={investigation.id}
+              investigation={investigation}
               onOpen={setOpenId}
             />
           ))}
         </div>
       )}
 
+      {/* Investigation Detail */}
       {openInvestigation && (
         <InvestigationDetail
           investigation={openInvestigation}
@@ -271,19 +313,20 @@ export default function InvestigationsPage() {
   );
 }
 
+/* ============================================================
+   Tab Button
+   ============================================================ */
+
 function TabButton({
   active,
   onClick,
   label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-}) {
+}: TabButtonProps) {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`px-4 py-2.5 text-sm font-medium border-b-2 -mb-px ${
+      className={`-mb-px border-b-2 px-4 py-2.5 text-sm font-medium ${
         active
           ? "border-blue-600 text-blue-700"
           : "border-transparent text-slate-500 hover:text-slate-700"
@@ -294,18 +337,17 @@ function TabButton({
   );
 }
 
+/* ============================================================
+   Statistics Card
+   ============================================================ */
+
 function StatCard({
   label,
   value,
   icon: Icon,
   tone,
-}: {
-  label: string;
-  value: number;
-  icon: any;
-  tone: "blue" | "red" | "orange" | "slate";
-}) {
-  const tones = {
+}: StatCardProps) {
+  const toneClasses = {
     blue: "bg-blue-50 text-blue-600",
     red: "bg-red-50 text-red-600",
     orange: "bg-orange-50 text-orange-600",
@@ -313,22 +355,42 @@ function StatCard({
   };
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-3 flex items-center gap-3">
+    <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3">
       <div
-        className={`h-9 w-9 rounded-lg flex items-center justify-center shrink-0 ${tones[tone]}`}
+        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${toneClasses[tone]}`}
       >
-        <Icon className="h-4.5 w-4.5" />
+        <Icon className="h-4 w-4" />
       </div>
 
       <div className="min-w-0">
-        <p className="text-lg font-bold text-slate-900 leading-none">
+        <p className="text-lg font-bold leading-none text-slate-900">
           {value}
         </p>
 
-        <p className="text-xs text-slate-500 mt-0.5 truncate">
+        <p className="mt-0.5 truncate text-xs text-slate-500">
           {label}
         </p>
       </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Empty State
+   ============================================================ */
+
+function EmptyState() {
+  return (
+    <div className="flex flex-col items-center justify-center py-20 text-center">
+      <Search className="mb-2 h-8 w-8 text-slate-300" />
+
+      <p className="text-sm font-medium text-slate-600">
+        No cases match these filters
+      </p>
+
+      <p className="mt-1 text-xs text-slate-400">
+        Try clearing search or filters
+      </p>
     </div>
   );
 }
