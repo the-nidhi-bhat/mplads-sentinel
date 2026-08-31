@@ -1,2 +1,0 @@
-project_id,mp_name,district,work_type,sanction_date,sanction_amount,expenditure_to_date,start_date,expected_end_date,actual_end_date,status
-TEST-001,Demo MP,Demo District,road,2024-01-01,100000.0,50000.0,2024-01-15,2025-01-15,,Sanctioned

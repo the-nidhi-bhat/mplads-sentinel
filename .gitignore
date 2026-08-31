@@ -39,3 +39,9 @@ get-pip.py
 backend/uploads/
 MPLADS/
 
+# Generated pipeline output (regenerated on every pipeline run)
+mplads-ml/data/mplads_clean.csv
+mplads-ml/data/mplads_raw_for_model.csv
+project-normalizer/data/finalized.csv
+project-normalizer/data/works_sanctioned.csv
+
