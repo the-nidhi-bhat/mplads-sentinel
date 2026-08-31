@@ -49,6 +49,76 @@ else:
 # Date parsing preference from config
 DAYFIRST = bool(cfg.get('project_normalizer', {}).get('dayfirst', True))
 
+# MPLADS project timeline norms. Keys are normalized work-type labels from
+# raw exports, so the calculation does not depend on presentation casing.
+WORK_TYPE_DURATION_DAYS = {
+    "roads & bridges": 180,
+    "water & sanitation": 180,
+    "community infrastructure": 240,
+    "drainage & sewerage": 180,
+    "education infrastructure": 270,
+    "health infrastructure": 240,
+    # Categories found in the current MPLADS export.
+    "bar and associations": 240,
+    "trust and society": 240,
+}
+DEFAULT_DURATION_DAYS = 180
+
+
+def normalize_work_type(work_type):
+    """Return a stable key for duration lookup without changing raw output."""
+    if pd.isna(work_type):
+        return ""
+    return " ".join(str(work_type).strip().casefold().split())
+
+
+def parse_date_column(values, column_name):
+    """Parse a date series without failing the batch on missing/bad values.
+
+    ``format='mixed'`` is essential with pandas 3: its default parser infers
+    one format from the first value and then rejects otherwise valid dates in
+    the same CSV. ``utc=True`` removes timezone ambiguity before retaining
+    date-only values for duration arithmetic.
+    """
+    raw_values = values.astype("string").str.strip().replace("", pd.NA)
+    parsed = pd.Series(pd.NaT, index=raw_values.index, dtype="datetime64[ns]")
+
+    # Do not pass ISO dates through day-first parsing: pandas interprets an
+    # ISO value such as 2024-03-01 as 3 January when dayfirst=True. For an
+    # ISO timestamp, retain its written calendar date instead of shifting it
+    # when normalizing its timezone.
+    iso_dates = raw_values.str.match(r"^\d{4}-\d{2}-\d{2}(?:$|[T\s])", na=False)
+    parsed.loc[iso_dates] = pd.to_datetime(
+        raw_values.loc[iso_dates].str.slice(0, 10), format="%Y-%m-%d", errors="coerce"
+    )
+    non_iso_dates = raw_values.notna() & ~iso_dates
+    if non_iso_dates.any():
+        parsed.loc[non_iso_dates] = pd.to_datetime(
+            raw_values.loc[non_iso_dates],
+            errors="coerce",
+            format="mixed",
+            dayfirst=DAYFIRST,
+            utc=True,
+        ).dt.tz_localize(None)
+    parsed = parsed.dt.normalize()
+    malformed = raw_values.notna() & parsed.isna()
+    if malformed.any():
+        logger.warning(
+            "Could not parse %d %s value(s); retaining them as missing dates",
+            int(malformed.sum()), column_name,
+        )
+    return parsed
+
+
+def calculate_expected_end_date(start_date, work_type):
+    """Calculate expected completion from the authoritative project start date."""
+    if pd.isna(start_date):
+        return pd.NaT
+    duration = WORK_TYPE_DURATION_DAYS.get(
+        normalize_work_type(work_type), DEFAULT_DURATION_DAYS
+    )
+    return pd.Timestamp(start_date).normalize() + pd.Timedelta(days=duration)
+
 
 def atomic_write_df(df, dest_path, temp_dir=None):
     """
@@ -133,15 +203,44 @@ def clean_and_engineer(df):
         else:
             df[col] = 0.0
 
-    # Parse dates (create columns if missing) using DAYFIRST from config
-    for d in ["start_date", "expected_end_date", "actual_end_date", "sanction_date", "last_update_date"]:
-        if d in df.columns:
-            df[d] = pd.to_datetime(df[d], errors="coerce", dayfirst=DAYFIRST)
-        else:
-            df[d] = pd.NaT
+    # Parse pipeline dates before feature engineering. A project starts when
+    # it is sanctioned; start_date is a legacy fallback only when needed.
+    raw_sanction_dates = df.get("sanction_date", pd.Series(pd.NA, index=df.index))
+    raw_start_dates = df.get("start_date", pd.Series(pd.NA, index=df.index))
+    df["sanction_date"] = parse_date_column(raw_sanction_dates, "sanction_date")
+    supplied_start_dates = parse_date_column(raw_start_dates, "start_date")
+    df["actual_end_date"] = parse_date_column(
+        df.get("actual_end_date", pd.Series(pd.NA, index=df.index)), "actual_end_date"
+    )
+
+    if "last_update_date" in df.columns:
+        df["last_update_date"] = pd.to_datetime(
+            df["last_update_date"], errors="coerce", dayfirst=DAYFIRST
+        )
+    else:
+        df["last_update_date"] = pd.NaT
+
+    date_mismatch = (
+        df["sanction_date"].notna()
+        & supplied_start_dates.notna()
+        & df["sanction_date"].ne(supplied_start_dates)
+    )
+    if date_mismatch.any():
+        logger.warning(
+            "Found %d row(s) where start_date differs from sanction_date; using sanction_date",
+            int(date_mismatch.sum()),
+        )
+    fallback_start = df["sanction_date"].isna() & supplied_start_dates.notna()
+    if fallback_start.any():
+        logger.warning(
+            "Using start_date as sanction_date for %d legacy row(s) with no sanction_date",
+            int(fallback_start.sum()),
+        )
+    df["sanction_date"] = df["sanction_date"].fillna(supplied_start_dates)
+    df["start_date"] = df["sanction_date"]
 
     # Standardize text fields
-    for t in ["mp_name", "district", "work_type", "status"]:
+    for t in ["mp_name", "district", "state", "agency_id", "work_type", "work_title", "status"]:
         if t in df.columns:
             df[t] = df[t].astype(str).str.strip()
         else:
@@ -152,37 +251,23 @@ def clean_and_engineer(df):
     else:
         df["status"] = "Sanctioned"
 
-    # --- Begin snippet: infer expected_end_date by work_type heuristic ---
-    default_durations_days = {
-        "road": 365,
-        "school": 540,
-        "water": 270,
-        "community_hall": 365,
-        "drainage": 270,
-        "electrification": 180,
-        "playground": 180,
-        "health": 365,
-        "other": 365
-    }
+    work_type_keys = df["work_type"].map(normalize_work_type)
+    unknown_work_types = sorted(
+        key for key in work_type_keys.unique()
+        if key and key not in WORK_TYPE_DURATION_DAYS
+    )
+    if unknown_work_types:
+        logger.warning(
+            "Using the %d-day default duration for unmapped work_type values: %s",
+            DEFAULT_DURATION_DAYS, ", ".join(unknown_work_types),
+        )
 
-    # Normalize work_type for matching
-    df["work_type_norm"] = df["work_type"].astype(str).str.strip().str.lower().str.replace(" ", "_", regex=False)
-
-    def infer_expected_end(row):
-        if pd.notna(row.get("expected_end_date")):
-            return row["expected_end_date"]
-        start = row.get("start_date")
-        if pd.isna(start):
-            # fallback to sanction_date if start_date missing
-            start = row.get("sanction_date")
-            if pd.isna(start):
-                return pd.NaT
-        wt = row.get("work_type_norm", "other") or "other"
-        days = default_durations_days.get(wt, default_durations_days["other"])
-        return start + pd.Timedelta(days=days)
-
-    df["expected_end_date"] = df.apply(infer_expected_end, axis=1)
-    # --- End snippet ---
+    # The source expected_end_date is intentionally ignored: a consistent
+    # deadline is derived from the authoritative start/sanction date.
+    df["expected_end_date"] = [
+        calculate_expected_end_date(start_date, work_type)
+        for start_date, work_type in zip(df["start_date"], df["work_type"])
+    ]
 
     # Feature: months_elapsed (from start_date)
     today = pd.Timestamp.today()
@@ -213,7 +298,7 @@ def clean_and_engineer(df):
 
     # Keep useful columns (ensure metadata preserved)
     keep = [
-        "project_id", "mp_name", "district", "work_type", "sanction_date",
+        "project_id", "mp_name", "district", "state", "agency_id", "work_type", "work_title", "sanction_date",
         "sanction_amount", "expenditure_to_date", "start_date", "expected_end_date", "actual_end_date",
         "status", "months_elapsed", "cost_overrun_ratio", "delay_days", "fund_utilization_speed",
         "percent_spent", "last_update_date", "last_update_age", "possible_unit_error"

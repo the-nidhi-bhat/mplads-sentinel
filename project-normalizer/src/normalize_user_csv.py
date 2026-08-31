@@ -60,7 +60,10 @@ CANONICAL = [
     "project_id",
     "mp_name",
     "district",
+    "state",
+    "agency_id",
     "work_type",
+    "work_title",
     "sanction_date",
     "sanction_amount",
     "expenditure_to_date",
@@ -75,14 +78,30 @@ SYNONYMS = {
     "project_id": ["id", "proj_id", "sr no", "sr. no", "srno", "project no", "project number"],
     "mp_name": ["mp", "mpname", "member_of_parliament", "name"],
     "district": ["dist", "district_name", "districtname"],
+    "state": ["state", "state_name"],
+    "agency_id": ["ida", "implementing_agency", "implementing agency"],
     "work_type": ["worktype", "type_of_work", "project_type"],
+    "work_title": ["work", "project_title", "work_title"],
     "sanction_date": ["sanctiondate", "date_of_sanction", "date_sanctioned", "sanctioned_date"],
     "sanction_amount": ["sanctionamount", "amount_sanctioned", "sanctioned_amount", "amount"],
     "expenditure_to_date": ["expenditure", "expenditure_to_date", "exp_to_date", "expendituretodate", "spent"],
     "start_date": ["startdate", "date_start", "commencement_date"],
     "expected_end_date": ["expectedenddate", "expected_end", "expected_completion_date"],
     "actual_end_date": ["actualenddate", "actual_end", "completion_date", "date_completed"],
-    "status": ["project_status", "state", "current_status"],
+    "status": ["project_status", "current_status"],
+}
+
+# The sanctioned-works export has several headers that are intentionally
+# similar to canonical names. Apply exact mappings after generic schema and
+# fuzzy matching so each source column has one unambiguous destination.
+SOURCE_HEADER_OVERRIDES = {
+    "sr. no.": "project_id",
+    "ida": "agency_id",
+    "work category": "work_type",
+    "work": "work_title",
+    "state": "state",
+    "work status": "status",
+    "sanction date": "sanction_date",
 }
 
 def _best_match(col, candidates):
@@ -130,13 +149,34 @@ def build_rename_map(df_columns):
         best = _best_match(c, CANONICAL)
         if best:
             rename[c] = best
+
+    for c in cols:
+        override = SOURCE_HEADER_OVERRIDES.get(c.lower().strip())
+        if override:
+            rename[c] = override
     return rename
 
 def normalize_dates_and_numbers(df):
-    # parse dates with dayfirst True (India style) but allow fallback
+    # Preserve unambiguous ISO dates before applying the India-style fallback.
+    # With pandas 3, applying dayfirst=True to an ISO value such as
+    # 2024-03-01 can silently change it to 3 January.
     for d in ["sanction_date", "start_date", "expected_end_date", "actual_end_date"]:
         if d in df.columns:
-            df[d] = pd.to_datetime(df[d], errors="coerce", dayfirst=True)
+            raw_dates = df[d].astype("string").str.strip().replace("", pd.NA)
+            parsed_dates = pd.Series(pd.NaT, index=df.index, dtype="datetime64[ns]")
+            iso_dates = raw_dates.str.match(r"^\d{4}-\d{2}-\d{2}(?:$|[T\s])", na=False)
+            parsed_dates.loc[iso_dates] = pd.to_datetime(
+                raw_dates.loc[iso_dates].str.slice(0, 10), format="%Y-%m-%d", errors="coerce"
+            )
+            non_iso_dates = raw_dates.notna() & ~iso_dates
+            if non_iso_dates.any():
+                parsed_dates.loc[non_iso_dates] = pd.to_datetime(
+                    raw_dates.loc[non_iso_dates], errors="coerce", format="mixed", dayfirst=True
+                )
+            malformed = raw_dates.notna() & parsed_dates.isna()
+            if malformed.any():
+                logger.warning("Could not parse %d %s value(s)", int(malformed.sum()), d)
+            df[d] = parsed_dates
     # numeric normalization
     for n in ["sanction_amount", "expenditure_to_date"]:
         if n in df.columns:
@@ -161,6 +201,10 @@ def construct_canonical_df(df, rename_map):
     df = df[CANONICAL].copy()
     # normalize types
     df = normalize_dates_and_numbers(df)
+    # A project's start date is its sanction date. Populate both fields at
+    # normalization time so downstream stages receive the canonical value.
+    df["start_date"] = df["sanction_date"].fillna(df["start_date"])
+    df["sanction_date"] = df["sanction_date"].fillna(df["start_date"])
     # format dates to ISO strings for CSV
     for d in ["sanction_date", "start_date", "expected_end_date", "actual_end_date"]:
         if d in df.columns:
