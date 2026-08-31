@@ -140,13 +140,26 @@ def _find_date_candidates(columns, keyword="sanction_date"):
     return out
 
 
-def main():
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+def run_merge(san_path=None, com_path=None, rec_path=None, out_path=None):
+    """
+    Merge the three normalized source files into the finalized model input.
+
+    Parameters are file paths so the merge can be exercised against temporary
+    files in tests without touching the real project data directory. Each
+    defaults to the module-level SANCTIONED / COMPLETED / RECOMMENDED /
+    OUT_FINAL paths.
+
+    Returns the finalized DataFrame (canonical fields only).
+    """
+    san_path = Path(san_path) if san_path else SANCTIONED
+    com_path = Path(com_path) if com_path else COMPLETED
+    rec_path = Path(rec_path) if rec_path else RECOMMENDED
+    out_path = Path(out_path) if out_path else OUT_FINAL
 
     # Read each source; read_and_map returns empty DataFrame with project_id if missing/empty
-    rec = read_and_map(RECOMMENDED)
-    san = read_and_map(SANCTIONED)
-    com = read_and_map(COMPLETED)
+    rec = read_and_map(rec_path)
+    san = read_and_map(san_path)
+    com = read_and_map(com_path)
 
     # Ensure each DataFrame has at least the project_id column (read_and_map guarantees this)
     for df in (rec, san, com):
@@ -219,7 +232,41 @@ def main():
     for fld in CANONICAL_FIELDS[1:]:
         if fld == "sanction_date":
             continue
+        # sanction_amount must ALWAYS come from the sanctioned source. The
+        # completed/recommended sources do not carry a sanctioned amount (they
+        # are 0/blank) and must never overwrite it, so it is not coalesced.
+        if fld == "sanction_amount":
+            continue
         merged[fld] = merged.apply(lambda r: coalesce_row(r, fld), axis=1)
+
+    # --- sanction_amount from the sanctioned source only ---
+    # The completed/recommended sources have no sanctioned amount, so a naive
+    # coalesce (or outer merge with completed first) would blank it. Fill it
+    # exclusively from the sanctioned dataframe.
+    if "sanction_amount_sanctioned" in merged.columns:
+        merged["sanction_amount"] = merged["sanction_amount_sanctioned"]
+    elif "sanction_amount" not in merged.columns:
+        merged["sanction_amount"] = 0.0
+
+    # --- expenditure_to_date: prefer completed, then sanctioned source ---
+    # The sanctioned export has no expenditure column (always 0); the completed
+    # export carries the real disbursed amount. Prefer completed, fall back to
+    # whatever sanctioned/recommended supplied (e.g. a row only present in the
+    # sanctioned source).
+    if "expenditure_to_date" not in merged.columns:
+        merged["expenditure_to_date"] = 0.0
+    if "expenditure_to_date_completed" in merged.columns:
+        com_exp = merged["expenditure_to_date_completed"].astype(str).replace({"": pd.NA, "nan": pd.NA, "0.0": pd.NA, "0": pd.NA})
+        merged["expenditure_to_date"] = com_exp.where(com_exp.notna(), merged["expenditure_to_date"])
+
+    # --- actual_end_date from the completed source when available ---
+    # The completed export carries the real Completion Date; a completed match
+    # is the authoritative source for this field.
+    if "actual_end_date" not in merged.columns:
+        merged["actual_end_date"] = pd.NA
+    if "actual_end_date_completed" in merged.columns:
+        com_end = merged["actual_end_date_completed"].astype(str).replace({"": pd.NA, "nan": pd.NA, "NaT": pd.NA})
+        merged["actual_end_date"] = com_end.where(com_end.notna(), merged["actual_end_date"])
 
     # ensure project_id present
     if "project_id" not in merged.columns:
@@ -248,9 +295,17 @@ def main():
         )
 
     # Save finalized CSV
-    merged_final.to_csv(OUT_FINAL, index=False, encoding="utf-8")
-    logger.info("Saved finalized file to %s", OUT_FINAL)
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    merged_final.to_csv(out_path, index=False, encoding="utf-8")
+    logger.info("Saved finalized file to %s", out_path)
     logger.info("Rows: %d Unique project_id: %d", len(merged_final), merged_final["project_id"].nunique())
+
+    return merged_final
+
+
+def main():
+    run_merge()
 
 
 if __name__ == "__main__":

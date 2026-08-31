@@ -22,6 +22,7 @@ What it does:
 """
 import argparse
 import os
+import re
 import sys
 import shutil
 import subprocess
@@ -104,6 +105,51 @@ SOURCE_HEADER_OVERRIDES = {
     "sanction date": "sanction_date",
 }
 
+# Explicit mappings for the MPLADS "Works Completed" (Lok Sabha) export.
+# These are applied on top of the generic schema/fuzzy mapping for the
+# "completed" source. They are stricter than the generic path so the correct
+# canonical field is targeted even when a header is ambiguous (for example
+# "Work" would otherwise map to work_title, but it is also our project_id
+# source via the embedded work reference number).
+SOURCE_HEADER_OVERRIDES_COMPLETED = {
+    "sr. no.": "project_id",
+    "work": "work_title",
+    "work category": "work_type",
+    "state": "state",
+    "ida": "agency_id",
+    "work description": "work_description",
+    "hon'ble members of parliament": "mp_name",
+    "constituency": "district",
+    "completion date": "actual_end_date",
+    "amount disbursed ( ? )": "expenditure_to_date",
+}
+
+# The real unique work reference number is embedded in the Work column, e.g.
+#   WS/ MP620/2024-2025/133166-Construction of buildings ...
+# The id is the number directly after the year-range segment and before the
+# dash (133166 above). Anchoring on the year range avoids accidentally matching
+# the year range start (2024-2025 -> would match 2024 with a naive /(\d+)-).
+WORK_ID_RE = re.compile(r"/\d{4}-\d{4}/(\d+)-")
+# Canonical field used when the completed source provides free-text work
+# description that has no dedicated canonical column. Appended to work_title.
+WORK_DESCRIPTION_CANONICAL = "work_description"
+
+
+def extract_work_id(work_values, logger=logger):
+    """Extract the embedded work reference number from a Work column.
+
+    Accepts a pandas Series (or iterable) of raw Work strings and returns a
+    Series of extracted ids (empty string where none matched). A count of rows
+    where extraction failed is reported via the logger so no row is silently
+    dropped or mis-joined.
+    """
+    ids = work_values.astype("string").fillna("").str.extract(WORK_ID_RE, expand=False)
+    ids = ids.fillna("").astype(str).str.strip()
+    unmatched = int((ids == "").sum())
+    if unmatched:
+        logger.warning("Could not extract work reference number from %d Work value(s)", unmatched)
+    return ids
+
 
 SUMMARY_PROJECT_ID_PATTERN = r"^(?:grand\s+)?(?:sub\s+)?total(?:s)?$"
 
@@ -146,10 +192,14 @@ def _best_match(col, candidates):
         return m
     return None
 
-def build_rename_map(df_columns):
+def build_rename_map(df_columns, source=None):
     """
     Try to build a rename_map mapping input columns -> canonical columns.
     Uses map_columns() if available; otherwise uses fuzzy matching and synonyms.
+
+    When ``source == "completed"``, the strict completed-works overrides are
+    applied on top of the generic mapping so the export's headers land on the
+    correct canonical fields.
     """
     rename = {}
     cols = [c.strip() for c in df_columns]
@@ -174,6 +224,12 @@ def build_rename_map(df_columns):
         override = SOURCE_HEADER_OVERRIDES.get(c.lower().strip())
         if override:
             rename[c] = override
+
+    if source == "completed":
+        for c in cols:
+            override = SOURCE_HEADER_OVERRIDES_COMPLETED.get(c.lower().strip())
+            if override:
+                rename[c] = override
     return rename
 
 def normalize_dates_and_numbers(df):
@@ -204,9 +260,19 @@ def normalize_dates_and_numbers(df):
             df[n] = pd.to_numeric(df[n], errors="coerce").fillna(0.0)
     return df
 
-def construct_canonical_df(df, rename_map):
+def construct_canonical_df(df, rename_map, source=None):
     # rename columns
     df = df.rename(columns=rename_map)
+    # For the completed source, free-text work description has no dedicated
+    # canonical column; preserve it by appending to work_title. Strip any
+    # existing work value first to avoid duplicating the work string.
+    if source == "completed" and WORK_DESCRIPTION_CANONICAL in df.columns:
+        work_desc = df[WORK_DESCRIPTION_CANONICAL].astype("string").fillna("").str.strip()
+        if "work_title" in df.columns:
+            work_title = df["work_title"].astype("string").fillna("").str.strip()
+            df["work_title"] = work_title.where(work_title.ne(""), work_desc)
+        # drop the temporary field so it does not leak into canonical output
+        df = df.drop(columns=[WORK_DESCRIPTION_CANONICAL])
     # ensure canonical columns exist
     for c in CANONICAL:
         if c not in df.columns:
@@ -220,6 +286,17 @@ def construct_canonical_df(df, rename_map):
     # keep only canonical columns in canonical order
     df = df[CANONICAL].copy()
     df = drop_summary_rows(df)
+    # Use the real embedded work reference number as project_id for the
+    # sanctioned and completed sources instead of the per-export Sr. No. row
+    # index (which is local to each file and causes mis-joins downstream).
+    if source in ("sanctioned", "completed") and "work_title" in df.columns:
+        work_ids = extract_work_id(df["work_title"])
+        if source == "completed":
+            # completed rows may also carry a legitimately-empty Work; keep the
+            # (now numeric) id where it was extracted.
+            df["project_id"] = work_ids
+        else:
+            df["project_id"] = work_ids.where(work_ids.ne(""), df["project_id"])
     # normalize types
     df = normalize_dates_and_numbers(df)
     # A project's start date is its sanction date. Populate both fields at
@@ -286,9 +363,9 @@ def main():
         raise SystemExit(f"Input CSV has no columns: {input_path}")
 
     # Build rename map and canonical df
-    rename_map = build_rename_map(df.columns)
+    rename_map = build_rename_map(df.columns, source=args.source)
     logger.info("Rename map (sample): %s", {k: rename_map[k] for k in list(rename_map)[:10]})
-    df_canonical = construct_canonical_df(df, rename_map)
+    df_canonical = construct_canonical_df(df, rename_map, source=args.source)
 
     # Write normalized CSV to source files
     write_to_sources(df_canonical, args.source)
