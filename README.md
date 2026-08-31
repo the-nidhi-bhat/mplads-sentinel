@@ -667,14 +667,14 @@ The key demonstration message is:
 
 ## 19. Team
 
-| Member | Role |
-|---|---|
-| [Team Member 1] | [Role] |
-| [Team Member 2] | [Role] |
-| [Team Member 3] | [Role] |
-| [Team Member 4] | [Role] |
-| [Team Member 5] | [Role] |
-| [Team Member 6] | [Role] |
+| # | Team Member | Role |
+| --- | --- | --- |
+| **1** | **Nidhi** | **Team Lead** |
+| **2** | **Arati A Patil** | **Documentation & Presentation** |
+| **3** | **Agam BharatKumar Doshi** | **Research & Data** |
+| **4** | **Iffa A Attar** | **System Architecture & Domain Design** |
+| **5** | **Dayyanahmed Jamadar** | **Backend & Machine Learning Development** |
+| **6** | **Krupal Rayakar** | **Frontend & UI/UX Development** |
 
 ---
 
