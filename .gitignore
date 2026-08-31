@@ -35,3 +35,7 @@ next-env.d.ts
 get-pip.py
 *get-pip.py
 
+# Runtime uploads and local Obsidian vault
+backend/uploads/
+MPLADS/
+
