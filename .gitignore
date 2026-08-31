@@ -1,35 +1,37 @@
-# Dependencies
+﻿# Dependencies
 node_modules/
+frontend/node_modules/
 __pycache__/
 *.pyc
 .venv/
 venv/
+*/venv/
 
 # Environment
 .env
+.env*.local
 
 # Next.js
 .next/
+frontend/.next/
 out/
 
 # Build
 dist/
 build/
 
-# Model artifacts (large files)
-backend/model_artifacts/*.joblib
-
-# Data files
-backend/data/*.csv
-
-# IDE
+# IDE & OS
 .vscode/
 .idea/
-
-# OS
 .DS_Store
 Thumbs.db
 
-MPLADS/
+# Temporary files
+tmp/
+tmp_import_test.py
 next-env.d.ts
 *.tsbuildinfo
+
+get-pip.py
+*get-pip.py
+

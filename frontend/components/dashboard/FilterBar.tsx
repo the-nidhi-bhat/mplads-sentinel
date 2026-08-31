@@ -134,11 +134,11 @@ export default function FilterBar({ filters, options, onChange }: FilterBarProps
             />
           </div>
         </div>
-        <div className="flex items-end justify-end sm:justify-start lg:justify-end">
+        <div className="flex items-end">
           <button
             type="button"
             onClick={() => onChange({ ...DEFAULT_FILTERS })}
-            className="inline-flex h-9 w-auto items-center justify-center gap-2 rounded-lg border border-gov-border px-5 py-0 text-sm font-semibold text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]"
+            className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-gov-border px-3 py-0 text-sm font-semibold text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]"
           >
             <RotateCcw className="h-4 w-4" />
             Reset

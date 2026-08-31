@@ -1,274 +1,214 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
-import {
-  AlertTriangle,
-  ArrowLeft,
-  CheckCircle2,
-  Database,
-  RotateCcw,
-  ServerCog,
-  XCircle,
-} from "lucide-react";
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
+import { CheckCircle2, Download, FileUp, Loader2, XCircle } from "lucide-react";
+import { API_BASE_URL, apiUrl } from "@/lib/api";
 
-import KpiCard from "@/components/dashboard/KpiCard";
+type JobStatus = "idle" | "queued" | "running" | "done" | "failed";
 
-import UploadDropzone from "./UploadDropzone";
-import IngestionProgress from "./IngestionProgress";
-import DataPreviewTable from "./DataPreviewTable";
-import ValidationIssuesPanel from "./ValidationIssuesPanel";
+type StatusResponse = {
+  job_id: string;
+  status: Exclude<JobStatus, "idle">;
+  filename?: string;
+  error?: string | null;
+  traceback?: string;
+};
 
-import {
-  generateSampleCsv,
-  parseCSV,
-  validateRows,
-  type ValidatedRow,
-} from "@/lib/mock-ingestion";
+async function readErrorMessage(response: Response): Promise<string> {
+  try {
+    const payload = await response.clone().json();
+    if (typeof payload?.detail === "string") return payload.detail;
+  } catch {
+    // Fall back to plain text below.
+  }
 
-type Stage = "idle" | "uploading" | "validating" | "done";
+  const text = await response.text();
+  return text || `Request failed with ${response.status}`;
+}
+
+const SOURCE_OPTIONS = [
+  { value: "sanctioned", label: "Sanctioned works" },
+  { value: "recommended", label: "Recommended works" },
+  { value: "completed", label: "Completed works" },
+];
 
 export default function DataIngestionPage() {
-  const [stage, setStage] = useState<Stage>("idle");
-  const [fileMeta, setFileMeta] = useState<{
-    name: string;
-    size: number;
-  } | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [source, setSource] = useState(SOURCE_OPTIONS[0].value);
+  const [job, setJob] = useState<StatusResponse | null>(null);
+  const [status, setStatus] = useState<JobStatus>("idle");
+  const [message, setMessage] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
-  const [progress, setProgress] = useState(0);
-  const [rows, setRows] = useState<ValidatedRow[]>([]);
-  const [committed, setCommitted] = useState(false);
+  const canSubmit = Boolean(file) && !isUploading && status !== "running" && status !== "queued";
 
-  const runPipeline = (
-    name: string,
-    size: number,
-    csvText: string
-  ) => {
-    setFileMeta({ name, size });
-    setRows([]);
-    setCommitted(false);
-    setStage("uploading");
-    setProgress(0);
-
-    let uploadProgress = 0;
-
-    const uploadTimer = setInterval(() => {
-      uploadProgress += 18;
-
-      if (uploadProgress >= 100) {
-        uploadProgress = 100;
-        clearInterval(uploadTimer);
-
-        setProgress(100);
-        setStage("validating");
-        setProgress(0);
-
-        let validationProgress = 0;
-
-        const validationTimer = setInterval(() => {
-          validationProgress += 22;
-
-          if (validationProgress >= 100) {
-            validationProgress = 100;
-            clearInterval(validationTimer);
-
-            const parsedRows = parseCSV(csvText);
-            const validatedRows = validateRows(parsedRows);
-
-            setRows(validatedRows);
-            setStage("done");
-          }
-
-          setProgress(validationProgress);
-        }, 140);
-
-        return;
-      }
-
-      setProgress(uploadProgress);
-    }, 140);
-  };
-
-  const handleFile = (file: File) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      runPipeline(
-        file.name,
-        file.size,
-        String(reader.result || "")
-      );
-    };
-
-    reader.readAsText(file);
-  };
-
-  const handleLoadSample = () => {
-    const csv = generateSampleCsv(45);
-    const size = new Blob([csv]).size;
-
-    runPipeline(
-      "sample_mplads_batch_45.csv",
-      size,
-      csv
-    );
-  };
-
-  const handleReset = () => {
-    setStage("idle");
-    setFileMeta(null);
-    setProgress(0);
-    setRows([]);
-    setCommitted(false);
-  };
-
-  const summary = useMemo(
-    () => ({
-      total: rows.length,
-      valid: rows.filter((row) => row.status === "valid").length,
-      warning: rows.filter((row) => row.status === "warning").length,
-      rejected: rows.filter((row) => row.status === "rejected").length,
-    }),
-    [rows]
+  const selectedLabel = useMemo(
+    () => SOURCE_OPTIONS.find((option) => option.value === source)?.label ?? source,
+    [source]
   );
 
-  return (
-    <div className="space-y-5">
-      {/* Page Header */}
-      <div>
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:text-[var(--primary-blue-hover)]"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          Home
-        </Link>
+  useEffect(() => {
+    if (!job?.job_id || (status !== "queued" && status !== "running")) return;
 
-        <h1 className="mt-1 text-xl font-extrabold tracking-tight text-[var(--text-primary)]">
+    const timer = window.setInterval(async () => {
+      try {
+        const response = await fetch(apiUrl(`/status/${job.job_id}`));
+        if (!response.ok) throw new Error(`Status check failed with ${response.status}`);
+        const payload = (await response.json()) as StatusResponse;
+        setJob(payload);
+        setStatus(payload.status);
+
+        if (payload.status === "done") {
+          setMessage("Pipeline completed. The cleaned model-ready CSV is ready to download.");
+        } else if (payload.status === "failed") {
+          setMessage(payload.error ?? "Pipeline failed. Check the backend console for details.");
+        } else {
+          setMessage(`Pipeline is ${payload.status}. This page will keep checking automatically.`);
+        }
+      } catch (error) {
+        setMessage(error instanceof Error ? error.message : "Unable to check job status.");
+      }
+    }, 2500);
+
+    return () => window.clearInterval(timer);
+  }, [job?.job_id, status]);
+
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    const selected = event.target.files?.[0] ?? null;
+    setFile(selected);
+    setJob(null);
+    setStatus("idle");
+    setMessage(selected ? `${selected.name} selected for ${selectedLabel}.` : "");
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!file) return;
+
+    setIsUploading(true);
+    setMessage("Uploading CSV to the backend pipeline...");
+
+    try {
+      const body = new FormData();
+      body.append("file", file);
+
+      const response = await fetch(apiUrl(`/upload?source=${encodeURIComponent(source)}`), {
+        method: "POST",
+        body,
+      });
+
+      if (!response.ok) {
+        throw new Error(await readErrorMessage(response));
+      }
+
+      const payload = (await response.json()) as StatusResponse;
+      setJob(payload);
+      setStatus(payload.status);
+      setMessage("Upload accepted. The backend is normalizing and preparing the dataset.");
+    } catch (error) {
+      setStatus("failed");
+      setMessage(error instanceof Error ? error.message : "Upload failed.");
+    } finally {
+      setIsUploading(false);
+    }
+  }
+
+  return (
+    <section className="space-y-6">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--primary-blue)]">
+          Pipeline intake
+        </p>
+        <h1 className="mt-2 text-2xl font-bold text-[var(--text-primary)]">
           Data Ingestion
         </h1>
-
-        <p className="max-w-2xl text-sm text-[var(--text-muted)]">
-          Upload MPLADS project records for validation before they are
-          queued for AI-based risk scoring. Records are checked for
-          missing fields, invalid amounts and formatting issues before
-          being accepted into the system.
+        <p className="mt-2 max-w-2xl text-sm text-[var(--text-muted)]">
+          Upload a MPLADS source CSV to the workspace backend, run the normalizer
+          and model preparation pipeline, then download the cleaned output.
         </p>
       </div>
 
-      {/* Upload State */}
-      {stage === "idle" && (
-        <UploadDropzone
-          onFile={handleFile}
-          onLoadSample={handleLoadSample}
-        />
-      )}
-
-      {/* Processing / Completed State */}
-      {stage !== "idle" && fileMeta && (
+      <form
+        onSubmit={handleSubmit}
+        className="grid gap-5 rounded-lg border border-gov-border bg-[var(--bg-card)] p-5 shadow-sm lg:grid-cols-[1fr_18rem]"
+      >
         <div className="space-y-4">
-          <IngestionProgress
-            fileName={fileMeta.name}
-            fileSize={fileMeta.size}
-            stage={stage === "done" ? "done" : stage}
-            progress={progress}
-            onCancel={handleReset}
-          />
+          <label className="block">
+            <span className="text-sm font-semibold text-[var(--text-secondary)]">
+              Source type
+            </span>
+            <select
+              value={source}
+              onChange={(event) => setSource(event.target.value)}
+              className="mt-2 h-11 w-full rounded-md border border-gov-border bg-[var(--bg-primary)] px-3 text-sm font-medium text-[var(--text-primary)]"
+            >
+              {SOURCE_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          {stage === "done" && (
-            <>
-              {/* Summary Cards */}
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <KpiCard
-                  title="Total Records"
-                  value={summary.total}
-                  icon={Database}
-                  iconVariant="blue"
-                  trend="neutral"
-                  trendLabel="Rows parsed"
-                />
-
-                <KpiCard
-                  title="Valid Records"
-                  value={summary.valid}
-                  icon={CheckCircle2}
-                  iconVariant="green"
-                  trend="neutral"
-                  trendLabel="Ready to ingest"
-                />
-
-                <KpiCard
-                  title="Warnings"
-                  value={summary.warning}
-                  icon={AlertTriangle}
-                  iconVariant="orange"
-                  trend="neutral"
-                  trendLabel="Needs review"
-                />
-
-                <KpiCard
-                  title="Rejected"
-                  value={summary.rejected}
-                  icon={XCircle}
-                  iconVariant="red"
-                  trend="neutral"
-                  trendLabel="Failed validation"
-                />
-              </div>
-
-              {/* Validation Issues */}
-              <ValidationIssuesPanel rows={rows} />
-
-              {/* Data Preview */}
-              <div>
-                <h2 className="mb-2 text-sm font-semibold text-[var(--text-primary)]">
-                  Data preview
-                </h2>
-
-                <DataPreviewTable rows={rows} />
-              </div>
-
-              {/* Actions */}
-              <div className="flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  disabled={summary.valid === 0 || committed}
-                  onClick={() => setCommitted(true)}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--primary-blue)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-blue-hover)] disabled:opacity-50"
-                >
-                  <ServerCog className="h-4 w-4" />
-
-                  Ingest {summary.valid} valid record
-                  {summary.valid === 1 ? "" : "s"}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleReset}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:border-slate-400"
-                >
-                  <RotateCcw className="h-4 w-4" />
-                  Upload another file
-                </button>
-              </div>
-
-              {/* Success Message */}
-              {committed && (
-                <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-                  {summary.valid} record
-                  {summary.valid === 1 ? "" : "s"} queued for AI risk
-                  scoring.
-
-                  {summary.rejected > 0 &&
-                    ` ${summary.rejected} rejected record${
-                      summary.rejected === 1 ? "" : "s"
-                    } were not ingested — fix and re-upload separately.`}
-                </div>
-              )}
-            </>
-          )}
+          <label className="flex min-h-36 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-gov-border bg-[var(--bg-secondary)] px-4 py-6 text-center transition hover:border-[var(--primary-blue)]">
+            <FileUp className="h-8 w-8 text-[var(--primary-blue)]" aria-hidden="true" />
+            <span className="mt-3 text-sm font-semibold text-[var(--text-primary)]">
+              {file ? file.name : "Choose a CSV file"}
+            </span>
+            <span className="mt-1 text-xs text-[var(--text-muted)]">
+              CSV uploads are sent to {API_BASE_URL}
+            </span>
+            <input type="file" accept=".csv,text/csv" className="sr-only" onChange={handleFileChange} />
+          </label>
         </div>
-      )}
-    </div>
+
+        <aside className="rounded-lg border border-gov-border bg-[var(--bg-secondary)] p-4">
+          <p className="text-sm font-semibold text-[var(--text-primary)]">Job status</p>
+          <div className="mt-4 flex items-center gap-3">
+            <StatusIcon status={status} isUploading={isUploading} />
+            <div>
+              <p className="text-base font-bold capitalize text-[var(--text-primary)]">
+                {isUploading ? "Uploading" : status}
+              </p>
+              <p className="text-xs text-[var(--text-muted)]">
+                {job?.job_id ? `Job ${job.job_id.slice(0, 8)}` : "No active job"}
+              </p>
+            </div>
+          </div>
+          <p className="mt-4 min-h-12 text-sm text-[var(--text-secondary)]">
+            {message || "Select a source CSV to start the pipeline."}
+          </p>
+          <button
+            type="submit"
+            disabled={!canSubmit}
+            className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[var(--primary-blue)] px-4 text-sm font-bold text-white transition hover:bg-[var(--primary-blue-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileUp className="h-4 w-4" />}
+            Run Pipeline
+          </button>
+          <a
+            href={job?.status === "done" ? apiUrl(`/download/${job.job_id}`) : undefined}
+            aria-disabled={job?.status !== "done"}
+            className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-md border border-gov-border px-4 text-sm font-bold text-[var(--text-primary)] transition hover:bg-[var(--bg-card-hover)] aria-disabled:pointer-events-none aria-disabled:opacity-50"
+          >
+            <Download className="h-4 w-4" aria-hidden="true" />
+            Download Output
+          </a>
+        </aside>
+      </form>
+    </section>
   );
+}
+
+function StatusIcon({ status, isUploading }: { status: JobStatus; isUploading: boolean }) {
+  if (isUploading || status === "queued" || status === "running") {
+    return <Loader2 className="h-8 w-8 animate-spin text-[var(--primary-blue)]" aria-hidden="true" />;
+  }
+  if (status === "done") {
+    return <CheckCircle2 className="h-8 w-8 text-[var(--color-low)]" aria-hidden="true" />;
+  }
+  if (status === "failed") {
+    return <XCircle className="h-8 w-8 text-[var(--color-critical)]" aria-hidden="true" />;
+  }
+  return <FileUp className="h-8 w-8 text-[var(--text-muted)]" aria-hidden="true" />;
 }

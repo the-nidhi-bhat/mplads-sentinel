@@ -1,0 +1,17 @@
+# config.yml
+project_normalizer:
+  input_dir: project-normalizer/data
+  finalized_path: project-normalizer/data/finalized.csv
+  schema_path: project-normalizer/schema/final_schema.json
+  provenance_mode: keep   # keep | drop | audit-only
+  dayfirst: true
+
+mplads_ml:
+  repo_dir: mplads-ml
+  model_input_path: mplads-ml/data/mplads_raw_for_model.csv
+  cleaned_path: mplads-ml/data/mplads_clean.csv
+  models_dir: mplads-ml/models
+
+pipeline:
+  temp_dir: C:\Temp\mplads_pipeline_tmp
+  atomic_write: true

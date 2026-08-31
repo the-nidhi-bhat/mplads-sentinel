@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
-@import "leaflet/dist/leaflet.css";
 
 /* ── Light Mode (default) ── */
 :root {
@@ -96,16 +95,13 @@ body {
 ::-webkit-scrollbar {
   width: 6px;
 }
-
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
@@ -128,7 +124,6 @@ body {
 
 /* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -136,7 +131,6 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-
   html {
     scroll-behavior: auto;
   }
@@ -151,7 +145,6 @@ body {
 .nav-link-underline {
   position: relative;
 }
-
 .nav-link-underline::after {
   content: "";
   position: absolute;
@@ -162,7 +155,6 @@ body {
   background: var(--teal);
   transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .nav-link-underline:hover::after,
 .nav-link-underline.active::after {
   width: 100%;
@@ -174,7 +166,6 @@ body {
   transform: translateY(24px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);

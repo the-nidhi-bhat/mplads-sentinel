@@ -1,0 +1,13 @@
+{
+  "project_id": ["ProjectID", "Proj_ID", "ID"],
+  "mp_name": ["MP Name", "MemberName"],
+  "district": ["DistrictName", "Dist"],
+  "work_type": ["Work_Type", "TypeOfWork"],
+  "sanction_date": ["SanctionDate", "DateSanctioned"],
+  "sanction_amount": ["SanctionAmt", "SanctionAmount"],
+  "expenditure_to_date": ["Expenditure", "SpentTillDate"],
+  "start_date": ["StartDate"],
+  "expected_end_date": ["ExpectedEnd", "PlannedEnd"],
+  "actual_end_date": ["ActualEnd", "CompletionDate"],
+  "status": ["CurrentStatus", "ProjStatus"]
+}
