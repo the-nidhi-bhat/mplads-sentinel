@@ -2,6 +2,7 @@
 node_modules/
 frontend/node_modules/
 __pycache__/
+.pytest_cache/
 *.pyc
 .venv/
 venv/
@@ -44,4 +45,6 @@ mplads-ml/data/mplads_clean.csv
 mplads-ml/data/mplads_raw_for_model.csv
 project-normalizer/data/finalized.csv
 project-normalizer/data/works_sanctioned.csv
+project-normalizer/data/works_completed.csv
+project-normalizer/data/works_recommended.csv
 
