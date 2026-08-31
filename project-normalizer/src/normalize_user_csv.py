@@ -104,6 +104,26 @@ SOURCE_HEADER_OVERRIDES = {
     "sanction date": "sanction_date",
 }
 
+
+SUMMARY_PROJECT_ID_PATTERN = r"^(?:grand\s+)?(?:sub\s+)?total(?:s)?$"
+
+
+def drop_summary_rows(df):
+    """Remove spreadsheet-export total rows before they become projects.
+
+    Government CSV exports commonly append a final row such as ``Grand
+    Total``. It has no project metadata and its aggregate amount can otherwise
+    be shifted into a canonical field during normalization.
+    """
+    if "project_id" not in df.columns:
+        return df
+    project_ids = df["project_id"].astype("string").str.strip()
+    summary_rows = project_ids.str.match(SUMMARY_PROJECT_ID_PATTERN, case=False, na=False)
+    if summary_rows.any():
+        logger.warning("Dropping %d spreadsheet summary row(s)", int(summary_rows.sum()))
+        df = df.loc[~summary_rows].copy()
+    return df
+
 def _best_match(col, candidates):
     """Return best candidate from candidates for col using difflib and synonyms."""
     col_l = col.lower().strip()
@@ -199,6 +219,7 @@ def construct_canonical_df(df, rename_map):
                 df[c] = ""
     # keep only canonical columns in canonical order
     df = df[CANONICAL].copy()
+    df = drop_summary_rows(df)
     # normalize types
     df = normalize_dates_and_numbers(df)
     # A project's start date is its sanction date. Populate both fields at

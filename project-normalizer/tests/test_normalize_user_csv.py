@@ -37,3 +37,19 @@ def test_sanctioned_works_headers_map_to_distinct_fields():
     assert normalized.loc[0, "status"] == "Physical Inspection"
     assert normalized.loc[0, "sanction_date"] == "2024-07-09"
     assert normalized.loc[0, "start_date"] == "2024-07-09"
+
+
+def test_summary_rows_are_excluded_from_canonical_output():
+    raw = pd.DataFrame(
+        {
+            "Sr. No.": ["1", "Grand Total"],
+            "Work category": ["Normal/Others", ""],
+            "Sanction Date": ["2024-07-09", ""],
+            "Sanction Amount ( ₹ )": ["100", "100"],
+            "Work Status": ["Sanction", "100"],
+        }
+    )
+
+    normalized = construct_canonical_df(raw, build_rename_map(raw.columns))
+
+    assert normalized["project_id"].tolist() == ["1"]
