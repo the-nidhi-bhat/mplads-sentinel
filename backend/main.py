@@ -102,3 +102,31 @@ def download_result(job_id: str):
 @app.get("/")
 def health_check():
     return {"message": "Workspace backend is running."}
+
+
+@app.get("/sources")
+def get_sources_status():
+    """Report whether each pipeline source data file has been populated.
+
+    The normalizer merges three source datasets (sanctioned / recommended /
+    completed) into the finalized model input. When a source file is missing
+    or effectively empty, downstream fields computed from it (for example
+    expenditure-based metrics) fall back to defaults such as 0. Exposing this
+    here lets the UI warn the user that a source is still just a placeholder.
+    """
+    data_dir = Path(__file__).resolve().parent.parent / "project-normalizer" / "data"
+    sources = ["works_sanctioned", "works_recommended", "works_completed"]
+    result = {}
+    for name in sources:
+        path = data_dir / f"{name}.csv"
+        is_empty = (
+            not path.exists()
+            or path.stat().st_size == 0
+            or path.stat().st_size <= 3
+        )
+        result[name] = {
+            "exists": path.exists(),
+            "size": path.stat().st_size if path.exists() else 0,
+            "empty": is_empty,
+        }
+    return result

@@ -612,6 +612,43 @@ The development URLs will be displayed by the respective services.
 
 ---
 
+## 16.5 Running Locally
+
+> **Important:** the commands below are the verified, working way to run this project.
+> The exact backend invocation matters — `backend.main:app` (from the repo root) is
+> required because `backend/main.py` imports `backend.pipeline`. Running `uvicorn main:app`
+> from inside `backend/` will fail with `ModuleNotFoundError: No module named 'backend'`.
+
+**Backend** — from the repo root, in its own terminal (must stay running):
+
+```powershell
+cd "C:\dev\MPLADS Sentinel"
+.\.venv\Scripts\python.exe -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+```
+
+Leave this terminal open. The backend does **not** restart automatically — if you close the
+terminal or reboot, start it again. The frontend proxies `/backend-api/*` to
+`http://localhost:8000/*`, so if this server is down the UI shows a generic
+"Internal Server Error" on upload.
+
+**Frontend** — in a separate terminal:
+
+```powershell
+cd frontend
+npm run dev
+```
+
+Open `http://localhost:3000` and use the Data Ingestion page to upload and run the pipeline.
+
+**First-time setup** (also see Section 16):
+
+```powershell
+python -m venv .venv        # use Python 3.11, not 3.14 — some ML deps lack 3.14 wheels
+.\.venv\Scripts\pip install -r backend/requirements.txt
+```
+
+---
+
 ## 17. Development Principles
 
 The project follows these principles:

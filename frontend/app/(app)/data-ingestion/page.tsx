@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Download, FileUp, Loader2, XCircle } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Download, FileUp, Loader2, XCircle } from "lucide-react";
 import { API_BASE_URL, apiUrl } from "@/lib/api";
 
 type JobStatus = "idle" | "queued" | "running" | "done" | "failed";
@@ -12,6 +12,24 @@ type StatusResponse = {
   filename?: string;
   error?: string | null;
   traceback?: string;
+};
+
+type SourceStatus = {
+  exists: boolean;
+  size: number;
+  empty: boolean;
+};
+
+type SourcesResponse = {
+  works_sanctioned: SourceStatus;
+  works_recommended: SourceStatus;
+  works_completed: SourceStatus;
+};
+
+const SOURCE_FILE: Record<string, keyof SourcesResponse> = {
+  sanctioned: "works_sanctioned",
+  recommended: "works_recommended",
+  completed: "works_completed",
 };
 
 async function readErrorMessage(response: Response): Promise<string> {
@@ -39,6 +57,7 @@ export default function DataIngestionPage() {
   const [status, setStatus] = useState<JobStatus>("idle");
   const [message, setMessage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const [sources, setSources] = useState<SourcesResponse | null>(null);
 
   const canSubmit = Boolean(file) && !isUploading && status !== "running" && status !== "queued";
 
@@ -46,6 +65,25 @@ export default function DataIngestionPage() {
     () => SOURCE_OPTIONS.find((option) => option.value === source)?.label ?? source,
     [source]
   );
+
+  const selectedSourceEmpty = sources?.[SOURCE_FILE[source]]?.empty === true;
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const response = await fetch(apiUrl("/sources"));
+        if (!response.ok) return;
+        const payload = (await response.json()) as SourcesResponse;
+        if (!cancelled) setSources(payload);
+      } catch {
+        // Leave sources unknown; no warning can be shown.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!job?.job_id || (status !== "queued" && status !== "running")) return;
@@ -115,6 +153,21 @@ export default function DataIngestionPage() {
 
   return (
     <section className="space-y-6">
+      {selectedSourceEmpty && (
+        <div className="flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-4">
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" aria-hidden="true" />
+          <div className="text-sm text-amber-900">
+            <p className="font-bold">No <span className="capitalize">{selectedLabel}</span> data has been uploaded yet.</p>
+            <p className="mt-1">
+              The source dataset for this type is still an empty placeholder. Fields that depend on this
+              data (for example expenditure-based metrics like utilized amount, percent spent, or
+              fund-utilization speed) will fall back to 0 in the output. Upload the corresponding MPLADS
+              report (e.g. the completed/expenditure report) using this source type to populate real values.
+            </p>
+          </div>
+        </div>
+      )}
+
       <div>
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--primary-blue)]">
           Pipeline intake
