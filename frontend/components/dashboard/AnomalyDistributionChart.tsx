@@ -10,21 +10,32 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 const ANOMALY_CATEGORIES = ["Cost", "Timeline", "Duplicate", "Agency", "Progress-Expenditure"] as const;
 type AnomalyCategory = (typeof ANOMALY_CATEGORIES)[number];
 
-// Maps raw evidence factors onto the 5 reporting buckets.
-//  - "Cost Anomaly"                                   -> Cost
-//  - "Project Delay"                                  -> Timeline
-//  - "Duplicate / Similar Work"                       -> Duplicate
-//  - "Progress-Payment Mismatch"                      -> Progress-Expenditure
-//  - "Payment Pattern", "Fund Utilization Anomaly"    -> Agency (ambiguous: these describe
-//    how an agency disburses / utilizes funds, so they are grouped under the Agency bucket)
+// Maps the raw evidence factor (project's primary finding) onto the 5 reporting buckets.
+// Keyed on the actual values present in the audit dataset so the donut shows real,
+// proportional slices instead of everything collapsing into a single category.
 const FACTOR_TO_CATEGORY: Record<string, AnomalyCategory> = {
-  "Cost Anomaly": "Cost",
-  "Project Delay": "Timeline",
-  "Duplicate / Similar Work": "Duplicate",
-  "Payment Pattern": "Agency",
-  "Fund Utilization Anomaly": "Agency",
-  "Progress-Payment Mismatch": "Progress-Expenditure",
+  "Component cost anomaly": "Cost",
+  "Cost deviation (+22%)": "Cost",
+  "Cost anomaly (+31.2%)": "Cost",
+  "Material cost spike (+28%)": "Cost",
+  "Delayed by 180 days": "Timeline",
+  "Minor delay in execution": "Timeline",
+  "Slight milestone lag": "Timeline",
+  "Delayed milestones": "Timeline",
+  "Out-of-constituency funding deviation": "Duplicate",
+  "Payment pattern anomaly": "Agency",
+  "Suspicious rapid advance withdrawal": "Agency",
+  "Low utilization (18%)": "Agency",
+  "Low utilization (15%)": "Agency",
+  "Low asset utilization": "Agency",
+  "Zero photo compliance on 100% drawdown": "Agency",
+  "Severe delay & payment mismatch": "Progress-Expenditure",
+  "Milestone lag & cost overrun (+15%)": "Progress-Expenditure",
 };
+
+// Non-anomaly rows (e.g. "Normal progression") are excluded from the anomaly-type
+// distribution so they don't skew the chart as a fake anomaly category.
+const NON_ANOMALY_FACTORS: Set<string> = new Set(["Normal progression"]);
 
 function countAnomalies(projects: Project[]): Record<AnomalyCategory, number> {
   const counts: Record<AnomalyCategory, number> = {
@@ -36,7 +47,9 @@ function countAnomalies(projects: Project[]): Record<AnomalyCategory, number> {
   };
   projects.forEach((project) => {
     project.evidence.forEach((evidence) => {
-      const category = FACTOR_TO_CATEGORY[evidence.factor] ?? "Agency";
+      if (NON_ANOMALY_FACTORS.has(evidence.factor)) return;
+      const category = FACTOR_TO_CATEGORY[evidence.factor];
+      if (!category) return;
       counts[category] += 1;
     });
   });
@@ -62,7 +75,7 @@ export default function AnomalyDistributionChart({ projects }: AnomalyDistributi
         background: "transparent",
       },
       labels: [...ANOMALY_CATEGORIES],
-      colors: ["#dc2626", "#f97316", "#3b82f6", "#ca8a04", "#8b5cf6"],
+      colors: ["#6366f1", "#06b6d4", "#8b5cf6", "#3b82f6", "#14b8a6"],
       stroke: { colors: ["#ffffff"], width: 2 },
       plotOptions: {
         pie: {

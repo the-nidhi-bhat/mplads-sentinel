@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import { Eye, Search } from "lucide-react";
-import { Project, RiskLevel, projectsData } from "@/lib/mock-data";
+import { Eye, Search, MapPinned } from "lucide-react";
+import { projectsData } from "@/lib/mock-data";
 
-const riskClasses: Record<RiskLevel, string> = {
+const riskClasses = {
   critical: "text-[var(--color-critical)] border-[var(--color-critical-border)] bg-[var(--color-critical-bg)]",
   high: "text-[var(--color-high)] border-[var(--color-high-border)] bg-[var(--color-high-bg)]",
   medium: "text-[var(--color-medium)] border-[var(--color-medium-border)] bg-[var(--color-medium-bg)]",
@@ -26,86 +26,10 @@ function ProjectsDirectory() {
   });
 
   return (
-    <section className="space-y-5">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-[var(--text-primary)]">Projects</h1>
-          <p className="mt-1 text-sm text-[var(--text-muted)]">
-            {agency ? `Filtered to ${agency}` : "Browse MPLADS projects and open records for review."}
-          </p>
-        </div>
-        <label className="relative block w-full sm:max-w-sm">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-muted)]" aria-hidden="true" />
-          <span className="sr-only">Search projects</span>
-          <input
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search ID, title, district, agency"
-            className="h-11 w-full rounded-md border border-gov-border bg-[var(--bg-card)] pl-10 pr-3 text-sm text-[var(--text-primary)] shadow-sm"
-          />
-        </label>
-      </div>
-
-      <div className="overflow-hidden rounded-lg border border-gov-border bg-[var(--bg-card)] shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gov-border text-left text-sm">
-            <thead className="bg-[var(--bg-secondary)] text-xs uppercase text-[var(--text-muted)]">
-              <tr>
-                <th className="px-4 py-3 font-bold">Project</th>
-                <th className="px-4 py-3 font-bold">Location</th>
-                <th className="px-4 py-3 font-bold">Agency</th>
-                <th className="px-4 py-3 font-bold">Risk</th>
-                <th className="px-4 py-3 font-bold">Finding</th>
-                <th className="px-4 py-3 font-bold">Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gov-border">
-              {projects.map((project) => (
-                <ProjectRow key={project.id} project={project} />
-              ))}
-              {projects.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="px-4 py-10 text-center text-sm text-[var(--text-muted)]">
-                    No projects match the current search.
-                  </td>
-                </tr>
-              ) : null}
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <section className="space-y-6">
+      <div><h1 className="text-2xl font-bold text-[var(--text-primary)]">Project Evidence</h1><p className="mt-1 text-sm text-[var(--text-muted)]">Browse tracked MPLADS projects and their audit priority scores.</p></div>
+      <label className="flex max-w-xl items-center gap-2 rounded-lg border border-gov-border bg-[var(--bg-card)] px-3 py-2 text-[var(--text-muted)]"><Search className="h-4 w-4" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search projects, districts, or agencies" className="w-full bg-transparent text-sm outline-none" /></label>
+      <div className="overflow-hidden rounded-xl border border-gov-border bg-[var(--bg-card)]"><table className="w-full text-left text-sm"><thead className="border-b border-gov-border text-xs text-[var(--text-muted)]"><tr><th className="p-4">Project</th><th className="p-4">Agency</th><th className="p-4">Risk</th><th className="p-4">Actions</th></tr></thead><tbody>{projects.map((project) => <tr key={project.id} className="border-b border-gov-border last:border-0"><td className="p-4"><p className="font-medium text-[var(--text-primary)]">{project.title}</p><p className="text-xs text-[var(--text-muted)]">{project.id} · {project.district || project.state}</p></td><td className="p-4 text-[var(--text-muted)]">{project.agency}</td><td className="p-4"><span className={`rounded border px-2 py-1 text-xs font-medium ${riskClasses[project.riskLevel]}`}>{project.riskLevel} · {project.riskScore}</span></td><td className="p-4 flex items-center gap-4"><Link href={`/projects/${encodeURIComponent(project.id)}`} className="inline-flex items-center gap-1 text-xs font-medium text-[var(--primary-blue)] hover:underline"><Eye className="h-4 w-4" />View</Link><Link href={`/map?projectId=${encodeURIComponent(project.id)}`} className="inline-flex items-center gap-1 text-xs font-medium text-[var(--primary-blue)] hover:underline"><MapPinned className="h-4 w-4" />Map</Link></td></tr>)}</tbody></table>{projects.length === 0 && <p className="p-6 text-center text-sm text-[var(--text-muted)]">No matching projects found.</p>}</div>
     </section>
-  );
-}
-
-function ProjectRow({ project }: { project: Project }) {
-  return (
-    <tr className="transition hover:bg-[var(--bg-card-hover)]">
-      <td className="max-w-xs px-4 py-3">
-        <p className="font-bold text-[var(--text-primary)]">{project.id}</p>
-        <p className="mt-1 truncate text-sm text-[var(--text-secondary)]" title={project.title}>
-          {project.title}
-        </p>
-      </td>
-      <td className="px-4 py-3 text-[var(--text-secondary)]">
-        {project.district || project.state || "Not provided"}
-      </td>
-      <td className="px-4 py-3 text-[var(--text-secondary)]">{project.agency || "Not assigned"}</td>
-      <td className="px-4 py-3">
-        <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-bold capitalize ${riskClasses[project.riskLevel]}`}>
-          {project.riskLevel}
-        </span>
-      </td>
-      <td className="max-w-sm px-4 py-3 text-[var(--text-secondary)]">{project.primaryFinding}</td>
-      <td className="px-4 py-3">
-        <Link
-          href={`/projects/${encodeURIComponent(project.id)}`}
-          className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-gov-border px-3 text-sm font-bold text-[var(--text-primary)] transition hover:bg-[var(--bg-secondary)]"
-        >
-          <Eye className="h-4 w-4" aria-hidden="true" />
-          View
-        </Link>
-      </td>
-    </tr>
   );
 }
