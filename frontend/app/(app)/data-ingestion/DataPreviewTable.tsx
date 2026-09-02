@@ -28,23 +28,29 @@ export default function DataPreviewTable({ rows }: { rows: ValidatedRow[] }) {
             <tr>
               <th className="px-3 py-2.5">Status</th>
               <th className="px-3 py-2.5">Project ID</th>
-              <th className="px-3 py-2.5">Project Name</th>
-              <th className="px-3 py-2.5">MP</th>
+              <th className="px-3 py-2.5">MP Name</th>
               <th className="px-3 py-2.5">District</th>
               <th className="px-3 py-2.5">Work Type</th>
               <th className="px-3 py-2.5 text-right">Sanctioned</th>
-              <th className="px-3 py-2.5 text-right">Utilization %</th>
-              <th className="px-3 py-2.5">Completion</th>
+              <th className="px-3 py-2.5 text-right">Expenditure</th>
+              <th className="px-3 py-2.5">Expected End</th>
+              <th className="px-3 py-2.5">Source Status</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {visible.map((row) => {
-              const cfg = STATUS_CONFIG[row.status];
+              const cfg = STATUS_CONFIG[row._validationStatus];
               const Icon = cfg.icon;
               return (
                 <tr
                   key={row._rowNumber}
-                  className={row.status === "rejected" ? "bg-red-50/50" : row.status === "warning" ? "bg-amber-50/40" : ""}
+                  className={
+                    row._validationStatus === "rejected"
+                      ? "bg-red-50/50"
+                      : row._validationStatus === "warning"
+                      ? "bg-amber-50/40"
+                      : ""
+                  }
                   title={row.issues.length ? row.issues.join(" · ") : undefined}
                 >
                   <td className="px-3 py-2">
@@ -53,14 +59,14 @@ export default function DataPreviewTable({ rows }: { rows: ValidatedRow[] }) {
                       {cfg.label}
                     </span>
                   </td>
-                  <td className="px-3 py-2 font-mono text-xs text-slate-600">{row.projectId || "—"}</td>
-                  <td className="px-3 py-2 text-slate-700 max-w-[220px] truncate">{row.projectName || "—"}</td>
-                  <td className="px-3 py-2 text-slate-600">{row.mpName || "—"}</td>
+                  <td className="px-3 py-2 font-mono text-xs text-slate-600">{row.project_id || "—"}</td>
+                  <td className="px-3 py-2 text-slate-700">{row.mp_name || "—"}</td>
                   <td className="px-3 py-2 text-slate-600">{row.district || "—"}</td>
-                  <td className="px-3 py-2 text-slate-600">{row.workType || "—"}</td>
-                  <td className="px-3 py-2 text-right text-slate-700">{formatINR(row.sanctionedAmount)}</td>
-                  <td className="px-3 py-2 text-right text-slate-700">{row.fundUtilizationPercent || "—"}</td>
-                  <td className="px-3 py-2 text-slate-600">{row.expectedCompletion || "—"}</td>
+                  <td className="px-3 py-2 text-slate-600">{row.work_type || "—"}</td>
+                  <td className="px-3 py-2 text-right text-slate-700">{formatINR(row.sanction_amount)}</td>
+                  <td className="px-3 py-2 text-right text-slate-700">{formatINR(row.expenditure_to_date)}</td>
+                  <td className="px-3 py-2 text-slate-600">{row.expected_end_date || "—"}</td>
+                  <td className="px-3 py-2 text-slate-600">{row.status || "—"}</td>
                 </tr>
               );
             })}

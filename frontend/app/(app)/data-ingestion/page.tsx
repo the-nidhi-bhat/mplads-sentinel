@@ -50,6 +50,20 @@ const SOURCE_OPTIONS = [
   { value: "completed", label: "Completed works" },
 ];
 
+const EXPECTED_COLUMNS = [
+  "project_id",
+  "mp_name",
+  "district",
+  "work_type",
+  "sanction_date",
+  "sanction_amount",
+  "expenditure_to_date",
+  "start_date",
+  "expected_end_date",
+  "actual_end_date",
+  "status",
+];
+
 export default function DataIngestionPage() {
   const [file, setFile] = useState<File | null>(null);
   const [source, setSource] = useState(SOURCE_OPTIONS[0].value);
@@ -213,6 +227,13 @@ export default function DataIngestionPage() {
             </span>
             <input type="file" accept=".csv,text/csv" className="sr-only" onChange={handleFileChange} />
           </label>
+
+          <div className="rounded-md border border-gov-border bg-[var(--bg-secondary)] p-3">
+            <p className="text-xs font-semibold text-[var(--text-primary)]">Expected CSV columns</p>
+            <p className="mt-1 break-words font-mono text-[11px] leading-relaxed text-[var(--text-muted)]">
+              {EXPECTED_COLUMNS.join(", ")}
+            </p>
+          </div>
         </div>
 
         <aside className="rounded-lg border border-gov-border bg-[var(--bg-secondary)] p-4">
@@ -239,7 +260,7 @@ export default function DataIngestionPage() {
             {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileUp className="h-4 w-4" />}
             Run Pipeline
           </button>
-          <a
+          
             href={job?.status === "done" ? apiUrl(`/download/${job.job_id}`) : undefined}
             aria-disabled={job?.status !== "done"}
             className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-md border border-gov-border px-4 text-sm font-bold text-[var(--text-primary)] transition hover:bg-[var(--bg-card-hover)] aria-disabled:pointer-events-none aria-disabled:opacity-50"

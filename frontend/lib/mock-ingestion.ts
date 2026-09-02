@@ -1,59 +1,51 @@
 export interface IngestionRow {
-  projectId: string;
-  projectName: string;
-  mpName: string;
-  state: string;
+  project_id: string;
+  mp_name: string;
   district: string;
-  constituency: string;
-  workType: string;
-  agency: string;
-  sanctionedAmount: string;
-  utilizedAmount: string;
-  sanctionDate: string;
-  expectedCompletion: string;
-  fundUtilizationPercent: string;
+  work_type: string;
+  sanction_date: string;
+  sanction_amount: string;
+  expenditure_to_date: string;
+  start_date: string;
+  expected_end_date: string;
+  actual_end_date: string;
+  status: string; // source status value, e.g. "Ongoing", "Completed"
 }
 
 export type RowStatus = "valid" | "warning" | "rejected";
 
 export interface ValidatedRow extends IngestionRow {
   _rowNumber: number;
-  status: RowStatus;
+  _validationStatus: RowStatus;
   issues: string[];
 }
 
 const CSV_FIELDS: (keyof IngestionRow)[] = [
-  "projectId",
-  "projectName",
-  "mpName",
-  "state",
+  "project_id",
+  "mp_name",
   "district",
-  "constituency",
-  "workType",
-  "agency",
-  "sanctionedAmount",
-  "utilizedAmount",
-  "sanctionDate",
-  "expectedCompletion",
-  "fundUtilizationPercent",
+  "work_type",
+  "sanction_date",
+  "sanction_amount",
+  "expenditure_to_date",
+  "start_date",
+  "expected_end_date",
+  "actual_end_date",
+  "status",
 ];
 
-const FIELD_LABELS: Partial<Record<keyof IngestionRow, string>> = {
-  projectId: "Project ID",
-  projectName: "Project Name",
-  mpName: "MP Name",
-  state: "State",
-  district: "District",
-  constituency: "Constituency",
-  sanctionedAmount: "Sanctioned Amount",
-  expectedCompletion: "Expected Completion Date",
+const REQUIRED_FIELDS: (keyof IngestionRow)[] = ["project_id", "mp_name", "district", "work_type"];
+const REQUIRED_LABELS: Partial<Record<keyof IngestionRow, string>> = {
+  project_id: "project_id",
+  mp_name: "mp_name",
+  district: "district",
+  work_type: "work_type",
 };
 
-const REQUIRED_FIELDS = Object.keys(FIELD_LABELS) as (keyof IngestionRow)[];
+const DATE_FIELDS: (keyof IngestionRow)[] = ["sanction_date", "start_date", "expected_end_date", "actual_end_date"];
+const DATE_PATTERN = /^\d{1,2}\s[A-Za-z]{3}\s\d{4}$/; // e.g. "1 Oct 2025"
 
-const DATE_PATTERN = /^\d{1,2}\s[A-Za-z]{3}\s\d{4}$/;
-
-// ---------- CSV parsing ----------
+// ---------- CSV parsing (maps by header name, not column order) ----------
 
 export function parseCSV(text: string): IngestionRow[] {
   const lines = text
@@ -62,13 +54,16 @@ export function parseCSV(text: string): IngestionRow[] {
     .filter((l) => l.length > 0);
 
   if (lines.length <= 1) return [];
-  const dataLines = lines.slice(1); // first line is the header, skip it
+
+  const headerCells = lines[0].split(",").map((h) => h.trim());
+  const dataLines = lines.slice(1);
 
   return dataLines.map((line) => {
     const cells = line.split(",").map((c) => c.trim());
     const row = {} as IngestionRow;
-    CSV_FIELDS.forEach((field, idx) => {
-      (row as any)[field] = cells[idx] ?? "";
+    CSV_FIELDS.forEach((field) => {
+      const idx = headerCells.indexOf(field);
+      (row as any)[field] = idx !== -1 ? cells[idx] ?? "" : "";
     });
     return row;
   });
@@ -84,72 +79,63 @@ export function validateRows(rows: IngestionRow[]): ValidatedRow[] {
 
     REQUIRED_FIELDS.forEach((field) => {
       if (!row[field] || !String(row[field]).trim()) {
-        issues.push({ level: "reject", message: `Missing ${FIELD_LABELS[field]}` });
+        issues.push({ level: "reject", message: `Missing ${REQUIRED_LABELS[field]}` });
       }
     });
 
-    const sanctioned = Number(row.sanctionedAmount);
-    if (row.sanctionedAmount && (Number.isNaN(sanctioned) || sanctioned <= 0)) {
-      issues.push({ level: "reject", message: "Sanctioned amount is not a valid positive number" });
+    const sanctioned = Number(row.sanction_amount);
+    if (row.sanction_amount && (Number.isNaN(sanctioned) || sanctioned <= 0)) {
+      issues.push({ level: "reject", message: "sanction_amount is not a valid positive number" });
     }
 
-    const utilized = Number(row.utilizedAmount);
-    if (row.utilizedAmount && Number.isNaN(utilized)) {
-      issues.push({ level: "reject", message: "Utilized amount is not a valid number" });
-    } else if (!Number.isNaN(utilized) && !Number.isNaN(sanctioned) && sanctioned > 0 && utilized > sanctioned * 1.2) {
-      issues.push({ level: "warn", message: "Utilized amount exceeds sanctioned amount by more than 20%" });
+    const expenditure = Number(row.expenditure_to_date);
+    if (row.expenditure_to_date && Number.isNaN(expenditure)) {
+      issues.push({ level: "reject", message: "expenditure_to_date is not a valid number" });
+    } else if (
+      !Number.isNaN(expenditure) &&
+      !Number.isNaN(sanctioned) &&
+      sanctioned > 0 &&
+      expenditure > sanctioned * 1.2
+    ) {
+      issues.push({ level: "warn", message: "expenditure_to_date exceeds sanction_amount by more than 20%" });
     }
 
-    const utilPct = Number(row.fundUtilizationPercent);
-    if (row.fundUtilizationPercent && (Number.isNaN(utilPct) || utilPct < 0 || utilPct > 100)) {
-      issues.push({ level: "warn", message: "Fund utilization percentage is out of the 0–100 range" });
-    }
+    DATE_FIELDS.forEach((field) => {
+      const value = row[field];
+      if (value && !DATE_PATTERN.test(String(value).trim())) {
+        issues.push({ level: "warn", message: `${field} is not a recognizable date` });
+      }
+    });
 
-    if (row.expectedCompletion && !DATE_PATTERN.test(row.expectedCompletion.trim())) {
-      issues.push({ level: "warn", message: "Expected completion date is not in DD Mon YYYY format" });
-    }
-
-    if (row.projectId) {
-      if (seenIds.has(row.projectId)) {
-        issues.push({ level: "reject", message: "Duplicate project ID (already seen in this file)" });
+    if (row.project_id) {
+      if (seenIds.has(row.project_id)) {
+        issues.push({ level: "reject", message: "Duplicate project_id (already seen in this file)" });
       } else {
-        seenIds.add(row.projectId);
+        seenIds.add(row.project_id);
       }
     }
 
-    const status: RowStatus = issues.some((i) => i.level === "reject")
+    const validationStatus: RowStatus = issues.some((i) => i.level === "reject")
       ? "rejected"
       : issues.length > 0
       ? "warning"
       : "valid";
 
-    return { ...row, _rowNumber: idx + 1, status, issues: issues.map((i) => i.message) };
+    return {
+      ...row,
+      _rowNumber: idx + 1,
+      _validationStatus: validationStatus,
+      issues: issues.map((i) => i.message),
+    };
   });
 }
 
-// ---------- Sample data generator (for the "Load sample dataset" button) ----------
+// ---------- Sample data generator ----------
 
-const CONSTITUENCIES = [
-  { name: "Belagavi", district: "Belagavi", mp: "Smt. R. Deshmukh" },
-  { name: "Chikkodi", district: "Belagavi", mp: "Shri V. Patil" },
-  { name: "Bagalkot", district: "Bagalkot", mp: "Shri K. Rao" },
-  { name: "Vijayapura", district: "Vijayapura", mp: "Shri S. Jadhav" },
-  { name: "Dharwad", district: "Dharwad", mp: "Smt. M. Hegde" },
-];
+const DISTRICTS = ["Belagavi", "Bagalkot", "Vijayapura", "Dharwad", "Chikkodi"];
+const MPS = ["Smt. R. Deshmukh", "Shri V. Patil", "Shri K. Rao", "Shri S. Jadhav", "Smt. M. Hegde"];
 const WORK_TYPES = ["Health", "Education", "Water & Sanitation", "Infrastructure", "Sports & Recreation"];
-const AGENCIES = ["Zilla Panchayat", "PWD", "Rural Development Dept", "Taluk Panchayat", "Municipal Corporation"];
-const PROJECT_NOUNS = [
-  "Community Health Sub-Centre",
-  "Government Primary School Upgrade",
-  "Drinking Water Supply Line",
-  "Solar Street Lighting",
-  "Community Hall Renovation",
-  "Bore-well Installation",
-  "Road Widening Works",
-  "Anganwadi Building",
-  "Sports Ground Development",
-  "Public Library Construction",
-];
+const STATUSES = ["Ongoing", "Completed", "Delayed", "Not Started"];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function formatDMY(date: Date): string {
@@ -166,37 +152,39 @@ export function generateSampleCsv(rowCount = 45): string {
   const baseDate = new Date(2025, 9, 1); // 1 Oct 2025
 
   for (let i = 0; i < rowCount; i++) {
-    const c = CONSTITUENCIES[i % CONSTITUENCIES.length];
+    const district = DISTRICTS[i % DISTRICTS.length];
+    const mp = MPS[i % MPS.length];
     const workType = WORK_TYPES[(i + 2) % WORK_TYPES.length];
-    const agency = AGENCIES[(i + 1) % AGENCIES.length];
-    const noun = PROJECT_NOUNS[i % PROJECT_NOUNS.length];
+    const status = STATUSES[i % STATUSES.length];
     const sanctioned = 500000 + (i % 9) * 350000;
-    const utilized = Math.round(sanctioned * (0.4 + (i % 6) * 0.1));
-    const utilPct = Math.round((utilized / sanctioned) * 100);
+    const expenditure = Math.round(sanctioned * (0.3 + (i % 6) * 0.12));
+
+    const sanctionDate = addDays(baseDate, i * 11);
+    const startDate = addDays(sanctionDate, 20);
+    const expectedEnd = addDays(startDate, 240 + (i % 5) * 30);
+    const actualEndDate = status === "Completed" ? addDays(expectedEnd, (i % 3) * 10 - 10) : null;
 
     rows.push({
-      projectId: `MPLADS-KA-${2000 + i}`,
-      projectName: `${noun} — Phase ${(i % 3) + 1}`,
-      mpName: c.mp,
-      state: "Karnataka",
-      district: c.district,
-      constituency: c.name,
-      workType,
-      agency,
-      sanctionedAmount: String(sanctioned),
-      utilizedAmount: String(utilized),
-      sanctionDate: formatDMY(addDays(baseDate, i * 11)),
-      expectedCompletion: formatDMY(addDays(baseDate, i * 11 + 240 + (i % 5) * 30)),
-      fundUtilizationPercent: String(utilPct),
+      project_id: `MPLADS-KA-${2000 + i}`,
+      mp_name: mp,
+      district,
+      work_type: workType,
+      sanction_date: formatDMY(sanctionDate),
+      sanction_amount: String(sanctioned),
+      expenditure_to_date: String(expenditure),
+      start_date: formatDMY(startDate),
+      expected_end_date: formatDMY(expectedEnd),
+      actual_end_date: actualEndDate ? formatDMY(actualEndDate) : "",
+      status,
     });
   }
 
   // Deliberately inject a handful of bad records so validation has something to catch
-  if (rows[5]) rows[5].projectName = "";
-  if (rows[12]) rows[12].sanctionedAmount = "N/A";
-  if (rows[18] && rows[3]) rows[18].projectId = rows[3].projectId;
-  if (rows[25]) rows[25].fundUtilizationPercent = "142";
-  if (rows[33]) rows[33].expectedCompletion = "2026/13/40";
+  if (rows[5]) rows[5].mp_name = "";
+  if (rows[12]) rows[12].sanction_amount = "N/A";
+  if (rows[18] && rows[3]) rows[18].project_id = rows[3].project_id;
+  if (rows[25]) rows[25].expected_end_date = "2026/13/40";
+  if (rows[33]) rows[33].district = "";
 
   const header = CSV_FIELDS.join(",");
   const lines = rows.map((r) => CSV_FIELDS.map((f) => (r as any)[f]).join(","));
