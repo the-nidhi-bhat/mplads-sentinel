@@ -16,16 +16,18 @@ def clean_and_engineer(df):
     # Normalize column names
     df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
 
-    # Ensure project_id exists and normalized
+    # Ensure project_id exists and normalized securely
     if "project_id" in df.columns:
-        df["project_id"] = df["project_id"].astype(str).str.strip()
+        # Avoid float parsing like '123.0' by splitting on '.' if it exists
+        df["project_id"] = df["project_id"].astype(str).str.strip().str.split('.').str[0]
     else:
         raise KeyError("project_id column not found in raw data")
 
-    # Numeric coercion
+    # Numeric coercion (FIXED: Removing commas before casting)
     for col in ["sanction_amount", "expenditure_to_date"]:
         if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0.0)
+            cleaned_col = df[col].astype(str).str.replace(",", "", regex=False).str.strip()
+            df[col] = pd.to_numeric(cleaned_col, errors="coerce").fillna(0.0)
         else:
             df[col] = 0.0
 
@@ -50,18 +52,11 @@ def clean_and_engineer(df):
 
     # --- Begin snippet: infer expected_end_date by work_type heuristic ---
     default_durations_days = {
-        "road": 365,
-        "school": 540,
-        "water": 270,
-        "community_hall": 365,
-        "drainage": 270,
-        "electrification": 180,
-        "playground": 180,
-        "health": 365,
-        "other": 365
+        "road": 365, "school": 540, "water": 270, "community_hall": 365,
+        "drainage": 270, "electrification": 180, "playground": 180,
+        "health": 365, "other": 365
     }
 
-    # Normalize work_type for matching
     df["work_type_norm"] = df["work_type"].astype(str).str.strip().str.lower().str.replace(" ", "_")
 
     def infer_expected_end(row):
@@ -69,7 +64,6 @@ def clean_and_engineer(df):
             return row["expected_end_date"]
         start = row.get("start_date")
         if pd.isna(start):
-            # fallback to sanction_date if start_date missing
             start = row.get("sanction_date")
             if pd.isna(start):
                 return pd.NaT
@@ -78,7 +72,6 @@ def clean_and_engineer(df):
         return start + pd.Timedelta(days=days)
 
     df["expected_end_date"] = df.apply(infer_expected_end, axis=1)
-    # --- End snippet ---
 
     # Feature: months_elapsed (from start_date)
     today = pd.Timestamp.today()
@@ -108,7 +101,6 @@ def clean_and_engineer(df):
         "percent_spent"
     ]
 
-    # Ensure columns exist and return subset
     for c in keep:
         if c not in df.columns:
             df[c] = np.nan if c.endswith("_date") or "date" in c else 0.0 if c in ["sanction_amount", "expenditure_to_date", "months_elapsed", "cost_overrun_ratio", "delay_days", "fund_utilization_speed", "percent_spent"] else ""

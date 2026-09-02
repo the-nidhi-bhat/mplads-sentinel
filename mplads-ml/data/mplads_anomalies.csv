@@ -1,7 +1,7 @@
 project_id,anomaly_score,is_flagged
 NA- Laying of synthetic turfs for hockey and football,0.08417882230294832,False
 "NA- Providing sports equipment, except consumable items",0.08417882230294832,False
-"NA-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"NA-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 NA-Construction of New Building,0.08417882230294832,False
 NA-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
 NA-Construction of artificial reef,0.08417882230294832,False
@@ -1595,7 +1595,7 @@ WS/MP013/2026-2027/249440-Construction of community centers and community halls,
 WS/MP013/2026-2027/289366-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
 WS/MP017/2024-2025/143499-Construction of veterinary hospitals and dispensaries,0.036364966537501764,False
 WS/MP017/2024-2025/143500-Renovation of ponds and lakes,0.0653993926702574,False
-"WS/MP017/2024-2025/160038-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.03065469137647525,False
+"WS/MP017/2024-2025/160038-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.03065469137647525,False
 "WS/MP017/2024-2025/160039-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.008847616416718052,True
 "WS/MP017/2024-2025/166510-Construction of flood control embankments/ protection walls along riverbanks, hilltops, roadsides",0.028875980075833863,False
 WS/MP017/2024-2025/166512-Construction of community centers and community halls,0.025935848026503394,False
@@ -1620,7 +1620,7 @@ WS/MP017/2025-2026/169192-Installing tube-wells and borewells,0.0841788223029483
 WS/MP017/2025-2026/169193-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP017/2025-2026/169194-Providing supply pipelines for drinking water,0.08417882230294832,False
 WS/MP017/2025-2026/169195-Installing tube-wells and borewells,0.08417882230294832,False
-"WS/MP017/2025-2026/169198-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.10457817530908076,True
+"WS/MP017/2025-2026/169198-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.10457817530908076,True
 "WS/MP017/2025-2026/170398-Construction of roads, link roads, pathways or any other road with or without drainage system",0.05693890752846653,False
 "WS/MP017/2025-2026/202449-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.18733188067178275,True
 WS/MP017/2025-2026/208477-Providing drains and gutters for public drainage,-0.055601002526640575,True
@@ -1629,9 +1629,9 @@ WS/MP017/2025-2026/208477-Providing drains and gutters for public drainage,-0.05
 WS/MP017/2025-2026/255563-Construction of community centers and community halls,-0.1242548964363096,True
 WS/MP017/2025-2026/257980-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP017/2026-2027/160023-Construction of road under bridge,-0.21253824418948863,True
-"WS/MP017/2026-2027/160027-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.1926862038826178,True
+"WS/MP017/2026-2027/160027-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.1926862038826178,True
 WS/MP017/2026-2027/160046-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP017/2026-2027/188574-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP017/2026-2027/188574-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP017/2026-2027/188575-Construction of buildings for crèches and anganwadies,0.08417882230294832,False
 WS/MP017/2026-2027/206109-Construction of community centers and community halls,-0.21646744890720415,True
 WS/MP017/2026-2027/234413-Construction of culverts and bridges,0.08417882230294832,False
@@ -1881,7 +1881,7 @@ WS/MP021/2025-2026/225746-Construction of public libraries and reading rooms,0.0
 WS/MP021/2025-2026/225748-Construction of community centers and community halls,-0.019261676021177343,True
 WS/MP021/2025-2026/227786-Security gates in streets/public place for safety purpose,0.10513086086235424,False
 WS/MP021/2025-2026/227787-Security gates in streets/public place for safety purpose,0.10513086086235424,False
-"WS/MP021/2025-2026/227788-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.015930077053117164,False
+"WS/MP021/2025-2026/227788-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.015930077053117164,False
 WS/MP021/2025-2026/227789-Lighting of public spaces,0.08417882230294832,False
 WS/MP021/2025-2026/227790-Security gates in streets/public place for safety purpose,0.08417882230294832,False
 WS/MP021/2025-2026/227810-Security gates in streets/public place for safety purpose,0.08417882230294832,False
@@ -2026,9 +2026,9 @@ WS/MP18001/2024-2025/163760-Providing drains and gutters for public drainage,0.0
 "WS/MP18001/2024-2025/164720-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.10009303027539707,True
 "WS/MP18001/2024-2025/164721-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18001/2024-2025/164722-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP18001/2024-2025/177924-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.027131475852624598,False
-"WS/MP18001/2024-2025/177925-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.10111667047012651,False
-"WS/MP18001/2024-2025/178864-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.10111667047012651,False
+"WS/MP18001/2024-2025/177924-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.027131475852624598,False
+"WS/MP18001/2024-2025/177925-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.10111667047012651,False
+"WS/MP18001/2024-2025/178864-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.10111667047012651,False
 "WS/MP18001/2025-2026/178400-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18001/2025-2026/216439-Construction of community centers and community halls,0.08988694961284271,False
 WS/MP18001/2025-2026/216440-Construction of community centers and community halls,0.08417882230294832,False
@@ -2313,15 +2313,15 @@ WS/MP18003/2025-2026/260980-Construction of bus-sheds or bus-stops,0.08417882230
 WS/MP18003/2025-2026/260981-Street lights,0.08417882230294832,False
 "WS/MP18003/2025-2026/260982-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.005902797358363521,True
 WS/MP18003/2025-2026/260983-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18003/2025-2026/260984-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18003/2025-2026/260985-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18003/2025-2026/260984-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18003/2025-2026/260985-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18003/2025-2026/260987-Providing drains and gutters for public drainage,0.08417882230294832,False
 WS/MP18003/2025-2026/260989-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18003/2025-2026/269212-Installing community drinking water plants,0.08417882230294832,False
 WS/MP18003/2025-2026/269213-Installing community drinking water plants,0.08417882230294832,False
 WS/MP18003/2025-2026/269214-Installing community drinking water plants,0.08417882230294832,False
 WS/MP18003/2025-2026/269215-Providing supply pipelines for drinking water,0.08417882230294832,False
-"WS/MP18003/2026-2027/274217-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18003/2026-2027/274217-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18003/2026-2027/274218-Installing community drinking water plants,0.08417882230294832,False
 WS/MP18003/2026-2027/274219-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18003/2026-2027/275784-Construction of community centers and community halls,0.08417882230294832,False
@@ -2330,7 +2330,7 @@ WS/MP18003/2026-2027/275786-Installing community drinking water plants,0.0841788
 WS/MP18003/2026-2027/276503-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18003/2026-2027/280118-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18003/2026-2027/283313-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18003/2026-2027/283314-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18003/2026-2027/283314-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18003/2026-2027/283315-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18003/2026-2027/283318-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18003/2026-2027/283319-Installing community drinking water plants,0.08417882230294832,False
@@ -2528,7 +2528,7 @@ WS/MP18005/2025-2026/232789-Providing supply pipelines for drinking water,0.0841
 WS/MP18005/2025-2026/232790-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
 WS/MP18005/2025-2026/232791-Construction of water tanks,0.08417882230294832,False
 WS/MP18005/2025-2026/232792-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18005/2025-2026/232793-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18005/2025-2026/232793-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18005/2025-2026/232794-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
 WS/MP18005/2025-2026/235656-Development of public parks,-0.0681045913277567,True
 WS/MP18005/2025-2026/235657-Installing community drinking water plants,-0.042344667586779905,True
@@ -2558,7 +2558,7 @@ WS/MP18005/2025-2026/259730-Development of playfields and sports grounds,0.08417
 WS/MP18005/2025-2026/259732-Installing community drinking water plants,0.08417882230294832,False
 "WS/MP18005/2025-2026/261731-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18005/2025-2026/261732-Development of playfields and sports grounds,0.08417882230294832,False
-"WS/MP18005/2026-2027/254479-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18005/2026-2027/254479-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18005/2026-2027/273547-Setting up of laboratories,0.08417882230294832,False
 WS/MP18005/2026-2027/273548-Setting up of laboratories,0.08417882230294832,False
 WS/MP18005/2026-2027/273549-Setting up of laboratories,0.08417882230294832,False
@@ -2743,8 +2743,8 @@ WS/MP18006/2026-2027/270251-Crematoriums/energy efficient crematoriums or struct
 "WS/MP18006/2026-2027/279567-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18007/2024-2025/140066-Construction of veterinary hospitals and dispensaries,0.08417882230294832,False
 WS/MP18007/2024-2025/147244-Construction of community centers and community halls,-0.19987082192111727,True
-"WS/MP18007/2024-2025/149399-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18007/2024-2025/149400-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18007/2024-2025/149399-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18007/2024-2025/149400-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18007/2025-2026/137047-Setting up of laboratories,0.0733607211240051,False
 WS/MP18007/2025-2026/137048-Setting up of laboratories,0.0939921102656221,False
 WS/MP18007/2025-2026/137049-Setting up of laboratories,0.0939921102656221,False
@@ -2927,7 +2927,7 @@ WS/MP18008/2026-2027/254626-Crematoriums/energy efficient crematoriums or struct
 "WS/MP18008/2026-2027/260771-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18008/2026-2027/268963-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
 WS/MP18008/2026-2027/270332-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
-"WS/MP18008/2026-2027/280673-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18008/2026-2027/280673-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18008/2026-2027/280783-Security gates in streets/public place for safety purpose,0.08417882230294832,False
 WS/MP18008/2026-2027/280785-Security gates in streets/public place for safety purpose,0.08417882230294832,False
 WS/MP18009/2024-2025/152617-Lighting of public spaces,0.05521968788834397,False
@@ -3549,16 +3549,16 @@ WS/MP18019/2025-2026/173483-Installing tube-wells and borewells,0.08417882230294
 WS/MP18019/2025-2026/195506-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP18019/2025-2026/206784-Street lights,0.039149404256225484,False
 WS/MP18019/2025-2026/206785-Construction of community centers and community halls,-0.19049332529313523,True
-"WS/MP18019/2025-2026/206786-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.11604160176766454,True
-"WS/MP18019/2025-2026/206787-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.11604160176766454,True
+"WS/MP18019/2025-2026/206786-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.11604160176766454,True
+"WS/MP18019/2025-2026/206787-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.11604160176766454,True
 WS/MP18019/2025-2026/206789-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18019/2025-2026/206790-Creation of new ponds,0.08417882230294832,False
 WS/MP18019/2025-2026/216371-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP18019/2025-2026/216372-Installing tube-wells and borewells,0.08417882230294832,False
 "WS/MP18019/2025-2026/216374-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18019/2025-2026/216375-Installing tube-wells and borewells,0.08417882230294832,False
-"WS/MP18019/2025-2026/216377-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.025064922459177574,True
-"WS/MP18019/2025-2026/216378-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.009305639854286674,True
+"WS/MP18019/2025-2026/216377-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.025064922459177574,True
+"WS/MP18019/2025-2026/216378-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.009305639854286674,True
 WS/MP18019/2025-2026/216379-Construction of community centers and community halls,-0.10370963077394035,True
 WS/MP18019/2025-2026/216380-Construction of toilet blocks,0.08417882230294832,False
 "WS/MP18019/2025-2026/220281-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -7506,7 +7506,7 @@ WS/MP18049/2025-2026/211247-Construction of common work sheds/ common covered si
 "WS/MP18049/2025-2026/211251-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08701955790876076,False
 "WS/MP18049/2025-2026/211252-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08701955790876076,False
 WS/MP18049/2025-2026/218148-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
-"WS/MP18049/2025-2026/218149-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18049/2025-2026/218149-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18049/2025-2026/234747-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18049/2025-2026/237630-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
 WS/MP18049/2025-2026/239018-Construction of public libraries and reading rooms,0.08417882230294832,False
@@ -11160,7 +11160,7 @@ WS/MP18069/2025-2026/239798-Street lights,0.08417882230294832,False
 WS/MP18069/2025-2026/239799-Street lights,0.08417882230294832,False
 WS/MP18069/2025-2026/239800-Installation of multi-gym equipment,0.08417882230294832,False
 WS/MP18069/2025-2026/239801-Street lights,0.08417882230294832,False
-"WS/MP18069/2025-2026/239803-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18069/2025-2026/239803-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18069/2025-2026/239804-Construction of water tanks,0.08417882230294832,False
 WS/MP18069/2025-2026/239807-Street lights,0.08417882230294832,False
 WS/MP18069/2025-2026/239808-Street lights,0.08417882230294832,False
@@ -13269,10 +13269,10 @@ WS/MP18083/2025-2026/213328-Construction of boundary walls of existing public an
 "WS/MP18083/2025-2026/231931-Construction of roads, link roads, pathways or any other road with or without drainage system",0.012325457462794343,False
 "WS/MP18083/2025-2026/231932-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.006718101053753367,True
 "WS/MP18083/2025-2026/231933-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP18083/2025-2026/232029-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.04697545753322174,True
+"WS/MP18083/2025-2026/232029-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.04697545753322174,True
 WS/MP18083/2025-2026/235290-Construction of public toilets and bathrooms,0.08417882230294832,False
 "WS/MP18083/2025-2026/235294-Construction of roads, link roads, pathways or any other road with or without drainage system",0.033014114070480105,False
-"WS/MP18083/2025-2026/248085-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.004806844559351431,False
+"WS/MP18083/2025-2026/248085-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.004806844559351431,False
 "WS/MP18083/2025-2026/257452-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18083/2025-2026/257500-Construction of footpaths and pedestrian ways,0.08417882230294832,False
 WS/MP18083/2025-2026/264607-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
@@ -13397,14 +13397,14 @@ WS/MP18084/2026-2027/178242-Construction of additional rooms and halls in the ex
 WS/MP18084/2026-2027/188265-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18084/2026-2027/188266-Lighting of public spaces,0.08417882230294832,False
 WS/MP18084/2026-2027/219234-Construction of rooms and halls in school and colleges,0.08417882230294832,False
-"WS/MP18084/2026-2027/263245-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18084/2026-2027/263248-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18084/2026-2027/263245-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18084/2026-2027/263248-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18084/2026-2027/270369-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18084/2026-2027/270370-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP18084/2026-2027/270371-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18084/2026-2027/270372-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18084/2026-2027/270372-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18084/2026-2027/270415-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP18084/2026-2027/270416-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18084/2026-2027/270416-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18084/2026-2027/270417-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18084/2026-2027/270418-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP18084/2026-2027/270419-Construction of community centers and community halls,0.08417882230294832,False
@@ -13646,7 +13646,7 @@ WS/MP18087/2025-2026/223735-Construction of buildings for community cultural act
 WS/MP18087/2025-2026/230392-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP18087/2025-2026/240376-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP18087/2025-2026/240378-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP18087/2025-2026/240379-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18087/2025-2026/240379-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18087/2025-2026/240380-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP18087/2025-2026/240382-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP18087/2025-2026/240383-Construction of buildings for community cultural activities,0.08417882230294832,False
@@ -13984,7 +13984,7 @@ WS/MP18090/2026-2027/231403-Construction of rooms and halls in school and colleg
 "WS/MP18090/2026-2027/240745-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18090/2026-2027/240767-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18090/2026-2027/278224-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18090/2026-2027/278229-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18090/2026-2027/278229-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18090/2026-2027/278231-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18090/2026-2027/278430-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18090/2026-2027/278437-Construction of community centers and community halls,0.08417882230294832,False
@@ -14000,7 +14000,7 @@ WS/MP18091/2025-2026/159917-Construction of community centers and community hall
 WS/MP18091/2025-2026/159987-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
 WS/MP18091/2025-2026/159988-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18091/2025-2026/160510-Construction of rooms and halls in school and colleges,0.08417882230294832,False
-"WS/MP18091/2025-2026/160516-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18091/2025-2026/160516-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18091/2025-2026/160547-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18091/2025-2026/164058-Construction of community centers and community halls,0.08941695921657822,False
 WS/MP18091/2025-2026/164059-Construction of community centers and community halls,0.10039470731761829,False
@@ -14117,10 +14117,10 @@ WS/MP18091/2026-2027/247412-Installing community drinking water plants,0.0841788
 WS/MP18091/2026-2027/250619-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP18091/2026-2027/251330-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18091/2026-2027/275849-Construction of rooms and halls in school and colleges,0.08417882230294832,False
-"WS/MP18092/2025-2026/178104-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.049637257721810824,True
+"WS/MP18092/2025-2026/178104-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.049637257721810824,True
 WS/MP18092/2025-2026/178259-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18092/2025-2026/178260-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
-"WS/MP18092/2025-2026/178261-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18092/2025-2026/178261-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP18092/2025-2026/178262-Purchase of IT systems, including hardware and software for educational purposes",-0.04087804024780628,True
 "WS/MP18092/2025-2026/178263-Purchase of IT systems, including hardware and software for educational purposes",-0.04087804024780628,True
 WS/MP18092/2025-2026/188673-Construction of community centers and community halls,0.08417882230294832,False
@@ -14128,7 +14128,7 @@ WS/MP18092/2025-2026/188674-Construction of community centers and community hall
 WS/MP18092/2025-2026/188676-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18092/2025-2026/188677-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18092/2025-2026/188679-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18092/2025-2026/188680-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18092/2025-2026/188680-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18092/2025-2026/188682-Construction of public irrigation facilities,0.09063985522583212,False
 WS/MP18092/2025-2026/188683-Construction of public irrigation facilities,0.09063985522583212,False
 WS/MP18092/2025-2026/195463-Lighting of public spaces,0.08417882230294832,False
@@ -14173,7 +14173,7 @@ WS/MP18093/2025-2026/180350-Construction of rooms and halls in school and colleg
 WS/MP18093/2025-2026/180351-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 "WS/MP18093/2025-2026/181082-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.10123244920713281,True
 WS/MP18093/2025-2026/181980-Construction of rooms and halls in school and colleges,0.08417882230294832,False
-"WS/MP18093/2025-2026/182006-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18093/2025-2026/182006-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18093/2025-2026/182007-Construction of community centers and community halls,-0.2131921720244514,True
 WS/MP18093/2025-2026/185087-Construction of community centers and community halls,0.0635470097398676,False
 "WS/MP18093/2025-2026/185098-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.11788019761269808,True
@@ -17479,7 +17479,7 @@ WS/MP18118/2025-2026/188314-Crematoriums/energy efficient crematoriums or struct
 WS/MP18118/2025-2026/188315-Construction of community centers and community halls,0.08417882230294832,False
 "WS/MP18118/2025-2026/188316-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18118/2025-2026/188317-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP18118/2025-2026/188318-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.09331368011875324,False
+"WS/MP18118/2025-2026/188318-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.09331368011875324,False
 "WS/MP18118/2025-2026/188319-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18118/2025-2026/188426-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 "WS/MP18118/2025-2026/188427-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -17659,7 +17659,7 @@ WS/MP18121/2024-2025/146766-Construction of community centers and community hall
 WS/MP18121/2024-2025/146767-Construction of boundary walls of existing public and community buildings,-0.03418766975482612,True
 "WS/MP18121/2024-2025/146782-Construction of roads, link roads, pathways or any other road with or without drainage system",0.05006363384659329,False
 WS/MP18121/2024-2025/163148-Construction of boundary walls of existing public and community buildings,-0.05401979336494234,True
-"WS/MP18121/2024-2025/163230-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.08421486628910624,True
+"WS/MP18121/2024-2025/163230-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.08421486628910624,True
 "WS/MP18121/2025-2026/146783-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18122/2024-2025/168729-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18122/2024-2025/168730-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -18664,8 +18664,8 @@ WS/MP18137/2025-2026/162008-Construction of rooms and halls in school and colleg
 "WS/MP18137/2025-2026/162010-Purchase of IT systems, including hardware and software for educational purposes",0.08417882230294832,False
 WS/MP18137/2025-2026/162011-Construction of community centers and community halls,0.10053443231612424,False
 "WS/MP18137/2025-2026/162014-Purchase of IT systems, including hardware and software for educational purposes",0.014503923347848335,False
-"WS/MP18137/2025-2026/162017-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.06548647149964082,False
-"WS/MP18137/2025-2026/162019-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18137/2025-2026/162017-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.06548647149964082,False
+"WS/MP18137/2025-2026/162019-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18137/2025-2026/162022-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP18137/2025-2026/162026-Construction of culverts and bridges,0.07663647924212619,False
 WS/MP18137/2025-2026/162027-Installing tube-wells and borewells,0.051336556316460835,False
@@ -19457,7 +19457,7 @@ WS/MP18143/2025-2026/217243-Construction of community centers and community hall
 WS/MP18143/2025-2026/217244-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18143/2025-2026/217245-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18143/2025-2026/234442-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18143/2025-2026/239109-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18143/2025-2026/239109-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18143/2025-2026/244209-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP18143/2025-2026/244755-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP18143/2025-2026/244764-Construction of community centers and community halls,0.08417882230294832,False
@@ -19609,7 +19609,7 @@ WS/MP18144/2025-2026/194832-Construction of footpaths and pedestrian ways,0.1071
 WS/MP18144/2025-2026/194833-Construction of buildings for sports facilities,0.09677022283451248,False
 WS/MP18144/2025-2026/194834-Construction of public irrigation facilities,0.08417882230294832,False
 "WS/MP18144/2025-2026/195738-Construction of roads, link roads, pathways or any other road with or without drainage system",0.10605027834554998,False
-"WS/MP18144/2025-2026/195739-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18144/2025-2026/195739-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18144/2025-2026/196085-Improvement of electricity distribution infrastructure,0.08417882230294832,False
 WS/MP18144/2025-2026/196086-Improvement of electricity distribution infrastructure,0.08417882230294832,False
 WS/MP18144/2025-2026/196087-Improvement of electricity distribution infrastructure,0.08417882230294832,False
@@ -19929,7 +19929,7 @@ WS/MP18146/2025-2026/173986-Construction of rooms and halls in school and colleg
 "WS/MP18146/2025-2026/173996-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18146/2025-2026/173997-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18146/2025-2026/173998-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP18146/2025-2026/173999-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18146/2025-2026/173999-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18146/2025-2026/174001-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18146/2025-2026/174002-Construction of community centers and community halls,0.08892276585610026,False
 WS/MP18146/2025-2026/174003-Construction of community centers and community halls,0.08417882230294832,False
@@ -22629,7 +22629,7 @@ WS/MP18156/2025-2026/184809-Setting up public non-conventional energy plants,-0.
 WS/MP18156/2025-2026/184810-Renovation of ponds and lakes,0.08417882230294832,False
 WS/MP18156/2025-2026/184811-Setting up public non-conventional energy plants,-0.06458492137232896,True
 WS/MP18156/2025-2026/184812-Setting up public non-conventional energy plants,-0.06458492137232896,True
-"WS/MP18156/2025-2026/184813-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18156/2025-2026/184813-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18156/2025-2026/185271-Construction of footpaths and pedestrian ways,0.08421102147857329,False
 WS/MP18156/2025-2026/185272-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
 WS/MP18156/2025-2026/185276-Construction of buildings for multi-gym,0.08417882230294832,False
@@ -24398,7 +24398,7 @@ WS/MP18169/2025-2026/188774-Construction of buildings for community cultural act
 WS/MP18169/2025-2026/197009-Construction of boundary walls of existing public and community buildings,0.08429771713811268,False
 WS/MP18169/2025-2026/208116-Setting up mobile labs and clinics for animals including sex sorted semen technology,0.08417882230294832,False
 WS/MP18169/2025-2026/208139-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
-"WS/MP18169/2025-2026/209242-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.11846291271475129,True
+"WS/MP18169/2025-2026/209242-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.11846291271475129,True
 WS/MP18169/2025-2026/209264-Construction of common work sheds/ common covered sitting area,-0.16256285756605215,True
 WS/MP18169/2025-2026/214633-Construction of community centers and community halls,0.011084264793249421,False
 WS/MP18169/2025-2026/217227-Installation of multi-gym equipment,0.08417882230294832,False
@@ -24676,7 +24676,7 @@ WS/MP18172/2026-2027/212698-Installing hand pumps,0.08417882230294832,False
 "WS/MP18172/2026-2027/241296- Providing sports equipment, except consumable items",0.08417882230294832,False
 WS/MP18172/2026-2027/241313-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
 WS/MP18172/2026-2027/241315-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18172/2026-2027/241316-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18172/2026-2027/241316-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18172/2026-2027/259027-Installing hand pumps,0.08417882230294832,False
 WS/MP18172/2026-2027/259028-Installing hand pumps,0.08417882230294832,False
 WS/MP18172/2026-2027/260787-Construction of community centers and community halls,0.08417882230294832,False
@@ -24769,7 +24769,7 @@ WS/MP18173/2024-2025/137929-Construction of community centers and community hall
 WS/MP18173/2024-2025/138502-Construction of community centers and community halls,0.0928981783334511,False
 "WS/MP18173/2024-2025/139190-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08617255001028118,False
 "WS/MP18173/2024-2025/139191-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.0993082829164248,True
-"WS/MP18173/2024-2025/139192-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.0317058920661305,False
+"WS/MP18173/2024-2025/139192-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.0317058920661305,False
 WS/MP18173/2024-2025/139193-Construction of buildings for community cultural activities,0.06134874188748163,False
 "WS/MP18173/2024-2025/139194-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08989307581981953,False
 WS/MP18173/2024-2025/139195-Construction of buildings for community cultural activities,0.07457980136004227,False
@@ -25010,9 +25010,9 @@ WS/MP18174/2026-2027/270411-Construction of bus-sheds or bus-stops,0.08417882230
 WS/MP18174/2026-2027/285842-Purchase of furniture and fixtures for educational purposes,0.08417882230294832,False
 WS/MP18175/2024-2025/149209-Construction of buildings for crèches and anganwadies,-0.16024714218509029,True
 WS/MP18175/2024-2025/149219-Construction of buildings for crèches and anganwadies,-0.16161708266686192,True
-"WS/MP18175/2025-2026/149536-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.017550063836627494,False
-"WS/MP18175/2025-2026/158070-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18175/2025-2026/158071-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08729223275853892,False
+"WS/MP18175/2025-2026/149536-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.017550063836627494,False
+"WS/MP18175/2025-2026/158070-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18175/2025-2026/158071-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08729223275853892,False
 WS/MP18175/2025-2026/171232-Purchase of furniture and fixtures for educational purposes,0.03746959724508214,False
 WS/MP18175/2025-2026/171233-Purchase of furniture and fixtures for educational purposes,0.03746959724508214,False
 WS/MP18175/2025-2026/171234-Purchase of furniture and fixtures for educational purposes,0.021854778068369385,False
@@ -25043,9 +25043,9 @@ WS/MP18175/2025-2026/199005-Purchase of furniture and fixtures for educational p
 WS/MP18175/2025-2026/199007-Purchase of furniture and fixtures for educational purposes,0.08417882230294832,False
 WS/MP18175/2025-2026/199008-Purchase of furniture and fixtures for educational purposes,0.08417882230294832,False
 WS/MP18175/2025-2026/199009-Purchase of furniture and fixtures for educational purposes,0.08417882230294832,False
-"WS/MP18175/2025-2026/199150-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.020350310327764076,False
+"WS/MP18175/2025-2026/199150-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.020350310327764076,False
 WS/MP18175/2025-2026/199152-Installing tube-wells and borewells,0.051107991556934684,False
-"WS/MP18175/2025-2026/206825-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18175/2025-2026/206825-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18175/2025-2026/208929-Purchase of furniture and fixtures for educational purposes,-0.09528652482560818,True
 WS/MP18175/2025-2026/208930-Purchase of furniture and fixtures for educational purposes,-0.09528652482560818,True
 WS/MP18175/2025-2026/208931-Purchase of furniture and fixtures for educational purposes,-0.09528652482560818,True
@@ -25213,10 +25213,10 @@ WS/MP18176/2024-2025/139959-Construction of public toilets and bathrooms,-0.0968
 WS/MP18176/2024-2025/140224-Construction of buildings for crèches and anganwadies,-0.0862771805360053,True
 WS/MP18176/2024-2025/140258-Providing supply pipelines for drinking water,0.023551456947685234,False
 WS/MP18176/2024-2025/140269-Lighting of public spaces,0.0870073759035438,False
-"WS/MP18176/2024-2025/140272-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18176/2024-2025/140272-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18176/2024-2025/140385-Lighting of public spaces,0.057537520575748735,False
 WS/MP18176/2024-2025/142537-Lighting of public spaces,0.06852505510584811,False
-"WS/MP18176/2024-2025/142538-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.06737987378270238,False
+"WS/MP18176/2024-2025/142538-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.06737987378270238,False
 WS/MP18176/2024-2025/142544-Lighting of public spaces,-0.0841220767707892,True
 WS/MP18176/2024-2025/142550-Construction of buildings for community cultural activities,0.06706907068961482,False
 WS/MP18176/2024-2025/142552-Construction of buildings for community cultural activities,0.07243040818303292,False
@@ -25251,17 +25251,17 @@ WS/MP18176/2025-2026/199094-Construction of additional rooms and halls in the ex
 WS/MP18176/2025-2026/199095-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
 WS/MP18176/2025-2026/204170-Construction of additional rooms and halls in the existing public and community building,-0.12381257422556413,True
 WS/MP18176/2025-2026/206482-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP18176/2025-2026/206488-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18176/2025-2026/206488-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18176/2025-2026/206504-Construction of bus-sheds or bus-stops,-0.06406180999443079,True
 WS/MP18176/2025-2026/206508-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP18176/2025-2026/206510-Construction of bus-sheds or bus-stops,-0.05266009872235011,True
-"WS/MP18176/2025-2026/206517-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18176/2025-2026/206517-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18176/2025-2026/206519-Construction of boundary walls of existing public and community buildings,-0.08807052267326332,True
 WS/MP18176/2025-2026/206523-Construction of bus-sheds or bus-stops,-0.039618562178153294,True
 WS/MP18176/2025-2026/216740-Construction of additional rooms and halls in the existing public and community building,-0.11980033576013549,True
 WS/MP18176/2025-2026/216750-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
 WS/MP18176/2025-2026/216761-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP18176/2025-2026/232404-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18176/2025-2026/232404-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18176/2025-2026/232405-Lighting of public spaces,0.08417882230294832,False
 WS/MP18176/2025-2026/232406-Lighting of public spaces,-0.0007975337297100316,True
 WS/MP18176/2025-2026/232407-Lighting of public spaces,-0.0007975337297100316,True
@@ -25274,7 +25274,7 @@ WS/MP18176/2025-2026/246744-Setting up public non-conventional energy plants,0.0
 WS/MP18176/2025-2026/246745-Setting up public non-conventional energy plants,0.015860590571648125,False
 WS/MP18176/2025-2026/249761-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
 WS/MP18176/2025-2026/250893-Setting up public non-conventional energy plants,0.08417882230294832,False
-"WS/MP18176/2025-2026/254228-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18176/2025-2026/254228-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18176/2025-2026/260818-Lighting of public spaces,0.08417882230294832,False
 WS/MP18176/2025-2026/260828-Lighting of public spaces,0.08417882230294832,False
 WS/MP18176/2025-2026/263650-Construction of community centers and community halls,0.08417882230294832,False
@@ -25458,7 +25458,7 @@ WS/MP18178/2024-2025/174408-Purchase of furniture and fixtures for educational p
 WS/MP18178/2024-2025/174409-Purchase of furniture and fixtures for educational purposes,0.0097189035232218,False
 WS/MP18178/2024-2025/174410-Purchase of furniture and fixtures for educational purposes,0.04158480273001686,False
 WS/MP18178/2024-2025/174412-Purchase of furniture and fixtures for educational purposes,-0.017595648796879026,True
-"WS/MP18178/2025-2026/174414-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.18479670974521367,True
+"WS/MP18178/2025-2026/174414-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.18479670974521367,True
 WS/MP18178/2025-2026/174415-Construction of community centers and community halls,0.014033797363763978,False
 WS/MP18178/2025-2026/174434-Lighting of public spaces,-0.031589785510259594,True
 WS/MP18178/2025-2026/178100-Purchase of non-conventional energy system and devices for community use,0.05332722695627906,False
@@ -25829,7 +25829,7 @@ WS/MP18181/2025-2026/234979-Lighting of public spaces,0.019836563064709434,False
 WS/MP18181/2025-2026/235265-Lighting of public spaces,0.019154115626654145,False
 WS/MP18181/2025-2026/249861-Installing community drinking water plants,0.010932058949737367,False
 "WS/MP18181/2025-2026/257767-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.0267970520104035,True
-"WS/MP18181/2025-2026/266346-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.24108301879444516,True
+"WS/MP18181/2025-2026/266346-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.24108301879444516,True
 WS/MP18181/2026-2027/151265-Construction of water tanks,-0.19783561056909038,True
 WS/MP18181/2026-2027/185232-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18181/2026-2027/203793-Construction of water tanks,0.08417882230294832,False
@@ -26003,9 +26003,9 @@ WS/MP18183/2025-2026/202355-Construction of community centers and community hall
 WS/MP18183/2025-2026/202388-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18183/2025-2026/202389-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18183/2025-2026/203513-Construction of bus-sheds or bus-stops,0.08417882230294832,False
-"WS/MP18183/2025-2026/203523-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.04810356784025871,True
-"WS/MP18183/2025-2026/203525-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18183/2025-2026/203526-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18183/2025-2026/203523-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.04810356784025871,True
+"WS/MP18183/2025-2026/203525-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18183/2025-2026/203526-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18183/2025-2026/203532-Construction of bus-sheds or bus-stops,0.03058491076224229,False
 WS/MP18183/2025-2026/203536-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18183/2025-2026/204987-Construction of common work sheds/ common covered sitting area,-0.14891049551672575,True
@@ -26030,7 +26030,7 @@ WS/MP18183/2025-2026/245259-Construction of common work sheds/ common covered si
 WS/MP18183/2025-2026/253527-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
 WS/MP18183/2025-2026/253528-Construction of additional rooms and halls in the existing public and community building,-0.08522366639072787,True
 WS/MP18183/2025-2026/253716-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP18183/2025-2026/253717-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18183/2025-2026/253717-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18183/2026-2027/287595-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18183/2026-2027/288231-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18183/2026-2027/288232-Construction of bus-sheds or bus-stops,0.08417882230294832,False
@@ -26090,7 +26090,7 @@ WS/MP18184/2026-2027/211713-Construction of community centers and community hall
 WS/MP18184/2026-2027/211996-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18184/2026-2027/212002-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18184/2026-2027/212004-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18184/2026-2027/213142-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18184/2026-2027/213142-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18184/2026-2027/255467-Construction of footpaths and pedestrian ways,0.08417882230294832,False
 WS/MP18184/2026-2027/255468-Construction of footpaths and pedestrian ways,0.08417882230294832,False
 WS/MP18184/2026-2027/255469-Construction of footpaths and pedestrian ways,0.08417882230294832,False
@@ -26154,7 +26154,7 @@ WS/MP18185/2025-2026/247531-Purchase of furniture and fixtures for educational p
 "WS/MP18185/2025-2026/247535-Purchase of smart boards, visual display units and projectors",0.02522529904445936,False
 "WS/MP18185/2025-2026/247536-Purchase of smart boards, visual display units and projectors",0.02522529904445936,False
 "WS/MP18185/2025-2026/247537-Purchase of smart boards, visual display units and projectors",0.02522529904445936,False
-"WS/MP18185/2026-2027/195470-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18185/2026-2027/195470-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18185/2026-2027/195471-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18185/2026-2027/195492-Construction of buildings for crèches and anganwadies,0.08417882230294832,False
 WS/MP18185/2026-2027/202917-Providing CCTV camera system for security of public areas,0.08417882230294832,False
@@ -26194,7 +26194,7 @@ WS/MP18186/2025-2026/167712-Lighting of public spaces,0.1009275929890262,False
 WS/MP18186/2025-2026/167718-Lighting of public spaces,0.1009275929890262,False
 WS/MP18186/2025-2026/170894-Lighting of public spaces,0.09465665482156999,False
 WS/MP18186/2025-2026/170895-Lighting of public spaces,0.09804207930012343,False
-"WS/MP18186/2025-2026/170896-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18186/2025-2026/170896-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP18186/2025-2026/170897-Construction of roads, link roads, pathways or any other road with or without drainage system",0.047873720247761764,False
 WS/MP18186/2025-2026/170898-Construction of buildings for crèches and anganwadies,0.08417882230294832,False
 "WS/MP18186/2025-2026/170899-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08254560324939286,False
@@ -26286,7 +26286,7 @@ WS/MP18186/2025-2026/243463-Lighting of public spaces,0.03291671985903294,False
 WS/MP18186/2025-2026/253590-Lighting of public spaces,0.03194938815905529,False
 WS/MP18186/2025-2026/254360-Lighting of public spaces,0.03517252954666966,False
 "WS/MP18186/2025-2026/258447-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.17303175560954065,True
-"WS/MP18186/2026-2027/197023-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18186/2026-2027/197023-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18186/2026-2027/212284-Street lights,-0.009175444434514679,True
 WS/MP18186/2026-2027/212286-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP18186/2026-2027/212287-Street lights,0.08417882230294832,False
@@ -26294,7 +26294,7 @@ WS/MP18186/2026-2027/212290-Street lights,-0.053518042097680185,True
 "WS/MP18186/2026-2027/212295-Purchase of smart boards, visual display units and projectors",0.08417882230294832,False
 WS/MP18186/2026-2027/212296-Street lights,0.08417882230294832,False
 WS/MP18186/2026-2027/212298-Street lights,0.08417882230294832,False
-"WS/MP18186/2026-2027/212300-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18186/2026-2027/212300-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18186/2026-2027/212304-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18186/2026-2027/212310-Street lights,0.08417882230294832,False
 WS/MP18186/2026-2027/212312-Street lights,0.08417882230294832,False
@@ -26310,7 +26310,7 @@ WS/MP18186/2026-2027/222941-Lighting of public spaces,0.08417882230294832,False
 WS/MP18186/2026-2027/222943-Lighting of public spaces,0.08417882230294832,False
 WS/MP18186/2026-2027/222947-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
 WS/MP18186/2026-2027/239095-Purchase of furniture and fixtures for educational purposes,0.08417882230294832,False
-"WS/MP18186/2026-2027/239097-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18186/2026-2027/239097-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP18186/2026-2027/240295-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18186/2026-2027/253587-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18186/2026-2027/258449-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
@@ -26429,7 +26429,7 @@ WS/MP18187/2025-2026/222670-Construction of common work sheds/ common covered si
 WS/MP18187/2025-2026/222671-Street lights,0.002316138156226333,False
 "WS/MP18187/2025-2026/250374-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18187/2025-2026/250375-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP18187/2025-2026/256521-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.0012050029750332314,True
+"WS/MP18187/2025-2026/256521-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.0012050029750332314,True
 WS/MP18187/2025-2026/256522-Construction of public toilets and bathrooms,-0.02916697305241578,True
 WS/MP18187/2025-2026/256523-Construction of boundary walls of existing public and community buildings,-0.05258558897288568,True
 WS/MP18187/2025-2026/257714-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
@@ -27811,7 +27811,7 @@ WS/MP18192/2025-2026/196895-Construction of rooms and halls in school and colleg
 WS/MP18192/2025-2026/198279-Construction of rooms and halls in school and colleges,-0.19806303018597582,True
 WS/MP18192/2025-2026/204084-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18192/2025-2026/204089-Construction of rooms and halls in school and colleges,0.08417882230294832,False
-"WS/MP18192/2025-2026/209845-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18192/2025-2026/209845-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18192/2025-2026/216150-Construction of public toilets and bathrooms,0.08470403157183987,False
 "WS/MP18192/2025-2026/216151-Construction of rooms and facilities for hospitals, FWC , PHC Centers and ANM centers",0.07763385586781923,False
 WS/MP18192/2025-2026/216152-Construction of community centers and community halls,0.08417882230294832,False
@@ -38857,7 +38857,7 @@ WS/MP18254/2025-2026/208643-Construction of rooms and halls in school and colleg
 "WS/MP18254/2025-2026/208647-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18254/2025-2026/208648-Construction of rooms and facilities for hospitals, FWC , PHC Centers and ANM centers",0.08417882230294832,False
 WS/MP18254/2025-2026/208722-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18254/2026-2027/208657-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18254/2026-2027/208657-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18255/2025-2026/212137-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
 WS/MP18255/2025-2026/212437-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
 WS/MP18255/2025-2026/212438-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
@@ -39777,7 +39777,7 @@ WS/MP18263/2024-2025/165686-Purchase of other aids / devices required for P/ M/ 
 WS/MP18263/2025-2026/151980-Construction of culverts and bridges,-0.06783294747684565,True
 "WS/MP18263/2025-2026/151981-Construction of roads, link roads, pathways or any other road with or without drainage system",0.09467727621770533,False
 "WS/MP18263/2025-2026/152149-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP18263/2025-2026/152150-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.06104634589814639,False
+"WS/MP18263/2025-2026/152150-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.06104634589814639,False
 "WS/MP18263/2025-2026/155527-Construction of roads, link roads, pathways or any other road with or without drainage system",0.0967978259916964,False
 "WS/MP18263/2025-2026/155529-Construction of roads, link roads, pathways or any other road with or without drainage system",0.03350722660603089,False
 "WS/MP18263/2025-2026/155533-Construction of roads, link roads, pathways or any other road with or without drainage system",0.09442586887904747,False
@@ -39786,7 +39786,7 @@ WS/MP18263/2025-2026/151980-Construction of culverts and bridges,-0.067832947476
 "WS/MP18263/2025-2026/160062-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2025-2026/160063-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2025-2026/162603-Construction of roads, link roads, pathways or any other road with or without drainage system",0.09577805611915696,False
-"WS/MP18263/2025-2026/163671-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.10036437185693797,False
+"WS/MP18263/2025-2026/163671-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.10036437185693797,False
 "WS/MP18263/2025-2026/163997-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2025-2026/166028-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2025-2026/166029-Construction of roads, link roads, pathways or any other road with or without drainage system",0.09506074654997887,False
@@ -39802,7 +39802,7 @@ WS/MP18263/2025-2026/166185-Construction of culverts and bridges,0.0403192204071
 "WS/MP18263/2025-2026/166211-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2025-2026/166212-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP18263/2025-2026/166246-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
-"WS/MP18263/2025-2026/166254-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18263/2025-2026/166254-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18263/2025-2026/166257-Installing community drinking water plants,0.08417882230294832,False
 "WS/MP18263/2025-2026/166263-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2025-2026/166264-Construction of roads, link roads, pathways or any other road with or without drainage system",0.06417163557312122,False
@@ -39842,7 +39842,7 @@ WS/MP18263/2025-2026/241094-Construction of rooms and halls in school and colleg
 "WS/MP18263/2025-2026/241119-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2025-2026/241120-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2025-2026/255817-Construction of roads, link roads, pathways or any other road with or without drainage system",0.031351993055497795,False
-"WS/MP18263/2025-2026/261104-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.0097189035232218,False
+"WS/MP18263/2025-2026/261104-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.0097189035232218,False
 "WS/MP18263/2026-2027/149965-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2026-2027/150110-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18263/2026-2027/155528-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -40347,9 +40347,9 @@ WS/MP18271/2025-2026/135212-Lighting of public spaces,0.08417882230294832,False
 WS/MP18271/2025-2026/135271-Lighting of public spaces,0.08417882230294832,False
 WS/MP18271/2025-2026/135272-Lighting of public spaces,0.08417882230294832,False
 WS/MP18271/2025-2026/135273-Lighting of public spaces,0.08417882230294832,False
-"WS/MP18271/2025-2026/167569-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18271/2025-2026/167570-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18271/2025-2026/167571-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18271/2025-2026/167569-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18271/2025-2026/167570-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18271/2025-2026/167571-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18271/2025-2026/167572-Providing CCTV camera system for security of public areas,0.08417882230294832,False
 WS/MP18271/2025-2026/167573-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18271/2025-2026/196965-Construction of community centers and community halls,-0.2430465129455045,True
@@ -42818,7 +42818,7 @@ WS/MP18314/2025-2026/194207-Construction of additional rooms and halls in the ex
 WS/MP18314/2025-2026/194212-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP18314/2025-2026/197849-Purchase of mobile water tankers,0.08417882230294832,False
 "WS/MP18314/2025-2026/206701-Purchase of IT systems, including hardware and software for educational purposes",0.0915328696162056,False
-"WS/MP18314/2025-2026/206709-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.052811136050791796,True
+"WS/MP18314/2025-2026/206709-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.052811136050791796,True
 WS/MP18314/2025-2026/208365-Installing tube-wells and borewells,0.06943437661548851,False
 WS/MP18314/2025-2026/208366-Installing tube-wells and borewells,0.06943437661548851,False
 WS/MP18314/2025-2026/208367-Installing tube-wells and borewells,0.06943437661548851,False
@@ -44594,7 +44594,7 @@ WS/MP18328/2026-2027/253202-Construction of community centers and community hall
 "WS/MP18328/2026-2027/253203-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18328/2026-2027/253204-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18328/2026-2027/253210-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP18328/2026-2027/258768-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18328/2026-2027/258768-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP18328/2026-2027/258771-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18328/2026-2027/267679-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18328/2026-2027/267680-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -44861,7 +44861,7 @@ WS/MP18336/2025-2026/184862-Construction of additional rooms and halls in the ex
 WS/MP18336/2025-2026/184864-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP18336/2025-2026/184865-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP18336/2025-2026/184891-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP18336/2025-2026/184892-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18336/2025-2026/184892-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18336/2025-2026/184895-Construction of buildings for community cultural activities,0.022410754772120123,False
 WS/MP18336/2025-2026/184896-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18336/2025-2026/184898-Construction of community centers and community halls,0.08417882230294832,False
@@ -45529,8 +45529,8 @@ WS/MP18338/2026-2027/284117-Construction of community centers and community hall
 WS/MP18338/2026-2027/289169-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 "WS/MP18338/2026-2027/289181-Construction of rooms and facilities for hospitals, FWC , PHC Centers and ANM centers",0.08417882230294832,False
 WS/MP18338/2026-2027/289202-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18338/2026-2027/291156-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18338/2026-2027/291177-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18338/2026-2027/291156-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18338/2026-2027/291177-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18338/2026-2027/297139-Construction of culverts and bridges,0.08417882230294832,False
 "WS/MP18339/2024-2025/141956-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18339/2024-2025/141957-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -46137,7 +46137,7 @@ WS/MP18350/2025-2026/178837-Construction of community centers and community hall
 WS/MP18350/2025-2026/178838-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18350/2025-2026/178839-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18350/2025-2026/178840-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18350/2025-2026/178841-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18350/2025-2026/178841-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18350/2025-2026/178842-Construction of boundary walls of existing public and community buildings,0.0799009772099959,False
 WS/MP18350/2025-2026/178843-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18350/2025-2026/178844-Construction of community centers and community halls,0.08417882230294832,False
@@ -46726,7 +46726,7 @@ WS/MP18352/2025-2026/242377-Lighting of public spaces,0.08417882230294832,False
 WS/MP18352/2025-2026/242378-Lighting of public spaces,0.08417882230294832,False
 WS/MP18352/2025-2026/242379-Lighting of public spaces,0.08417882230294832,False
 WS/MP18352/2025-2026/242666-Construction of public libraries and reading rooms,0.08417882230294832,False
-"WS/MP18352/2025-2026/242667-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18352/2025-2026/242667-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP18352/2025-2026/251224-Purchase of prosthetics, wheel chairs, tricycles (manual or motorized), elect scooties, hearing aids",-0.15566028035562662,True
 WS/MP18352/2025-2026/254683-Improvement of electricity distribution infrastructure,0.08417882230294832,False
 "WS/MP18352/2025-2026/258499-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -47758,7 +47758,7 @@ WS/MP18370/2025-2026/182556-Development of playground,0.08417882230294832,False
 WS/MP18370/2025-2026/190903-Development of playground,0.08417882230294832,False
 WS/MP18370/2025-2026/198720-Development of playground,0.08417882230294832,False
 WS/MP18370/2025-2026/198721-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP18370/2025-2026/198726-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18370/2025-2026/198726-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18370/2025-2026/198730-Development of playground,0.08417882230294832,False
 WS/MP18370/2025-2026/199250-Construction of rooms and halls in school and colleges,-0.08304694417208591,True
 WS/MP18370/2025-2026/205440-Development of playground,0.08417882230294832,False
@@ -48852,7 +48852,7 @@ WS/MP18384/2026-2027/300858-Purchase of furniture and fixtures for educational p
 WS/MP18386/2025-2026/210954-Establishing public ground water recharging facilities,0.08316439299913492,False
 "WS/MP18386/2025-2026/210955-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08316439299913492,False
 WS/MP18386/2025-2026/220036-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP18386/2025-2026/220050-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.07165013298327355,False
+"WS/MP18386/2025-2026/220050-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.07165013298327355,False
 WS/MP18386/2025-2026/220265-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP18386/2025-2026/229827-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP18386/2025-2026/229828-Construction of bus-sheds or bus-stops,0.08417882230294832,False
@@ -48867,8 +48867,8 @@ WS/MP18386/2026-2027/271224-Construction of community centers and community hall
 "WS/MP18386/2026-2027/278914-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18386/2026-2027/278915-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP18386/2026-2027/280915-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP18386/2026-2027/281924-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP18386/2026-2027/281925-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18386/2026-2027/281924-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP18386/2026-2027/281925-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP18386/2026-2027/290983-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP18386/2026-2027/291021-Providing drains and gutters for public drainage,0.08417882230294832,False
 WS/MP18386/2026-2027/291022-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
@@ -49475,7 +49475,7 @@ WS/MP18393/2025-2026/169468-Construction of boundary walls of existing public an
 WS/MP18393/2025-2026/169471-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
 WS/MP18393/2025-2026/182177-Construction of public libraries and reading rooms,-0.05134300748601728,True
 WS/MP18393/2025-2026/182179-Construction of common work sheds/ common covered sitting area,0.07102425562467213,False
-"WS/MP18393/2025-2026/182180-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.028875980075833863,False
+"WS/MP18393/2025-2026/182180-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.028875980075833863,False
 WS/MP18393/2025-2026/182181-Installation of fixed garden gym equipment,-0.006863086405375696,True
 WS/MP18393/2025-2026/182182-Construction of public libraries and reading rooms,0.06312454162946451,False
 WS/MP18393/2025-2026/182183-Construction of buildings for community cultural activities,-0.0009851058573963067,True
@@ -50650,7 +50650,7 @@ WS/MP18404/2025-2026/268410-Lighting of public spaces,0.08417882230294832,False
 WS/MP18404/2025-2026/268411-Lighting of public spaces,0.08417882230294832,False
 WS/MP18404/2025-2026/268412-Lighting of public spaces,0.08417882230294832,False
 WS/MP18404/2025-2026/268413-Lighting of public spaces,0.08417882230294832,False
-"WS/MP18414/2025-2026/202455-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP18414/2025-2026/202455-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP18414/2025-2026/221553-Construction of roads, link roads, pathways or any other road with or without drainage system",0.040507137528651094,False
 WS/MP18414/2026-2027/195838-Installing community drinking water plants,0.08417882230294832,False
 "WS/MP18414/2026-2027/247595-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -52103,7 +52103,7 @@ WS/MP329/2026-2027/197755-Installation of multi-gym equipment,0.0841788223029483
 WS/MP329/2026-2027/237317-Installing tube-wells and borewells,0.08417882230294832,False
 "WS/MP329/2026-2027/243526- Providing sports equipment, except consumable items",0.08417882230294832,False
 WS/MP329/2026-2027/253595-Purchase of mobile sanitation equipment,0.08417882230294832,False
-"WS/MP329/2026-2027/254155-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP329/2026-2027/254155-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP329/2026-2027/262159-Purchase of mobile sanitation equipment,0.08417882230294832,False
 WS/MP329/2026-2027/262182-Installation of multi-gym equipment,0.08417882230294832,False
 WS/MP329/2026-2027/262184-Purchase of mobile sanitation equipment,0.08417882230294832,False
@@ -53098,7 +53098,7 @@ WS/MP337/2026-2027/245842-Construction of community centers and community halls,
 WS/MP337/2026-2027/245875-Construction of foot over bridge (FOB),0.08417882230294832,False
 WS/MP337/2026-2027/245876-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 "WS/MP337/2026-2027/245877-Construction of flood control embankments/ protection walls along riverbanks, hilltops, roadsides",0.08417882230294832,False
-"WS/MP337/2026-2027/245878-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP337/2026-2027/245878-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP337/2026-2027/245899-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP337/2026-2027/245907-Construction of stadiums,0.08417882230294832,False
 WS/MP337/2026-2027/245921-Development of playfields and sports grounds,0.08417882230294832,False
@@ -54538,7 +54538,7 @@ WS/MP352/2025-2026/164177-Lighting of public spaces,0.08417882230294832,False
 WS/MP352/2025-2026/164178-Lighting of public spaces,0.08417882230294832,False
 WS/MP352/2025-2026/164179-Lighting of public spaces,0.08417882230294832,False
 "WS/MP352/2025-2026/164278-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.07678680315636643,True
-"WS/MP352/2025-2026/169147-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP352/2025-2026/169147-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP352/2025-2026/189758-Lighting of public spaces,0.08417882230294832,False
 WS/MP352/2025-2026/189766-Lighting of public spaces,0.08417882230294832,False
 WS/MP352/2025-2026/189768-Lighting of public spaces,0.08417882230294832,False
@@ -56966,7 +56966,7 @@ WS/MP410/2026-2027/268565-Construction of rooms and halls in school and colleges
 WS/MP410/2026-2027/268566-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP410/2026-2027/268567-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP410/2026-2027/268568-Construction of rooms and halls in school and colleges,0.08417882230294832,False
-"WS/MP410/2026-2027/272691-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP410/2026-2027/272691-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP410/2026-2027/289198-Construction of community centers and community halls,0.08417882230294832,False
 "WS/MP413/2024-2025/140245-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08164134815821239,False
 WS/MP413/2025-2026/150066-Lighting of public spaces,0.010800992648000052,False
@@ -57298,7 +57298,7 @@ WS/MP417/2025-2026/215030-Development of public parks,0.05710057247808703,False
 "WS/MP417/2025-2026/215032-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP417/2025-2026/215038-Construction of roads, link roads, pathways or any other road with or without drainage system",0.04615210840439976,False
 WS/MP417/2025-2026/215039-Construction of community centers and community halls,0.08853724078707242,False
-"WS/MP417/2025-2026/215040-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.047617718449185775,False
+"WS/MP417/2025-2026/215040-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.047617718449185775,False
 "WS/MP417/2025-2026/215042-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08528489010702867,False
 "WS/MP417/2025-2026/215043-Construction of roads, link roads, pathways or any other road with or without drainage system",0.1034951598584693,False
 "WS/MP417/2025-2026/215046-Construction of roads, link roads, pathways or any other road with or without drainage system",0.10496221386211618,False
@@ -58507,7 +58507,7 @@ WS/MP431/2025-2026/205186-Construction of New Building,0.08417882230294832,False
 "WS/MP431/2025-2026/221656-Construction of roads, link roads, pathways or any other road with or without drainage system",0.007819247494167958,False
 WS/MP431/2025-2026/221832-Construction of public irrigation facilities,0.08417882230294832,False
 "WS/MP431/2025-2026/221851-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP431/2025-2026/222032-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP431/2025-2026/222032-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP431/2025-2026/222045-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.06491367962536054,True
 "WS/MP431/2025-2026/222072-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP431/2025-2026/222085-Installing tube-wells and borewells,0.08417882230294832,False
@@ -60521,8 +60521,8 @@ WS/MP457/2025-2026/191886-Construction of buildings for community cultural activ
 WS/MP457/2025-2026/191997-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08864332407726339,False
 WS/MP457/2025-2026/191998-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
 WS/MP457/2025-2026/194290-Construction of rooms and halls in school and colleges,-0.04243623942804842,True
-"WS/MP457/2025-2026/195872-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.21856894528725734,True
-"WS/MP457/2025-2026/196626-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.08036510302481426,True
+"WS/MP457/2025-2026/195872-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.21856894528725734,True
+"WS/MP457/2025-2026/196626-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.08036510302481426,True
 "WS/MP457/2025-2026/201103-Purchase of smart boards, visual display units and projectors",0.08693396600273867,False
 "WS/MP457/2025-2026/201104-Purchase of smart boards, visual display units and projectors",0.08693396600273867,False
 "WS/MP457/2025-2026/201105-Purchase of smart boards, visual display units and projectors",0.08693396600273867,False
@@ -60674,17 +60674,17 @@ WS/MP457/2025-2026/258861-Lighting of public spaces,0.08417882230294832,False
 WS/MP457/2025-2026/258862-Lighting of public spaces,0.08417882230294832,False
 WS/MP457/2025-2026/258863-Lighting of public spaces,0.08417882230294832,False
 WS/MP457/2025-2026/263485-Construction of community centers and community halls,0.08417882230294832,False
-"WS/MP457/2026-2027/287029-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP457/2026-2027/287029-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP457/2026-2027/287030-Construction of buildings for crèches and anganwadies,0.08417882230294832,False
-"WS/MP457/2026-2027/287031-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP457/2026-2027/287031-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP457/2026-2027/287032-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
-"WS/MP457/2026-2027/287033-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP457/2026-2027/288860-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP457/2026-2027/289791-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP457/2026-2027/289792-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP457/2026-2027/289793-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP457/2026-2027/287033-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP457/2026-2027/288860-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP457/2026-2027/289791-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP457/2026-2027/289792-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP457/2026-2027/289793-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP457/2026-2027/289795-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP457/2026-2027/289796-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP457/2026-2027/289796-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP457/2026-2027/289797-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
 WS/MP457/2026-2027/289799-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP457/2026-2027/289807-Construction of buildings for community cultural activities,0.08417882230294832,False
@@ -60696,24 +60696,24 @@ WS/MP458/2025-2026/150048-Construction of community centers and community halls,
 WS/MP458/2025-2026/150051-Construction of community centers and community halls,-0.17103761387379324,True
 WS/MP458/2025-2026/150052-Construction of community centers and community halls,-0.06314885294455919,True
 WS/MP458/2025-2026/153610-Construction of buildings for crèches and anganwadies,-0.0092348121347271,True
-"WS/MP458/2025-2026/153614-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.022885072121967776,False
-"WS/MP458/2025-2026/153616-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.020998454348110318,False
+"WS/MP458/2025-2026/153614-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.022885072121967776,False
+"WS/MP458/2025-2026/153616-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.020998454348110318,False
 WS/MP458/2025-2026/157129-Construction of water tanks,0.02813916718304793,False
 WS/MP458/2025-2026/180092-Construction of community centers and community halls,-0.1792422022348078,True
 WS/MP458/2025-2026/180146-Construction of bus-sheds or bus-stops,0.0510920544249428,False
 WS/MP458/2025-2026/219237-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP458/2025-2026/225340-Construction of bus-sheds or bus-stops,-0.051973244583068734,True
 WS/MP458/2026-2027/150074-Construction of water tanks,0.08417882230294832,False
-"WS/MP458/2026-2027/181203-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP458/2026-2027/181203-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP458/2026-2027/211369-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP458/2026-2027/211376-Construction of buildings for community cultural activities,0.08417882230294832,False
-"WS/MP458/2026-2027/211390-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP458/2026-2027/211394-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP458/2026-2027/211390-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP458/2026-2027/211394-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP458/2026-2027/216369-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP458/2026-2027/219236-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP458/2026-2027/219312-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP458/2026-2027/225327-Construction of rooms and halls in school and colleges,0.08417882230294832,False
-"WS/MP458/2026-2027/225335-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP458/2026-2027/225335-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP458/2026-2027/225379-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP458/2026-2027/225383-Construction of community centers and community halls,0.08417882230294832,False
 "WS/MP459/2025-2026/149087-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.18399039522509875,True
@@ -61079,7 +61079,7 @@ WS/MP478/2024-2025/154260-Construction of shelters for animals,0.084178822302948
 WS/MP478/2024-2025/154524-Construction of footpaths and pedestrian ways,-0.023606109163211153,True
 WS/MP478/2024-2025/154525-Construction of footpaths and pedestrian ways,-0.013689035327634436,True
 WS/MP478/2024-2025/156124-Purchase of books and periodicals for libraries/digitization of library books,0.08417882230294832,False
-"WS/MP478/2025-2026/154176-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP478/2025-2026/154176-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP478/2025-2026/154203-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
 WS/MP478/2025-2026/154205-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP478/2025-2026/154206-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
@@ -61228,7 +61228,7 @@ WS/MP478/2025-2026/270939-Construction of common work sheds/ common covered sitt
 WS/MP478/2025-2026/270940-Construction of footpaths and pedestrian ways,0.08417882230294832,False
 WS/MP478/2025-2026/270941-Construction of footpaths and pedestrian ways,0.08417882230294832,False
 WS/MP478/2026-2027/154202-Construction of footpaths and pedestrian ways,0.08417882230294832,False
-"WS/MP478/2026-2027/181023-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP478/2026-2027/181023-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP478/2026-2027/192775-Construction of toilet blocks,0.08417882230294832,False
 WS/MP478/2026-2027/198742-Security gates in streets/public place for safety purpose,0.08417882230294832,False
 "WS/MP478/2026-2027/243424-Construction of flood control embankments/ protection walls along riverbanks, hilltops, roadsides",0.08417882230294832,False
@@ -62995,7 +62995,7 @@ WS/MP524/2025-2026/200728-Installing tube-wells and borewells,0.0841788223029483
 WS/MP524/2025-2026/200743-Construction of bus-sheds or bus-stops,-0.07649573366510842,True
 WS/MP524/2025-2026/200753-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP524/2025-2026/200755-Construction of additional rooms and halls in the existing public and community building,0.09181364097481737,False
-"WS/MP524/2025-2026/200761-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.10534383562850713,True
+"WS/MP524/2025-2026/200761-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.10534383562850713,True
 WS/MP524/2025-2026/200762-Providing supply pipelines for drinking water,0.09852086076884004,False
 WS/MP524/2025-2026/200766-Construction of boundary walls of existing public and community buildings,-0.09368567739197442,True
 WS/MP524/2025-2026/200770-Construction of boundary walls of existing public and community buildings,-0.035147439885760856,True
@@ -63186,7 +63186,7 @@ WS/MP524/2026-2027/279573-Construction of boundary walls of existing public and 
 "WS/MP524/2026-2027/280012-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP524/2026-2027/280013-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP524/2026-2027/280600-Installing tube-wells and borewells,0.08417882230294832,False
-"WS/MP524/2026-2027/290095-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP524/2026-2027/290095-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP524/2026-2027/290099-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP524/2026-2027/290114-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP524/2026-2027/290118-Installing tube-wells and borewells,0.08417882230294832,False
@@ -63363,7 +63363,7 @@ WS/MP526/2025-2026/193018-Construction of rainwater harvesting structures,0.0841
 WS/MP526/2025-2026/197294-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
 "WS/MP526/2025-2026/203602-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP526/2025-2026/204166-Installing tube-wells and borewells,0.08417882230294832,False
-"WS/MP526/2025-2026/217529-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP526/2025-2026/217529-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP526/2025-2026/217530-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP526/2025-2026/217531-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP526/2025-2026/217534-Construction of water tanks,0.08417882230294832,False
@@ -64684,7 +64684,7 @@ WS/MP555/2025-2026/155582-Construction of common work sheds/ common covered sitt
 WS/MP555/2025-2026/155583-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
 WS/MP555/2025-2026/155584-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
 WS/MP555/2025-2026/155622-Construction of common work sheds/ common covered sitting area,0.10054023546343432,False
-"WS/MP555/2025-2026/155624-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.00880122485544299,True
+"WS/MP555/2025-2026/155624-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.00880122485544299,True
 WS/MP555/2025-2026/155625-Construction of common work sheds/ common covered sitting area,0.06965738059914278,False
 WS/MP555/2025-2026/155626-Construction of community centers and community halls,-0.047570833687885616,True
 WS/MP555/2025-2026/155627-Construction of community centers and community halls,-0.04583731686633308,True
@@ -67242,7 +67242,7 @@ WS/MP585/2025-2026/187667-Crematoriums/energy efficient crematoriums or structur
 WS/MP585/2025-2026/187672-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
 WS/MP585/2025-2026/192814-Construction of public toilets and bathrooms,0.08417882230294832,False
 WS/MP585/2025-2026/192817-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
-"WS/MP585/2025-2026/192836-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP585/2025-2026/192836-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP585/2025-2026/192843-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
 WS/MP585/2025-2026/193607-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,0.08417882230294832,False
 WS/MP585/2025-2026/193610-Construction of boundary walls of existing public and community buildings,0.08339825636753684,False
@@ -67285,7 +67285,7 @@ WS/MP585/2025-2026/234439-Installing tube-wells and borewells,0.0841788223029483
 WS/MP585/2025-2026/234452-Installing community drinking water plants,0.08417882230294832,False
 WS/MP585/2025-2026/239127-Purchase of hospital equipment,0.08417882230294832,False
 WS/MP585/2025-2026/239132-Construction of toilet blocks,0.08417882230294832,False
-"WS/MP585/2025-2026/239493-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP585/2025-2026/239493-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP585/2025-2026/240256-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP585/2025-2026/240258-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP585/2025-2026/240263-Installing tube-wells and borewells,0.08417882230294832,False
@@ -68640,7 +68640,7 @@ WS/MP607/2025-2026/211455-Installing hand pumps,0.08417882230294832,False
 WS/MP607/2025-2026/211460-Installing hand pumps,0.08417882230294832,False
 WS/MP607/2025-2026/211462-Installing hand pumps,0.08417882230294832,False
 WS/MP607/2025-2026/211463-Installing hand pumps,0.08417882230294832,False
-"WS/MP607/2025-2026/211465-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP607/2025-2026/211465-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP607/2025-2026/230487-Security gates in streets/public place for safety purpose,0.08417882230294832,False
 "WS/MP607/2025-2026/230500-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP607/2025-2026/230545-Installing tube-wells and borewells,0.08417882230294832,False
@@ -69782,7 +69782,7 @@ WS/MP641/2024-2025/133912-Construction of community centers and community halls,
 WS/MP641/2024-2025/133913-Construction of common work sheds/ common covered sitting area,0.08417882230294832,False
 WS/MP641/2024-2025/133919-Construction of common work sheds/ common covered sitting area,-0.04443960496959576,True
 WS/MP641/2024-2025/133929-Construction of additional rooms and halls in the existing public and community building,0.08417882230294832,False
-"WS/MP641/2024-2025/136722-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP641/2024-2025/136722-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP641/2024-2025/137260-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP641/2024-2025/137262-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP641/2024-2025/137265-Construction of additional rooms and halls in the existing public and community building,0.09661859410428203,False
@@ -72015,8 +72015,8 @@ WS/MP728/2025-2026/192012-Lighting of public spaces,0.08417882230294832,False
 WS/MP728/2025-2026/192098-Purchase of sports equipment,0.05364080085293821,False
 WS/MP728/2025-2026/192099-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP728/2025-2026/192100-Construction of rooms and halls in school and colleges,0.08417882230294832,False
-"WS/MP728/2025-2026/192104-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP728/2025-2026/192105-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP728/2025-2026/192104-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP728/2025-2026/192105-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP728/2025-2026/192113-Construction of rooms and halls in school and colleges,-0.09638449675475813,True
 WS/MP728/2025-2026/192125-Improvement of electricity distribution infrastructure,0.08417882230294832,False
 WS/MP728/2025-2026/192142-Purchase of books and periodicals for libraries/digitization of library books,0.08417882230294832,False
@@ -72467,7 +72467,7 @@ WS/MP743/2025-2026/241636-Construction of bus-sheds or bus-stops,0.0841788223029
 WS/MP743/2025-2026/253020-Lighting of public spaces,-0.04757044097128693,True
 WS/MP743/2025-2026/254182-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 WS/MP743/2025-2026/254183-Construction of bus-sheds or bus-stops,0.08417882230294832,False
-"WS/MP743/2026-2027/170872-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.17459842003190318,True
+"WS/MP743/2026-2027/170872-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.17459842003190318,True
 WS/MP743/2026-2027/190860-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP743/2026-2027/190869-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP743/2026-2027/224683-Construction of bus-sheds or bus-stops,-0.2095948447037469,True
@@ -72529,7 +72529,7 @@ WS/MP745/2025-2026/189031-Lighting of public spaces,-0.12401273059563955,True
 WS/MP745/2025-2026/189088-Construction of culverts and bridges,-0.05282541255244999,True
 WS/MP745/2025-2026/189092-Installing tube-wells and borewells,0.007967652825162097,False
 WS/MP745/2025-2026/189094-Construction of water tanks,-0.06542342054729411,True
-"WS/MP745/2025-2026/202575-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP745/2025-2026/202575-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP745/2025-2026/202577-Construction of water tanks,-0.18420210661957725,True
 WS/MP745/2025-2026/202578-Providing supply pipelines for drinking water,-0.055601002526640575,True
 "WS/MP745/2025-2026/202592-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.019621613966585016,True
@@ -72538,14 +72538,14 @@ WS/MP745/2025-2026/202602-Construction of community centers and community halls,
 "WS/MP745/2025-2026/202617-Construction of roads, link roads, pathways or any other road with or without drainage system",0.05730607470536181,False
 "WS/MP745/2025-2026/202618-Construction of roads, link roads, pathways or any other road with or without drainage system",0.04649735031978436,False
 "WS/MP745/2025-2026/202620-Construction of roads, link roads, pathways or any other road with or without drainage system",0.06144598618873848,False
-"WS/MP745/2025-2026/202621-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.076508602977298,True
+"WS/MP745/2025-2026/202621-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.076508602977298,True
 WS/MP745/2025-2026/241597-Construction of public irrigation facilities,-0.008247132616097552,True
 "WS/MP745/2025-2026/241598-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.0475707313296152,True
 WS/MP745/2025-2026/241599-Construction of bus-sheds or bus-stops,0.027233855480896463,False
 WS/MP745/2026-2027/138567-Installing tube-wells and borewells,0.08417882230294832,False
-"WS/MP745/2026-2027/189091-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP745/2026-2027/189091-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP745/2026-2027/202593-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP745/2026-2027/202603-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP745/2026-2027/202603-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP745/2026-2027/202605-Construction of community centers and community halls,0.08417882230294832,False
 "WS/MP745/2026-2027/263272-Construction of roads, link roads, pathways or any other road with or without drainage system",-0.19154625985348317,True
 WS/MP745/2026-2027/263322-Providing drains and gutters for public drainage,0.08417882230294832,False
@@ -72711,9 +72711,9 @@ WS/MP747/2026-2027/207544-Construction of bus-sheds or bus-stops,0.0841788223029
 WS/MP747/2026-2027/214843-Construction of buildings for community cultural activities,-0.1718979097175627,True
 WS/MP747/2026-2027/231764-Construction of public toilets and bathrooms,-0.12661446362827167,True
 WS/MP747/2026-2027/231792-Construction of bus-sheds or bus-stops,-0.19713067228319403,True
-"WS/MP747/2026-2027/242026-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.18706630093220844,True
-"WS/MP747/2026-2027/242030-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.18706630093220844,True
-"WS/MP747/2026-2027/242035-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.20716135473811703,True
+"WS/MP747/2026-2027/242026-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.18706630093220844,True
+"WS/MP747/2026-2027/242030-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.18706630093220844,True
+"WS/MP747/2026-2027/242035-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.20716135473811703,True
 WS/MP747/2026-2027/242044-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP747/2026-2027/242062-Construction of community centers and community halls,-0.2060523549148826,True
 WS/MP747/2026-2027/260750-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,-0.1944722737118263,True
@@ -72832,7 +72832,7 @@ WS/MP755/2024-2025/151521-Construction of buildings for crèches and anganwadies
 WS/MP755/2024-2025/151522-Construction of community centers and community halls,-0.0068646077942889905,True
 WS/MP755/2024-2025/152820-Construction of community centers and community halls,-0.18049217994587508,True
 WS/MP755/2024-2025/152821-Construction of community centers and community halls,-0.18049217994587508,True
-"WS/MP755/2024-2025/163142-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.005468944118589891,False
+"WS/MP755/2024-2025/163142-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.005468944118589891,False
 WS/MP755/2024-2025/163248-Construction of buildings for crèches and anganwadies,-0.06113034289306951,True
 WS/MP755/2024-2025/163620-Construction of community centers and community halls,0.08417882230294832,False
 WS/MP755/2025-2026/151519-Construction of buildings for crèches and anganwadies,0.0011637735284838469,False
@@ -72872,8 +72872,8 @@ WS/MP755/2025-2026/196031-Construction of public libraries and reading rooms,0.0
 WS/MP755/2025-2026/197519-Street lights,-0.1926008954815548,True
 WS/MP755/2025-2026/197520-Street lights,-0.17958262488388066,True
 WS/MP755/2025-2026/197522-Street lights,-0.17958262488388066,True
-"WS/MP755/2025-2026/206040-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP755/2025-2026/206041-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.08194254088148456,True
+"WS/MP755/2025-2026/206040-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP755/2025-2026/206041-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.08194254088148456,True
 WS/MP755/2025-2026/208406-Street lights,0.08417882230294832,False
 WS/MP755/2025-2026/208407-Street lights,0.08417882230294832,False
 WS/MP755/2025-2026/208408-Street lights,0.08417882230294832,False
@@ -73094,8 +73094,8 @@ WS/MP758/2025-2026/203074-Construction of public libraries and reading rooms,0.0
 WS/MP758/2025-2026/210222-Construction of bus-sheds or bus-stops,0.08417882230294832,False
 "WS/MP758/2025-2026/210908-Purchase of prosthetics, wheel chairs, tricycles (manual or motorized), elect scooties, hearing aids",0.08417882230294832,False
 "WS/MP758/2025-2026/210909-Purchase of prosthetics, wheel chairs, tricycles (manual or motorized), elect scooties, hearing aids",0.08417882230294832,False
-"WS/MP758/2025-2026/213691-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP758/2025-2026/213692-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.12597389001840953,True
+"WS/MP758/2025-2026/213691-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP758/2025-2026/213692-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.12597389001840953,True
 "WS/MP758/2025-2026/213709-Purchase of smart boards, visual display units and projectors",0.04413271708995137,False
 "WS/MP758/2025-2026/213710-Purchase of smart boards, visual display units and projectors",0.04413271708995137,False
 "WS/MP758/2025-2026/242877-Purchase of IT systems, including hardware and software for educational purposes",0.08417882230294832,False
@@ -76431,7 +76431,7 @@ WS/MP823/2024-2025/139555-Construction of culverts and bridges,0.084178822302948
 WS/MP823/2024-2025/139556-Construction of rooms and halls in school and colleges,-0.08239280497180379,True
 WS/MP823/2024-2025/139557-Construction of common work sheds/ common covered sitting area,0.10800539497528283,False
 WS/MP823/2024-2025/139964-Crematoriums/energy efficient crematoriums or structures on burial/cremation ground,-0.19242237612842494,True
-"WS/MP823/2024-2025/139965-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP823/2024-2025/139965-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP823/2024-2025/139966-Renovation of ponds and lakes,-0.10650876585733604,True
 WS/MP823/2024-2025/139967-Development of playfields and sports grounds,0.09062994328885493,False
 "WS/MP823/2024-2025/139968-Construction of rooms and facilities for hospitals, FWC , PHC Centers and ANM centers",0.07044558722015876,False
@@ -76458,7 +76458,7 @@ WS/MP823/2025-2026/211173-Purchase of hospital equipment,0.0465563718144989,Fals
 WS/MP823/2025-2026/229076-Construction of buildings for sports facilities,0.08417882230294832,False
 WS/MP823/2025-2026/229077-Construction of buildings for sports facilities,0.08417882230294832,False
 WS/MP823/2025-2026/229078-Construction of buildings for sports facilities,0.08417882230294832,False
-"WS/MP823/2025-2026/229079-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP823/2025-2026/229079-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP823/2025-2026/233684-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP823/2025-2026/240009-Construction of buildings for community cultural activities,0.08417882230294832,False
 WS/MP823/2025-2026/240010-Construction of stadiums,0.08417882230294832,False
@@ -76472,7 +76472,7 @@ WS/MP825/2024-2025/167588-Installation/ Construction of Anti-Pollution structure
 WS/MP825/2024-2025/167589-Street lights,0.05320055934407447,False
 WS/MP825/2024-2025/167590-Street lights,0.05105351296247268,False
 WS/MP825/2024-2025/167591-Street lights,0.07160373962972588,False
-"WS/MP825/2024-2025/175968-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.062365480459014466,True
+"WS/MP825/2024-2025/175968-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.062365480459014466,True
 WS/MP825/2025-2026/180726-Providing CCTV camera system for security of public areas,-0.17954661615789835,True
 WS/MP825/2025-2026/184190-Purchase of hospital equipment,0.10690392022950435,False
 WS/MP825/2025-2026/184195-Purchase of hospital equipment,0.08417882230294832,False
@@ -76550,7 +76550,7 @@ WS/MP825/2025-2026/242540-Lighting of public spaces,0.08417882230294832,False
 WS/MP825/2025-2026/242541-Lighting of public spaces,0.08417882230294832,False
 WS/MP825/2025-2026/242542-Lighting of public spaces,0.08417882230294832,False
 WS/MP825/2025-2026/242543-Lighting of public spaces,0.08417882230294832,False
-"WS/MP825/2025-2026/242587-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08778813595949336,False
+"WS/MP825/2025-2026/242587-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08778813595949336,False
 "WS/MP825/2025-2026/242588-Construction of roads, link roads, pathways or any other road with or without drainage system",0.07544274515906019,False
 "WS/MP825/2025-2026/242589-Construction of roads, link roads, pathways or any other road with or without drainage system",0.07544274515906019,False
 "WS/MP825/2025-2026/242590-Construction of roads, link roads, pathways or any other road with or without drainage system",0.07544274515906019,False
@@ -77061,7 +77061,7 @@ WS/MP829/2025-2026/183493-Construction of rooms and halls in school and colleges
 WS/MP829/2025-2026/183590-Construction of buildings for community cultural activities,0.031290301863833414,False
 WS/MP829/2025-2026/184586-Providing CCTV camera system for security of public areas,-0.125836141820015,True
 WS/MP829/2025-2026/200121-Construction of common work sheds/ common covered sitting area,0.09588846411655227,False
-"WS/MP829/2025-2026/206045-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.02597835044787089,True
+"WS/MP829/2025-2026/206045-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.02597835044787089,True
 WS/MP829/2025-2026/206046-Setting up of kitchen and pantries,0.08417882230294832,False
 WS/MP829/2025-2026/206047-Construction of rooms and halls in school and colleges,0.08417882230294832,False
 WS/MP829/2025-2026/206048-Lighting of public spaces,0.042065742221765734,False
@@ -77248,13 +77248,13 @@ WS/MP852/2024-2025/154557-Lighting of public spaces,0.06570386396797423,False
 WS/MP852/2024-2025/154558-Lighting of public spaces,0.06570386396797423,False
 WS/MP852/2024-2025/154559-Lighting of public spaces,0.06570386396797423,False
 WS/MP852/2024-2025/154560-Construction of public toilets and bathrooms,0.08417882230294832,False
-"WS/MP852/2024-2025/154562-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP852/2024-2025/154563-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.029851927177473758,False
+"WS/MP852/2024-2025/154562-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP852/2024-2025/154563-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.029851927177473758,False
 WS/MP852/2024-2025/154564-Lighting of public spaces,0.06570386396797423,False
 WS/MP852/2024-2025/154565-Lighting of public spaces,0.06570386396797423,False
 WS/MP852/2024-2025/154566-Lighting of public spaces,0.06570386396797423,False
 WS/MP852/2024-2025/154567-Lighting of public spaces,0.06570386396797423,False
-"WS/MP852/2024-2025/154568-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.09813384803620051,True
+"WS/MP852/2024-2025/154568-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.09813384803620051,True
 WS/MP852/2024-2025/154569-Construction of boundary walls of existing public and community buildings,0.0944718942610504,False
 WS/MP852/2024-2025/155265-Lighting of public spaces,-0.062233987312008465,True
 WS/MP852/2024-2025/155266-Lighting of public spaces,-0.06478206839299039,True
@@ -77307,7 +77307,7 @@ WS/MP852/2025-2026/241488-Construction of rooms and halls in school and colleges
 "WS/MP852/2025-2026/241490-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP852/2025-2026/241491-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 WS/MP852/2025-2026/241492-Construction of buildings for sports facilities,0.08417882230294832,False
-"WS/MP852/2025-2026/241493-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP852/2025-2026/241493-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 "WS/MP852/2025-2026/241494-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP852/2025-2026/241502-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
 "WS/MP852/2025-2026/241503-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
@@ -77415,8 +77415,8 @@ WS/MP852/2026-2027/231928-Street lights,0.08417882230294832,False
 WS/MP852/2026-2027/231930-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
 "WS/MP852/2026-2027/231945-Construction of flood control embankments/ protection walls along riverbanks, hilltops, roadsides",0.08417882230294832,False
 "WS/MP852/2026-2027/257915-Construction of roads, link roads, pathways or any other road with or without drainage system",0.08417882230294832,False
-"WS/MP852/2026-2027/257916-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
-"WS/MP852/2026-2027/257917-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",0.08417882230294832,False
+"WS/MP852/2026-2027/257916-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
+"WS/MP852/2026-2027/257917-Construction of Government office buildings (Post office, Police station, Police chauki, etc",0.08417882230294832,False
 WS/MP852/2026-2027/257918-Security gates in streets/public place for safety purpose,0.08417882230294832,False
 WS/MP852/2026-2027/257919-Construction of boundary walls of existing public and community buildings,0.08417882230294832,False
 WS/MP852/2026-2027/257920-Street lights,0.08417882230294832,False
@@ -77841,7 +77841,7 @@ WS/MP859/2025-2026/236815-Installation of multi-gym equipment,0.0841788223029483
 WS/MP859/2025-2026/236817-Lighting of public spaces,0.08417882230294832,False
 WS/MP859/2025-2026/255335-Providing CCTV camera system for security of public areas,0.08417882230294832,False
 "WS/MP863/2024-2025/143487-Purchase of IT systems, including hardware and software for educational purposes",-0.15172866537587348,True
-"WS/MP863/2025-2026/211404-Construction of Government office buildings (Post office, Police station, Police chauki, etc.)",-0.009775229343269465,True
+"WS/MP863/2025-2026/211404-Construction of Government office buildings (Post office, Police station, Police chauki, etc",-0.009775229343269465,True
 WS/MP863/2026-2027/295001-Installing tube-wells and borewells,0.08417882230294832,False
 WS/MP863/2026-2027/295002-Providing supply pipelines for drinking water,0.08417882230294832,False
 WS/MP863/2026-2027/295003-Installing tube-wells and borewells,0.08417882230294832,False

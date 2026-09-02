@@ -3,16 +3,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv("data/mplads_clean.csv")
-ann = pd.read_csv("data/mplads_anomalies.csv")
+df = pd.read_csv("data/mplads_clean.csv", dtype={"project_id": str})
+ann = pd.read_csv("data/mplads_anomalies.csv", dtype={"project_id": str})
 
-df['project_id'] = df['project_id'].astype(str)
-ann['project_id'] = ann['project_id'].astype(str)
+# Ensure project_ids map cleanly without float artifacts
+df['project_id'] = df['project_id'].str.strip().str.split('.').str[0]
+ann['project_id'] = ann['project_id'].str.strip().str.split('.').str[0]
 
 df = df.merge(ann, on="project_id", how="left")
 
+# Safe conversion of the flagged column to avoid string mismatches
+if 'is_flagged' in df.columns:
+    df['is_flagged'] = df['is_flagged'].astype(str).str.strip().str.lower().isin(['true', '1', 't', 'yes'])
+else:
+    df['is_flagged'] = False
+
 print("Total projects:", len(df))
-print("Flagged:", int(df["is_flagged"].fillna(False).sum()))
+print("Flagged:", int(df["is_flagged"].sum()))
 
 # Ensure columns used by reason_tags exist (avoid KeyError / AttributeError)
 required_cols = ["percent_spent","months_elapsed","cost_overrun_ratio","delay_days","fund_utilization_speed"]
@@ -50,7 +57,7 @@ for c in cols:
     if c not in df.columns:
         df[c] = np.nan
 
-flagged = df.loc[df["is_flagged"].fillna(False), cols]
+flagged = df.loc[df["is_flagged"], cols]
 if flagged.empty:
     print("No flagged rows to display.")
 else:
