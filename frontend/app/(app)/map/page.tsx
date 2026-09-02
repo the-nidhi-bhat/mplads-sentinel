@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, Layers3, MapPinned, SlidersHorizontal } from "lucide-react";
-import { projectsData, type RiskLevel } from "@/lib/mock-data";
+import { type RiskLevel } from "@/lib/mock-data";
+import { useProjects } from "@/lib/projects-provider";
 import "leaflet/dist/leaflet.css";
 
 const riskColors: Record<RiskLevel, string> = {
@@ -14,11 +15,12 @@ const riskColors: Record<RiskLevel, string> = {
 };
 
 export default function MapPage() {
+  const projectsData = useProjects();
   const mapRef = useRef<HTMLDivElement>(null);
   const [riskFilter, setRiskFilter] = useState<RiskLevel | "all">("all");
   const visibleProjects = useMemo(
     () => riskFilter === "all" ? projectsData : projectsData.filter((project) => project.riskLevel === riskFilter),
-    [riskFilter],
+    [riskFilter, projectsData],
   );
 
   useEffect(() => {

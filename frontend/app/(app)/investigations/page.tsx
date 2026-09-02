@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { INVESTIGATIONS as INITIAL_DATA } from "./investigation-data";
+import { useEffect, useMemo, useState } from "react";
+import { INVESTIGATIONS as INITIAL_DATA, investigationsFromProjects } from "./investigation-data";
+import { useProjects } from "@/lib/projects-provider";
 import {
   Investigation,
   InvestigationStatus,
@@ -19,8 +20,12 @@ import {
 } from "lucide-react";
 
 export default function InvestigationsPage() {
+  const projects = useProjects();
   const [investigations, setInvestigations] =
     useState<Investigation[]>(INITIAL_DATA);
+  useEffect(() => {
+    setInvestigations(investigationsFromProjects(projects));
+  }, [projects]);
   const [view, setView] = useState<"active" | "history">("active");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] =

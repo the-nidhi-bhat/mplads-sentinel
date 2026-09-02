@@ -12,10 +12,26 @@ from pathlib import Path
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend.pipeline import run_full_pipeline
+from backend.data_service import (
+    get_agencies,
+    get_dashboard,
+    get_investigations,
+    get_project,
+    get_projects,
+    get_map_projects,
+)
 
-app = FastAPI(title="Workspace Backend")
+app = FastAPI(title="MPLADS Sentinel API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 UPLOAD_DIR = Path(__file__).resolve().parent / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -101,7 +117,40 @@ def download_result(job_id: str):
 
 @app.get("/")
 def health_check():
-    return {"message": "Workspace backend is running."}
+    return {"message": "MPLADS Sentinel backend is running."}
+
+
+@app.get("/api/dashboard")
+def dashboard():
+    return get_dashboard()
+
+
+@app.get("/api/projects")
+def projects():
+    return get_projects()
+
+
+@app.get("/api/projects/{project_id:path}")
+def project(project_id: str):
+    result = get_project(project_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return result
+
+
+@app.get("/api/map")
+def map_projects():
+    return get_map_projects()
+
+
+@app.get("/api/agency-watch")
+def agency_watch():
+    return get_agencies()
+
+
+@app.get("/api/investigations")
+def investigations():
+    return get_investigations()
 
 
 @app.get("/sources")

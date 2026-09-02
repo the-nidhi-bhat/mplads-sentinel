@@ -1,7 +1,6 @@
 # backend/pipeline.py
 #
-# This file runs your existing scripts (normalize -> finalize -> prepare_for_model
-# -> prepare_data) one after another, exactly like you currently do by hand.
+# This file runs the complete normalizer and model chain for an uploaded source.
 
 import subprocess
 import sys
@@ -18,10 +17,12 @@ else:
 
 NORMALIZER_SRC = BASE_DIR / "project-normalizer" / "src"
 MPLADS_SRC = BASE_DIR / "mplads-ml" / "src"
+MPLADS_ROOT = BASE_DIR / "mplads-ml"
 
 FINALIZED_CSV = BASE_DIR / "project-normalizer" / "data" / "finalized.csv"
-RAW_MODEL_CSV = BASE_DIR / "mplads-ml" / "data" / "mplads_raw_for_model.csv"
+RAW_MODEL_CSV = BASE_DIR / "mplads-ml" / "data" / "mplads_raw.csv"
 CLEAN_CSV = BASE_DIR / "mplads-ml" / "data" / "mplads_clean.csv"
+INSPECT_FLAGGED_CSV = BASE_DIR / "mplads-ml" / "data" / "inspect_flagged.csv"
 ALLOWED_SOURCES = {"recommended", "sanctioned", "completed"}
 
 
@@ -32,11 +33,11 @@ def get_python_exe() -> Path:
     return Path(sys.executable)
 
 
-def run_step(script_path, args=None, step_name=""):
+def run_step(script_path, args=None, step_name="", cwd=None):
     """Runs one script using the project's own Python, and raises a clear
     error if it fails, including the script's own error message."""
     cmd = [str(get_python_exe()), str(script_path)] + (args or [])
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd or BASE_DIR)
     if result.returncode != 0:
         raise RuntimeError(
             f"Step '{step_name}' failed.\n"
@@ -92,6 +93,7 @@ def run_full_pipeline(uploaded_csv_path: str, source_label: str = "sanctioned"):
     run_step(
         MPLADS_SRC / "prepare_data.py",
         step_name="prepare_data.py",
+        cwd=MPLADS_ROOT,
     )
 
     if not CLEAN_CSV.exists():
@@ -99,4 +101,17 @@ def run_full_pipeline(uploaded_csv_path: str, source_label: str = "sanctioned"):
             f"Pipeline finished but expected output was not found at {CLEAN_CSV}"
         )
 
-    return str(CLEAN_CSV)
+    # Train the persisted IsolationForest against this exact uploaded dataset.
+    run_step(
+        MPLADS_SRC / "train_model.py",
+        step_name="train_model.py",
+        cwd=MPLADS_ROOT,
+    )
+    run_step(
+        MPLADS_ROOT / "inspect_flagged.py",
+        step_name="inspect_flagged.py",
+        cwd=MPLADS_ROOT,
+    )
+    if not INSPECT_FLAGGED_CSV.exists():
+        raise RuntimeError(f"Pipeline finished but expected output was not found at {INSPECT_FLAGGED_CSV}")
+    return str(INSPECT_FLAGGED_CSV)

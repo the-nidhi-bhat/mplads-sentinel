@@ -8,7 +8,7 @@ project_normalizer:
 
 mplads_ml:
   repo_dir: mplads-ml
-  model_input_path: mplads-ml/data/mplads_raw_for_model.csv
+  model_input_path: mplads-ml/data/mplads_raw.csv
   cleaned_path: mplads-ml/data/mplads_clean.csv
   models_dir: mplads-ml/models
 

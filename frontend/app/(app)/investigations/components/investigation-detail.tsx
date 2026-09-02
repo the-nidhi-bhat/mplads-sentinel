@@ -20,7 +20,11 @@ import {
 } from "lucide-react";
 
 function formatINR(amount: number) {
-  return `₹${(amount / 100000).toFixed(1)} L`;
+  if (!amount || amount <= 0) return "₹0";
+  if (amount >= 100000) {
+    return `₹${(amount / 100000).toFixed(2)} L`;
+  }
+  return `₹${amount.toLocaleString("en-IN")}`;
 }
 
 const EVIDENCE_ICONS: Record<string, any> = {

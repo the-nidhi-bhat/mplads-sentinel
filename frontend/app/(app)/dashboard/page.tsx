@@ -12,10 +12,10 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import {
-  projectsData,
   countTotalAnomalies,
   type Project,
 } from "@/lib/mock-data";
+import { useProjects } from "@/lib/projects-provider";
 import KpiCard from "@/components/dashboard/KpiCard";
 import FilterBar, { DEFAULT_FILTERS, type DashboardFilters } from "@/components/dashboard/FilterBar";
 import RiskDistributionChart from "@/components/dashboard/RiskDistributionChart";
@@ -37,6 +37,7 @@ function uniqueSorted(values: string[]): string[] {
 }
 
 export default function DashboardPage() {
+  const projectsData = useProjects();
   const [filters, setFilters] = useState<DashboardFilters>(DEFAULT_FILTERS);
 
   const filterOptions = useMemo(() => {
@@ -49,7 +50,7 @@ export default function DashboardPage() {
       workTypes: uniqueSorted(byKey("workType")),
       agencies: uniqueSorted(byKey("agency")),
     };
-  }, []);
+  }, [projectsData]);
 
   const cascadedOptions = useMemo(() => {
     let districts = filterOptions.districts;
@@ -112,7 +113,7 @@ export default function DashboardPage() {
 
       return true;
     });
-  }, [filters]);
+  }, [filters, projectsData]);
 
   const highRiskCount = useMemo(
     () => filteredProjects.filter((p) => p.riskLevel === "high").length,

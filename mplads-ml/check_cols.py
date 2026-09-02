@@ -1,18 +1,22 @@
+from pathlib import Path
 import pandas as pd
 
-a = pd.read_csv("data/mplads_clean.csv")
-b = pd.read_csv("data/mplads_anomalies.csv")
+BASE_DIR = Path(__file__).resolve().parent
+clean_path = BASE_DIR / "data" / "mplads_clean.csv"
+anom_path = BASE_DIR / "data" / "mplads_anomalies.csv"
+flagged_path = BASE_DIR / "data" / "inspect_flagged.csv"
 
-print("=== clean columns ===")
-print(a.columns.tolist())
-print("\n=== anomalies columns ===")
-print(b.columns.tolist())
+if clean_path.exists():
+    a = pd.read_csv(clean_path, nrows=5)
+    print("=== clean columns ===")
+    print(a.columns.tolist())
 
-print("\n=== project_id dtypes ===")
-print("clean:", a['project_id'].dtype, "anomalies:", b['project_id'].dtype)
+if anom_path.exists():
+    b = pd.read_csv(anom_path, nrows=5)
+    print("\n=== anomalies columns ===")
+    print(b.columns.tolist())
 
-print("\n=== clean sample ===")
-print(a.head().to_string(index=False))
-
-print("\n=== anomalies sample ===")
-print(b.head().to_string(index=False))
+if flagged_path.exists():
+    c = pd.read_csv(flagged_path, nrows=5)
+    print("\n=== inspect_flagged columns ===")
+    print(c.columns.tolist())

@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { Activity, ArrowUpRight, Building2, FolderKanban, ShieldAlert, type LucideIcon } from "lucide-react";
-import { projectsData } from "@/lib/mock-data";
+import { useProjects } from "@/lib/projects-provider";
 
 export default function AgencyWatchPage() {
+  const projectsData = useProjects();
   const agencies = Array.from(projectsData.reduce((groups, project) => {
     const current = groups.get(project.agency) ?? { agency: project.agency, projects: 0, highRisk: 0, totalScore: 0 };
     current.projects += 1;

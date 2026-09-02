@@ -3,6 +3,7 @@
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle2, Download, FileUp, Loader2, XCircle } from "lucide-react";
 import { API_BASE_URL, apiUrl } from "@/lib/api";
+import { useRefreshProjects } from "@/lib/projects-provider";
 
 type JobStatus = "idle" | "queued" | "running" | "done" | "failed";
 
@@ -72,6 +73,7 @@ export default function DataIngestionPage() {
   const [message, setMessage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [sources, setSources] = useState<SourcesResponse | null>(null);
+  const refreshProjects = useRefreshProjects();
 
   const canSubmit = Boolean(file) && !isUploading && status !== "running" && status !== "queued";
 
@@ -112,6 +114,7 @@ export default function DataIngestionPage() {
 
         if (payload.status === "done") {
           setMessage("Pipeline completed. The cleaned model-ready CSV is ready to download.");
+          await refreshProjects();
         } else if (payload.status === "failed") {
           setMessage(payload.error ?? "Pipeline failed. Check the backend console for details.");
         } else {
@@ -123,7 +126,7 @@ export default function DataIngestionPage() {
     }, 2500);
 
     return () => window.clearInterval(timer);
-  }, [job?.job_id, status]);
+  }, [job?.job_id, status, refreshProjects]);
 
   function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
     const selected = event.target.files?.[0] ?? null;

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "@/components/app-shell/sidebar";
 import Header from "@/components/app-shell/header";
 import { isAuthenticated } from "@/lib/auth";
+import { ProjectsProvider } from "@/lib/projects-provider";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-screen flex-col lg:pl-72">
         <Header onOpenSidebar={() => setSidebarOpen(true)} />
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
-          {children}
+          <ProjectsProvider>{children}</ProjectsProvider>
         </main>
       </div>
     </div>

@@ -1,17 +1,26 @@
 # src/train_model.py
+import sys
+import os
+from pathlib import Path
+import json
 import joblib
 from sklearn.ensemble import IsolationForest
-from features import get_features
 import pandas as pd
-import json
-import os
 
-MODEL_PATH = "models/isolation_forest.joblib"
-SCALER_PATH = "models/scaler.joblib"
-ANOMALIES_CSV = "data/mplads_anomalies.csv"
-CONFIG_PATH = "src/train_config.json"
+BASE_DIR = Path(__file__).resolve().parents[1]
+SRC_DIR = Path(__file__).resolve().parent
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
-os.makedirs("models", exist_ok=True)
+from features import get_features
+
+MODEL_PATH = BASE_DIR / "models" / "isolation_forest.joblib"
+SCALER_PATH = BASE_DIR / "models" / "scaler.joblib"
+ANOMALIES_CSV = BASE_DIR / "data" / "mplads_anomalies.csv"
+CONFIG_PATH = SRC_DIR / "train_config.json"
+
+MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+ANOMALIES_CSV.parent.mkdir(parents=True, exist_ok=True)
 
 def train(contamination=0.1, n_estimators=100, random_state=42):
     # Load features and scaler (features.get_features saves scaler by default)

@@ -151,16 +151,13 @@ export default function PriorityQueueTable({ projects }: PriorityQueueTableProps
               <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-[var(--text-muted)]">
                 Main Reason
               </th>
-              <th className="px-4 py-3 text-xs font-bold uppercase tracking-wide text-[var(--text-muted)]">
-                Action
-              </th>
             </tr>
           </thead>
           <tbody>
             {sorted.length === 0 ? (
               <tr>
                 <td
-                  colSpan={7}
+                  colSpan={6}
                   className="px-4 py-8 text-center text-sm text-[var(--text-muted)]"
                 >
                   No projects match the selected filters.
@@ -193,15 +190,6 @@ export default function PriorityQueueTable({ projects }: PriorityQueueTableProps
                   </td>
                   <td className="px-4 py-3 text-[var(--text-secondary)]">
                     {project.primaryFinding}
-                  </td>
-                  <td className="px-4 py-3">
-                    <Link
-                      href={`/projects/${encodeURIComponent(project.id)}`}
-                      className="inline-flex items-center gap-1.5 rounded border border-[var(--primary-blue)] px-3 py-1.5 text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:bg-[var(--primary-blue)] hover:text-white"
-                    >
-                      <Eye className="h-3.5 w-3.5" />
-                      View Evidence
-                    </Link>
                   </td>
                 </tr>
               ))

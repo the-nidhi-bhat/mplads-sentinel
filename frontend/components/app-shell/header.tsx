@@ -3,22 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Menu, Settings, LogOut } from "lucide-react";
+import { Menu, Settings, LogOut } from "lucide-react";
 import { getStoredProfile } from "@/lib/auth";
 import { getPageTitle } from "./navigation";
-
-type Notification = {
-  id: number;
-  text: string;
-  time: string;
-  unread: boolean;
-};
-
-const mockNotifications: Notification[] = [
-  { id: 1, text: "New project flagged: MPL/KA/24081", time: "5m ago", unread: true },
-  { id: 2, text: "Agency watch: 3 recurring patterns detected", time: "2h ago", unread: true },
-  { id: 3, text: "Data ingestion: sync completed for 214 records", time: "1d ago", unread: true },
-];
 
 function useClickOutside(onClose: () => void) {
   const ref = useRef<HTMLDivElement>(null);
@@ -57,9 +44,7 @@ export default function Header({
   onOpenSidebar: () => void;
 }) {
   const pathname = usePathname();
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
   const [user, setUser] = useState({
     name: "Ananya Sharma",
     email: "a.sharma@example.com",
@@ -72,9 +57,6 @@ export default function Header({
     if (stored) setUser(stored);
   }, []);
 
-  const unreadCount = notifications.filter((notification) => notification.unread).length;
-
-  const notificationsRef = useClickOutside(() => setNotificationsOpen(false));
   const userMenuRef = useClickOutside(() => setUserMenuOpen(false));
 
   return (
@@ -94,77 +76,10 @@ export default function Header({
       </div>
 
       <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-        <div ref={notificationsRef} className="relative">
-          <button
-            type="button"
-            onClick={() => {
-              setNotificationsOpen((current) => !current);
-              setUserMenuOpen(false);
-            }}
-            aria-label={`Notifications (${unreadCount} unread)`}
-            aria-expanded={notificationsOpen}
-            className="relative rounded-lg p-2 text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]"
-          >
-            <Bell className="h-5 w-5" />
-            {unreadCount > 0 && (
-              <>
-                <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--color-critical)]" />
-                <span className="absolute right-1.5 top-1.5 flex h-2 w-2" aria-hidden="true">
-                  <span className="absolute inset-0 animate-ping rounded-full bg-[var(--color-critical)] opacity-60" />
-                </span>
-              </>
-            )}
-          </button>
-
-          {notificationsOpen && (
-            <div className="absolute right-0 top-full z-50 mt-2 w-80 max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl border border-gov-border bg-white shadow-lg shadow-black/5">
-              <div className="flex items-center justify-between border-b border-gov-border px-4 py-3">
-                <p className="text-sm font-bold text-[var(--text-primary)]">Notifications</p>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setNotifications((current) =>
-                      current.map((notification) => ({ ...notification, unread: false }))
-                    )
-                  }
-                  className="text-xs font-semibold text-[var(--primary-blue)] transition-colors hover:text-[var(--primary-blue-hover)]"
-                >
-                  Mark all as read
-                </button>
-              </div>
-              <ul className="max-h-80 overflow-y-auto">
-                {notifications.map((notification) => (
-                  <li
-                    key={notification.id}
-                    className="flex items-start gap-3 border-b border-gov-border px-4 py-3 last:border-b-0"
-                  >
-                    <span
-                      className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${
-                        notification.unread ? "bg-[var(--color-critical)]" : "bg-[var(--text-muted)]/40"
-                      }`}
-                    />
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium text-[var(--text-primary)]">
-                        {notification.text}
-                      </p>
-                      <p className="mt-0.5 text-xs text-[var(--text-muted)]">
-                        {notification.time}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-
         <div ref={userMenuRef} className="relative">
           <button
             type="button"
-            onClick={() => {
-              setUserMenuOpen((current) => !current);
-              setNotificationsOpen(false);
-            }}
+            onClick={() => setUserMenuOpen((current) => !current)}
             aria-label="User menu"
             aria-expanded={userMenuOpen}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--primary-blue)] text-sm font-bold text-white transition-transform hover:scale-105"

@@ -25,19 +25,22 @@ function projectToInvestigation(project: Project): Investigation {
     weight: Math.min(100, Math.max(1, project.riskScore)),
   };
 
+  const sanctionedAmountNum = parseFloat(project.sanctionedAmount) || 0;
+  const utilizedAmountNum = parseFloat(project.expenditure) || 0;
+
   return {
     id: `INV-${project.id.replace(/[^A-Za-z0-9]/g, "-")}`,
     projectId: project.id,
     projectName: project.title,
-    mpName: "Not available",
-    constituency: project.constituency || "Not available",
-    district: project.district || "Not available",
-    state: project.state,
-    sector: project.workType || "Not classified",
-    sanctionedAmount: 0,
-    utilizedAmount: 0,
+    mpName: (project as any).mpName || project.agency || "Not available",
+    constituency: project.constituency || project.district || "Not available",
+    district: project.district || project.state || "Not available",
+    state: project.state || "Not available",
+    sector: project.workType || "Infrastructure",
+    sanctionedAmount: sanctionedAmountNum,
+    utilizedAmount: utilizedAmountNum,
     riskScore: project.riskScore,
-    riskLevel: riskLevelMap[project.riskLevel],
+    riskLevel: riskLevelMap[project.riskLevel] || "Medium",
     status: statusFor(project),
     assignedTo: project.assignedTo || "Unassigned",
     flaggedOn,
@@ -64,6 +67,10 @@ function projectToInvestigation(project: Project): Investigation {
   };
 }
 
-export const INVESTIGATIONS: Investigation[] = projectsData
-  .filter((project) => project.riskScore >= 60)
-  .map(projectToInvestigation);
+export function investigationsFromProjects(projects: Project[]): Investigation[] {
+  return projects
+    .filter((project) => (project as any).is_flagged || project.riskScore >= 50)
+    .map(projectToInvestigation);
+}
+
+export const INVESTIGATIONS: Investigation[] = investigationsFromProjects(projectsData);

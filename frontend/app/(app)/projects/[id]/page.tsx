@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { use } from "react";
+import { useProjects } from "@/lib/projects-provider";
 import { AlertCircle, ArrowLeft, CheckCircle2, MapPinned } from "lucide-react";
 import { projectsData } from "@/lib/mock-data";
 
@@ -8,8 +12,9 @@ function metricValue(value: number | null | undefined) {
   return value == null ? "Not available in current data source" : `${value}%`;
 }
 
-export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const projectsData = useProjects();
   const project = projectsData.find((item) => item.id === decodeURIComponent(id));
   if (!project) return <p className="text-sm text-[var(--text-muted)]">Project not found.</p>;
 
