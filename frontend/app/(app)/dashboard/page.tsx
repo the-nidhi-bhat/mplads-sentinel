@@ -164,17 +164,30 @@ export default function DashboardPage() {
       <FilterBar filters={filters} options={cascadedOptions} onChange={handleFilterChange} />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-        {kpis.map((kpi) => (
-          <KpiCard
-            key={kpi.title}
-            title={kpi.title}
-            value={kpi.value}
-            icon={kpi.icon}
-            iconVariant={kpi.variant}
-            trend={kpi.trend}
-            trendLabel={kpi.trendLabel}
-          />
-        ))}
+        {kpis.map((kpi) =>
+          kpi.title === "Open Investigations" ? (
+            <Link key={kpi.title} href="/investigations" className="block">
+              <KpiCard
+                title={kpi.title}
+                value={kpi.value}
+                icon={kpi.icon}
+                iconVariant={kpi.variant}
+                trend={kpi.trend}
+                trendLabel={kpi.trendLabel}
+              />
+            </Link>
+          ) : (
+            <KpiCard
+              key={kpi.title}
+              title={kpi.title}
+              value={kpi.value}
+              icon={kpi.icon}
+              iconVariant={kpi.variant}
+              trend={kpi.trend}
+              trendLabel={kpi.trendLabel}
+            />
+          )
+        )}
       </div>
 
       <div className="mt-2 grid grid-cols-1 gap-5 lg:grid-cols-2 pt-1">
