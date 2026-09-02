@@ -260,7 +260,8 @@ export default function DataIngestionPage() {
             {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileUp className="h-4 w-4" />}
             Run Pipeline
           </button>
-          
+
+          <a
             href={job?.status === "done" ? apiUrl(`/download/${job.job_id}`) : undefined}
             aria-disabled={job?.status !== "done"}
             className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-md border border-gov-border px-4 text-sm font-bold text-[var(--text-primary)] transition hover:bg-[var(--bg-card-hover)] aria-disabled:pointer-events-none aria-disabled:opacity-50"
