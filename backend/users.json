@@ -1,0 +1,16 @@
+[
+  {
+    "username": "ravi_kishan",
+    "password": "ravi_kishan123",
+    "name": "Ravi Kishan",
+    "role": "Auditor",
+    "email": "ravi_kishan@mplads.gov.in"
+  },
+  {
+    "username": "admin",
+    "password": "password123",
+    "name": "System Administrator",
+    "role": "Administrator",
+    "email": "admin@mplads.gov.in"
+  }
+]

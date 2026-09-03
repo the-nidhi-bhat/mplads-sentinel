@@ -1,2 +1,8 @@
-# FastAPI application entry point — placeholder
-# TODO: Create FastAPI app instance, include routers, configure CORS
+"""
+FastAPI application entry point.
+Exposes app instance with auth router and data services.
+"""
+
+from backend.main import app
+
+__all__ = ["app"]

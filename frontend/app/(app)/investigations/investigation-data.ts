@@ -1,4 +1,4 @@
-import { projectsData, type Project } from "@/lib/mock-data";
+import type { Project } from "@/lib/mock-data";
 import {
   Investigation,
   InvestigationStatus,
@@ -48,7 +48,7 @@ function projectToInvestigation(project: Project): Investigation {
     anomalyReasons: [anomalyReason],
     evidence: project.evidence.map((item, index) => ({
       id: `${project.id}-evidence-${index}`,
-      type: "data",
+      type: "data" as const,
       title: item.factor,
       description: item.observed || item.deviation || item.benchmark || project.primaryFinding,
       source: "Shared audit dataset",
@@ -73,4 +73,3 @@ export function investigationsFromProjects(projects: Project[]): Investigation[]
     .map(projectToInvestigation);
 }
 
-export const INVESTIGATIONS: Investigation[] = investigationsFromProjects(projectsData);

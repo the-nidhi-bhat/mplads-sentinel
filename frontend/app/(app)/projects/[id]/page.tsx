@@ -4,7 +4,6 @@ import Link from "next/link";
 import { use } from "react";
 import { useProjects } from "@/lib/projects-provider";
 import { AlertCircle, ArrowLeft, CheckCircle2, MapPinned } from "lucide-react";
-import { projectsData } from "@/lib/mock-data";
 
 const riskText = { critical: "text-[var(--color-critical)]", high: "text-[var(--color-high)]", medium: "text-[var(--color-medium)]", low: "text-[var(--color-low)]" };
 

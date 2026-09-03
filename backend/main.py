@@ -15,6 +15,7 @@ from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.pipeline import run_full_pipeline
+from backend.app.api.auth import router as auth_router
 from backend.data_service import (
     get_agencies,
     get_dashboard,
@@ -25,6 +26,8 @@ from backend.data_service import (
 )
 
 app = FastAPI(title="MPLADS Sentinel API")
+app.include_router(auth_router)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],

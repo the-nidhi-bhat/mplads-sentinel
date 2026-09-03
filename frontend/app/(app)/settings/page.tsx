@@ -17,7 +17,7 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react";
-import { projectsData } from "@/lib/mock-data";
+import { useProjects } from "@/lib/projects-provider";
 import { getStoredProfile, updateStoredProfile } from "@/lib/auth";
 
 const FIELD_CLASS =
@@ -284,9 +284,10 @@ export default function SettingsPage() {
 
   // Derived live from the same dataset the dashboard filters on, so the list
   // cannot drift from what the dashboard actually uses.
+  const projectsData = useProjects();
   const states = useMemo(
     () => Array.from(new Set(projectsData.map((project) => project.state))).sort(),
-    []
+    [projectsData]
   );
 
   const [savedNote, setSavedNote] = useState("");

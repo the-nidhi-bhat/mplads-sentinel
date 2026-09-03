@@ -52,28 +52,20 @@ flagged = m.loc[m['is_flagged'] == True].copy()
 cols_to_remove = ["last_update_date", "last_update_age", "possible_unit_error", "diagnostics"]
 flagged = flagged.drop(columns=[c for c in cols_to_remove if c in flagged.columns], errors='ignore')
 
-# If none flagged, print summary and exit
-if flagged.empty:
-    print("No flagged rows found.")
-    print("Total projects:", len(m))
-    print("Flagged count:", int(m['is_flagged'].sum()))
-    sample = m.head(5).drop(columns=[c for c in cols_to_remove if c in m.columns], errors='ignore')
-    sample.to_csv(OUT, index=False)
-    print("Wrote sample to", OUT)
-    sys.exit(0)
-
-# Print full flagged rows to console
+# Keep ALL projects (not just flagged) so the frontend can display everything.
+# The is_flagged column distinguishes normal vs anomalous projects.
 pd.set_option('display.max_columns', None)
-print("=== Flagged rows full details ===")
-print(flagged.to_string(index=False))
+print(f"Total projects: {len(m)}")
+print(f"Flagged count: {int(m['is_flagged'].sum())}")
 
-# Print the numeric features used by the model for flagged rows
-feature_cols = [c for c in ['project_id', 'cost_overrun_ratio', 'delay_days', 'months_elapsed', 'fund_utilization_speed', 'percent_spent', 'anomaly_score'] if c in flagged.columns]
-print("\n=== Numeric features for flagged rows ===")
-print(flagged[feature_cols].to_string(index=False))
+if not flagged.empty:
+    print("=== Flagged rows ===")
+    print(flagged.to_string(index=False))
 
-# Save flagged rows to CSV
-flagged.to_csv(OUT, index=False)
-print("\nWrote flagged rows to", OUT)
-print(f"Total flagged projects: {len(flagged)}")
+# Remove excluded columns if still present
+m = m.drop(columns=[c for c in cols_to_remove if c in m.columns], errors='ignore')
+
+# Write ALL projects to CSV (flagged and non-flagged)
+m.to_csv(OUT, index=False)
+print(f"\nWrote all {len(m)} projects to {OUT}")
 print("Done.")

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { INVESTIGATIONS as INITIAL_DATA, investigationsFromProjects } from "./investigation-data";
+import { investigationsFromProjects } from "./investigation-data";
 import { useProjects } from "@/lib/projects-provider";
 import {
   Investigation,
@@ -22,7 +22,7 @@ import {
 export default function InvestigationsPage() {
   const projects = useProjects();
   const [investigations, setInvestigations] =
-    useState<Investigation[]>(INITIAL_DATA);
+    useState<Investigation[]>([]);
   useEffect(() => {
     setInvestigations(investigationsFromProjects(projects));
   }, [projects]);
