@@ -37,6 +37,41 @@ const FACTOR_TO_CATEGORY: Record<string, AnomalyCategory> = {
 // distribution so they don't skew the chart as a fake anomaly category.
 const NON_ANOMALY_FACTORS: Set<string> = new Set(["Normal progression"]);
 
+function getAnomalyCategory(factor: string): AnomalyCategory | null {
+  const normalizedFactor = factor.trim().toLowerCase();
+  if (NON_ANOMALY_FACTORS.has(factor) || normalizedFactor.includes("within normal range")) {
+    return null;
+  }
+
+  const mappedCategory = FACTOR_TO_CATEGORY[factor];
+  if (mappedCategory) return mappedCategory;
+
+  if (normalizedFactor.includes("cost")) return "Cost";
+  if (normalizedFactor.includes("delay") || normalizedFactor.includes("milestone")) {
+    return "Timeline";
+  }
+  if (
+    normalizedFactor.includes("duplicate") ||
+    normalizedFactor.includes("spatial") ||
+    normalizedFactor.includes("overlap") ||
+    normalizedFactor.includes("constituency")
+  ) {
+    return "Duplicate";
+  }
+  if (normalizedFactor.includes("payment") || normalizedFactor.includes("agency")) {
+    return "Agency";
+  }
+  if (
+    normalizedFactor.includes("utilization") ||
+    normalizedFactor.includes("progress") ||
+    normalizedFactor.includes("expenditure")
+  ) {
+    return "Progress-Expenditure";
+  }
+
+  return null;
+}
+
 function countAnomalies(projects: Project[]): Record<AnomalyCategory, number> {
   const counts: Record<AnomalyCategory, number> = {
     Cost: 0,
@@ -47,8 +82,7 @@ function countAnomalies(projects: Project[]): Record<AnomalyCategory, number> {
   };
   projects.forEach((project) => {
     project.evidence.forEach((evidence) => {
-      if (NON_ANOMALY_FACTORS.has(evidence.factor)) return;
-      const category = FACTOR_TO_CATEGORY[evidence.factor];
+      const category = getAnomalyCategory(evidence.factor);
       if (!category) return;
       counts[category] += 1;
     });

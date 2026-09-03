@@ -16,7 +16,7 @@ export type NavItem = {
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Project Evidence", href: "/projects", icon: FolderKanban },
+  { label: "Projects", href: "/projects", icon: FolderKanban },
   { label: "GIS Map View", href: "/map", icon: Map },
   { label: "Agency Watch", href: "/agency-watch", icon: Landmark },
   { label: "Investigation", href: "/investigations", icon: SearchCheck },
