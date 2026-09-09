@@ -640,6 +640,28 @@ npm run dev
 
 Open `http://localhost:3000` and use the Data Ingestion page to upload and run the pipeline.
 
+### Run the Demo Dataset
+
+The repository includes `final-demo-dataset.csv`, a curated demonstration dataset that users
+can run locally without preparing their own CSV first.
+
+1. Start the backend and frontend using the commands above.
+2. Open the Data Ingestion page in the frontend.
+3. Select `final-demo-dataset.csv` from the repository root.
+4. Choose a source label such as `sanctioned` and start the upload.
+5. Wait for the pipeline job to finish, then review the generated results in the application.
+
+The same demo file can be uploaded directly to the backend from the repository root:
+
+```powershell
+curl.exe -X POST "http://127.0.0.1:8000/upload?source=sanctioned" `
+    -F "file=@final-demo-dataset.csv"
+```
+
+The upload response returns a `job_id`. Use that ID with
+`http://127.0.0.1:8000/status/{job_id}` to check progress, and download the processed output
+from `http://127.0.0.1:8000/download/{job_id}` after the job status becomes `done`.
+
 **First-time setup** (also see Section 16):
 
 ```powershell
