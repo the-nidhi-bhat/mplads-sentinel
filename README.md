@@ -1,4 +1,4 @@
-# MPLADS Sentinel-Phantom Syndicate 
+# MPLADS Sentinel
 
 ### Smart India Hackathon — SIH26102
 
