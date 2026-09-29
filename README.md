@@ -12,16 +12,16 @@ The system combines multiple analytical signals into a transparent **Audit Prior
 
 ## Smart India Hackathon 2026
 
-| Field             | Details                                                     |
-| ----------------- | ----------------------------------------------------------- |
-| Hackathon         | Smart India Hackathon 2026                                  |
-| Problem Statement | SIH26102                                                    |
-| Organization      | Ministry of Statistics and Programme Implementation (MoSPI) |
-| Division          | Data Informatics & Innovation Division (DIID)               |
-| Category          | Software                                                    |
-| Theme             | Smart Automation                                            |
-| Project           | MPLADS Sentinel                                             |
-| Team              | Phantom Syndicate                                           |
+| Field                 | Details                                                     |
+| --------------------- | ----------------------------------------------------------- |
+| **Hackathon**         | Smart India Hackathon 2026                                  |
+| **Problem Statement** | SIH26102                                                    |
+| **Organization**      | Ministry of Statistics and Programme Implementation (MoSPI) |
+| **Division**          | Data Informatics & Innovation Division (DIID)               |
+| **Category**          | Software                                                    |
+| **Theme**             | Smart Automation                                            |
+| **Project**           | MPLADS Sentinel                                             |
+| **Team**              | Phantom Syndicate                                           |
 
 ---
 
@@ -60,7 +60,7 @@ Sentinel transforms project records into an evidence-backed investigation workfl
 flowchart LR
     A["MPLADS Project Data"] --> B["Data Processing"]
     B --> C["Analytical Risk Signals"]
-    C --> D["Audit Priority Score 0-100"]
+    C --> D["Audit Priority Score: 0-100"]
     D --> E["Evidence Generation"]
     E --> F["Priority Queue"]
     F --> G["GIS and Investigation"]
@@ -105,12 +105,12 @@ Each analytical signal contributes a bounded value to the final score.
 
 ```mermaid
 flowchart TB
-    A["Cost Anomaly<br/>0-30"] --> F["Weighted Aggregation"]
-    B["Timeline Anomaly<br/>0-25"] --> F
-    C["Spatial Similarity<br/>0-20"] --> F
-    D["Agency Risk<br/>0-15"] --> F
-    E["Progress Mismatch<br/>0-10"] --> F
-    F --> G["Audit Priority Score<br/>0-100"]
+    A["Cost Anomaly: 0-30"] --> F["Weighted Aggregation"]
+    B["Timeline Anomaly: 0-25"] --> F
+    C["Spatial Similarity: 0-20"] --> F
+    D["Agency Risk: 0-15"] --> F
+    E["Progress Mismatch: 0-10"] --> F
+    F --> G["Audit Priority Score: 0-100"]
     G --> H["Evidence Generation"]
     H --> I["Priority Queue"]
 ```
