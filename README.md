@@ -2,9 +2,9 @@
 
 ## Explainable AI/ML and GIS-Based Risk Intelligence and Audit Prioritization for MPLADS
 
-MPLADS Sentinel is an explainable analytical and AI/ML-assisted platform designed to analyze MPLADS project data, identify unusual patterns across financial, timeline, geographic, agency, and progress-related dimensions, and prioritize projects that may require closer human review.
+MPLADS Sentinel is an explainable analytical and AI/ML-assisted platform for analyzing MPLADS project data across financial, timeline, geographic, agency, and progress-related dimensions.
 
-The system combines multiple analytical signals into a transparent **Audit Priority Score from 0–100**, generates evidence explaining the factors contributing to the score, and presents prioritized projects through a monitoring, GIS, and investigation interface.
+The system combines multiple analytical signals into a transparent **Audit Priority Score from 0–100**, generates evidence explaining the factors behind the score, and presents prioritized projects through a monitoring, GIS, and investigation workflow.
 
 > **Sentinel identifies patterns that deserve attention. It does not automatically declare fraud or irregularity. Final findings remain with authorized human reviewers.**
 
@@ -27,41 +27,41 @@ The system combines multiple analytical signals into a transparent **Audit Prior
 
 ## Problem
 
-Large-scale implementation of MPLADS projects produces records containing information such as:
+MPLADS project records can contain information such as:
 
 * project expenditure
 * execution timelines
 * project locations
 * implementing agencies
 * project descriptions
-* reported progress
+* reported physical progress
 
-When many project records must be monitored, examining every project with the same level of attention can make prioritization difficult.
+When a large number of projects must be monitored, reviewing every project with the same level of attention can make prioritization difficult.
 
-Potentially unusual patterns may appear across several dimensions:
+Potentially unusual patterns may occur across different dimensions, including:
 
 * unusual project costs
 * unusual execution durations
 * potentially similar or spatially related projects
 * repeated agency-level patterns
-* differences between expenditure and reported physical progress
+* differences between expenditure and reported progress
 
-These signals become more useful when considered together rather than independently.
+These signals can become more useful when considered together rather than independently.
 
-MPLADS Sentinel addresses this by combining multiple analytical signals into an explainable prioritization workflow that helps reviewers identify projects that may warrant closer examination.
+MPLADS Sentinel addresses this challenge by combining multiple analytical signals into an explainable workflow that helps reviewers identify projects that may warrant closer examination.
 
 ---
 
-## Proposed Solution
+## Solution
 
-Sentinel transforms project data into an evidence-backed investigation workflow.
+Sentinel transforms project records into an evidence-backed investigation workflow.
 
 ```mermaid
 flowchart LR
     A["MPLADS Project Data"] --> B["Data Processing"]
-    B --> C["Analytical Signals"]
-    C --> D["Audit Priority Score"]
-    D --> E["Evidence"]
+    B --> C["Analytical Risk Signals"]
+    C --> D["Audit Priority Score 0-100"]
+    D --> E["Evidence Generation"]
     E --> F["Priority Queue"]
     F --> G["GIS and Investigation"]
     G --> H["Human Review"]
@@ -84,7 +84,7 @@ The workflow consists of:
 
 ## Core Analytical Signals
 
-Sentinel uses five complementary analytical signals.
+Sentinel uses five complementary analytical risk signals.
 
 | Signal                          | Maximum Contribution | Purpose                                                                           |
 | ------------------------------- | -------------------: | --------------------------------------------------------------------------------- |
@@ -95,22 +95,22 @@ Sentinel uses five complementary analytical signals.
 | Progress / Expenditure Mismatch |                   10 | Identify unusual relationships between expenditure and reported progress          |
 | **Total**                       |              **100** | **Audit Priority Score**                                                          |
 
-These are referred to as **analytical risk signals** rather than five independent AI models because Sentinel can combine machine-learning, statistical, rule-based, aggregation, geographic, and similarity-based methods.
+These are called **analytical risk signals** rather than five independent AI models because the system can combine machine-learning, statistical, rule-based, aggregation, geographic, and similarity-based techniques.
 
 ---
 
 ## Audit Priority Score
 
-Each signal contributes a bounded value to the final score.
+Each analytical signal contributes a bounded value to the final score.
 
 ```mermaid
 flowchart TB
-    A["Cost Anomaly: 0-30"] --> F["Weighted Aggregation"]
-    B["Timeline Anomaly: 0-25"] --> F
-    C["Spatial Similarity: 0-20"] --> F
-    D["Agency Risk: 0-15"] --> F
-    E["Progress Mismatch: 0-10"] --> F
-    F --> G["Audit Priority Score: 0-100"]
+    A["Cost Anomaly<br/>0-30"] --> F["Weighted Aggregation"]
+    B["Timeline Anomaly<br/>0-25"] --> F
+    C["Spatial Similarity<br/>0-20"] --> F
+    D["Agency Risk<br/>0-15"] --> F
+    E["Progress Mismatch<br/>0-10"] --> F
+    F --> G["Audit Priority Score<br/>0-100"]
     G --> H["Evidence Generation"]
     H --> I["Priority Queue"]
 ```
@@ -127,19 +127,19 @@ Cost Contribution
 + Progress Contribution
 ```
 
-Maximum contribution:
+The maximum contribution of each signal is:
 
 ```text
 Cost Anomaly                    <= 30
 Timeline Anomaly                <= 25
-Duplicate / Spatial Similarity <= 20
+Duplicate / Spatial Similarity  <= 20
 Agency Risk                     <= 15
 Progress Mismatch               <= 10
------------------------------------
+---------------------------------------
 Total                           <= 100
 ```
 
-The score represents **analytical priority**. It is not a probability of fraud and does not independently establish wrongdoing.
+The score represents **analytical review priority**. It is not a probability of fraud and does not independently establish wrongdoing.
 
 ### MVP Weighting
 
@@ -151,7 +151,7 @@ The score represents **analytical priority**. It is not a probability of fraud a
 | Agency Risk                     |    15% |
 | Progress / Expenditure Mismatch |    10% |
 
-These are initial MVP weights used to provide a transparent and controllable scoring mechanism. They are not presented as universally optimal weights.
+These are initial MVP weights intended to provide a transparent and controllable scoring mechanism. They are not presented as universally optimal weights.
 
 ---
 
@@ -161,12 +161,12 @@ These are initial MVP weights used to provide a transparent and controllable sco
 
 Identify projects whose cost is unusual relative to an appropriate comparison group.
 
-Potential analytical approaches include:
+Depending on the implemented analytical pipeline, cost analysis can use techniques such as:
 
 * peer-project benchmarking
 * percentile comparison
 * statistical deviation
-* Isolation Forest where appropriate
+* machine-learning-based anomaly detection
 
 ```mermaid
 flowchart LR
@@ -188,7 +188,7 @@ Cost Signal: Elevated
 Contribution: 22 / 30
 ```
 
-The exact values depend on the dataset and comparison methodology.
+The actual values depend on the dataset and comparison methodology.
 
 ---
 
@@ -282,9 +282,9 @@ This signal alone does not establish wrongdoing.
 
 ## Explainability
 
-A numerical score without supporting evidence is difficult to investigate.
+A numerical score without supporting evidence can be difficult to investigate.
 
-Sentinel therefore connects analytical signals to the evidence that produced them.
+Sentinel therefore connects analytical signals to the evidence that contributed to them.
 
 ```mermaid
 flowchart LR
@@ -295,7 +295,7 @@ flowchart LR
     E --> F["Reviewer Investigation"]
 ```
 
-Instead of showing only:
+Instead of displaying only:
 
 ```text
 Audit Priority Score: 87 / 100
@@ -313,7 +313,7 @@ Agency Risk:                      9 / 15
 Progress Mismatch:                8 / 10
 ```
 
-Possible supporting evidence includes:
+Supporting evidence can include:
 
 * observed project value
 * peer benchmark
@@ -324,11 +324,13 @@ Possible supporting evidence includes:
 * agency-level aggregates
 * expenditure/progress relationship
 
+The purpose of explainability is to allow a reviewer to understand **why a project received its analytical priority** rather than treating the score as a black-box conclusion.
+
 ---
 
 ## Human-in-the-Loop Investigation
 
-Sentinel separates **automated analytical prioritization** from **human decision-making**.
+Sentinel separates automated analytical prioritization from human investigation.
 
 ```mermaid
 flowchart TD
@@ -418,9 +420,11 @@ flowchart TB
     OUTCOME --> DB
 ```
 
-The architecture separates the main responsibilities of the platform:
+The main architecture is:
 
 **Data → Processing → Analytics → Risk Scoring → Evidence → API → Web Interface → Human Review**
+
+The system separates data processing, analytical logic, backend services, database operations, and frontend presentation so that each layer can be developed and tested independently.
 
 ---
 
@@ -468,9 +472,11 @@ flowchart LR
 
 Sentinel distinguishes between different classes of data used during development and demonstration.
 
-### Curated / Derived Project Data
+### Curated and Derived Project Data
 
 Project records prepared for analytical processing and demonstration.
+
+These records may be derived from available MPLADS-related datasets and prepared into a consistent format for the application.
 
 ### Synthetic Validation Data
 
@@ -492,7 +498,9 @@ flowchart LR
 
 Synthetic anomalies are explicitly treated as **synthetic validation scenarios** and are not presented as actual government findings.
 
-Similarly, a high Audit Priority Score is not represented as proof of fraud or irregularity.
+Likewise, a high Audit Priority Score is not presented as proof of fraud or irregularity.
+
+The repository should document the provenance and preparation method of datasets used by each demonstration or validation workflow.
 
 ---
 
@@ -518,45 +526,6 @@ Example validation scenarios include:
 * expenditure/progress mismatch
 
 The validation process is intended to test **analytical behaviour**, not to claim that synthetic scenarios represent real-world findings.
-
----
-
-## Repository Structure
-
-```text
-mplads-sentinel/
-│
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   ├── styles/
-│   ├── public/
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   ├── ml/
-│   │   ├── data_pipeline/
-│   │   ├── main.py
-│   │   └── database.py
-│   │
-│   ├── model_artifacts/
-│   ├── data/
-│   └── requirements.txt
-│
-├── docs/
-│   └── MASTER_ARCHITECTURE.md
-│
-├── docker-compose.yml
-├── .env.example
-├── .gitignore
-└── README.md
-```
 
 ---
 
@@ -612,11 +581,11 @@ Recommended development environment:
 * PostgreSQL
 * Git
 
-Python 3.11 is recommended for compatibility with the project's machine-learning dependencies.
+Python 3.11 is recommended for compatibility with the project's Python dependencies.
 
 ### Environment Variables
 
-Run the following from the **repository root**:
+Run this command from the **repository root**:
 
 ```powershell
 Copy-Item .env.example .env
@@ -624,11 +593,17 @@ Copy-Item .env.example .env
 
 Configure the required database and application values in `.env`.
 
-Do not commit `.env`, passwords, API keys, or other credentials.
+Do not commit:
 
-### Backend
+* `.env`
+* passwords
+* API keys
+* database credentials
+* other secrets
 
-The backend commands should be run from the **repository root**.
+### Backend Setup
+
+The backend commands below are run from the **repository root**.
 
 Create a Python virtual environment:
 
@@ -642,80 +617,101 @@ Activate it:
 .venv\Scripts\Activate.ps1
 ```
 
-Install dependencies:
+Install the backend dependencies:
 
 ```powershell
 pip install -r backend\requirements.txt
 ```
 
-Start the API:
+Start the FastAPI development server:
 
 ```powershell
 python -m uvicorn backend.app.main:app --reload
 ```
 
-The backend will normally be available at:
+The backend normally runs at:
 
 ```text
 http://localhost:8000
 ```
 
-FastAPI's interactive API documentation will normally be available at:
+FastAPI's interactive API documentation is normally available at:
 
 ```text
 http://localhost:8000/docs
 ```
 
-### Frontend
+### Frontend Setup
 
 Open a **second terminal**.
 
-Move into the frontend directory:
+From the repository root, move into the frontend directory:
 
 ```powershell
 cd frontend
 ```
 
-Install dependencies:
+Install the frontend dependencies:
 
 ```powershell
 npm install
 ```
 
-Start the development server:
+Start the Next.js development server:
 
 ```powershell
 npm run dev
 ```
 
-The frontend will normally be available at:
+The frontend normally runs at:
 
 ```text
 http://localhost:3000
 ```
 
-> **Important:** Do not run `npm install` from the repository root. The frontend `package.json` is located inside `frontend/`.
+> **Important:** Run `npm install` inside `frontend/`, not in the repository root. The frontend `package.json` is located in the `frontend` directory.
 
 ### PostgreSQL
 
-If PostgreSQL is required by the current application configuration:
+If the current application configuration requires PostgreSQL:
 
-* make sure PostgreSQL is running
-* create the required database
-* configure the database connection in `.env`
-* make sure the backend can connect to the configured database
+1. Make sure PostgreSQL is running.
+2. Create the database expected by the project configuration.
+3. Configure the required database values in `.env`.
+4. Start the backend.
+5. Confirm that the backend can connect to the configured database.
 
 The exact database name, credentials, and connection variables should be taken from `.env.example` and the backend configuration rather than assumed from this README.
 
+### Running the Application
+
+Once the backend and frontend are running:
+
+```text
+Frontend
+    ↓
+Next.js / React
+    ↓
+REST / JSON
+    ↓
+FastAPI
+    ↓
+Application Services
+    ↓
+PostgreSQL + Analytical Components
+```
+
+Use the frontend for the main interface and `/docs` on the backend to inspect the available API endpoints.
+
 ---
 
-## MVP Architecture Philosophy
+## MVP Architecture
 
 The MVP intentionally keeps the core architecture lightweight.
 
 ```mermaid
 flowchart LR
-    A["Next.js"] --> B["FastAPI"]
+    A["Next.js / React"] --> B["FastAPI"]
     B --> C["Python Analytics"]
     B --> D[("PostgreSQL")]
 ```
@@ -729,7 +725,7 @@ The architecture is designed to remain:
 * easy to debug
 * modular enough to extend
 
-Distributed infrastructure is not a prerequisite for the core MVP.
+Distributed infrastructure is not required for the core MVP.
 
 Technologies such as Kafka, Kubernetes, Celery, Redis, object storage, or mandatory PostGIS infrastructure can be considered later if scale and deployment requirements justify them.
 
@@ -759,6 +755,7 @@ The system does not attempt to:
 * conduct fully autonomous investigations
 * guarantee detection of every irregularity
 * replace authorized human reviewers
+* treat an analytical score as a final finding
 * require large-scale distributed infrastructure for the core demonstration
 
 ---
@@ -783,7 +780,7 @@ Geographic or descriptive similarity can identify candidate relationships but ca
 
 ### Agency-Level Patterns
 
-Historical aggregation can provide useful context but should not be interpreted as proof that an agency has acted improperly.
+Historical aggregation can provide additional context but should not be interpreted as proof that an agency has acted improperly.
 
 ### Human Verification
 
@@ -872,6 +869,45 @@ Investigation Outcome
 
 ---
 
+## Repository Structure
+
+```text
+mplads-sentinel/
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── lib/
+│   ├── styles/
+│   ├── public/
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── ml/
+│   │   ├── data_pipeline/
+│   │   ├── main.py
+│   │   └── database.py
+│   │
+│   ├── model_artifacts/
+│   ├── data/
+│   └── requirements.txt
+│
+├── docs/
+│   └── MASTER_ARCHITECTURE.md
+│
+├── docker-compose.yml
+├── .env.example
+├── .gitignore
+└── README.md
+```
+
+---
+
 ## Responsible AI and Design Principles
 
 ### Explainability
@@ -893,6 +929,10 @@ Analytical methods, dependencies, datasets, and validation scenarios should be d
 ### Modular Architecture
 
 Data processing, analytics, backend services, and frontend presentation are separated so that components can evolve independently.
+
+### Responsible Interpretation
+
+Analytical signals indicate patterns for review. They should not be presented as automatic conclusions about fraud, wrongdoing, or institutional performance.
 
 ### MVP Discipline
 
