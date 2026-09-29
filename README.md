@@ -54,7 +54,7 @@ MPLADS Sentinel addresses this challenge by combining multiple analytical signal
 
 ## Solution
 
-Sentinel transforms project records into an evidence-backed investigation workflow.
+Sentinel transforms project records into an evidence-backed investigation workflow:
 
 ```mermaid
 flowchart LR
@@ -127,7 +127,7 @@ Cost Contribution
 + Progress Contribution
 ```
 
-The maximum contribution of each signal is:
+Maximum contribution:
 
 ```text
 Cost Anomaly                    <= 30
@@ -500,8 +500,6 @@ Synthetic anomalies are explicitly treated as **synthetic validation scenarios**
 
 Likewise, a high Audit Priority Score is not presented as proof of fraud or irregularity.
 
-The repository should document the provenance and preparation method of datasets used by each demonstration or validation workflow.
-
 ---
 
 ## Validation Strategy
@@ -581,8 +579,6 @@ Recommended development environment:
 * PostgreSQL
 * Git
 
-Python 3.11 is recommended for compatibility with the project's Python dependencies.
-
 ### Environment Variables
 
 Run this command from the **repository root**:
@@ -603,21 +599,19 @@ Do not commit:
 
 ### Backend Setup
 
-The backend commands below are run from the **repository root**.
-
-Create a Python virtual environment:
+Run the following commands from the **repository root**:
 
 ```powershell
 python -m venv .venv
 ```
 
-Activate it:
+Activate the virtual environment:
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-Install the backend dependencies:
+Install backend dependencies:
 
 ```powershell
 pip install -r backend\requirements.txt
@@ -645,19 +639,19 @@ http://localhost:8000/docs
 
 Open a **second terminal**.
 
-From the repository root, move into the frontend directory:
+Make sure you are in the repository root, then run:
 
 ```powershell
 cd frontend
 ```
 
-Install the frontend dependencies:
+Install frontend dependencies:
 
 ```powershell
 npm install
 ```
 
-Start the Next.js development server:
+Start the development server:
 
 ```powershell
 npm run dev
@@ -669,7 +663,7 @@ The frontend normally runs at:
 http://localhost:3000
 ```
 
-> **Important:** Run `npm install` inside `frontend/`, not in the repository root. The frontend `package.json` is located in the `frontend` directory.
+> **Important:** Run `npm install` inside `frontend/`. Do not run it from the repository root because the frontend `package.json` is located inside `frontend/`.
 
 ### PostgreSQL
 
