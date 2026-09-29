@@ -57,15 +57,15 @@ MPLADS Sentinel addresses this challenge by combining multiple analytical signal
 Sentinel transforms project records into an evidence-backed investigation workflow:
 
 ```mermaid
-flowchart LR
-    A["MPLADS Project Data"] --> B["Data Processing"]
-    B --> C["Analytical Risk Signals"]
-    C --> D["Audit Priority Score: 0-100"]
-    D --> E["Evidence Generation"]
-    E --> F["Priority Queue"]
-    F --> G["GIS and Investigation"]
-    G --> H["Human Review"]
-    H --> I["Investigation Outcome"]
+graph LR
+    A[MPLADS Project Data] --> B[Data Processing]
+    B --> C[Analytical Signals]
+    C --> D[Audit Priority Score]
+    D --> E[Evidence Generation]
+    E --> F[Priority Queue]
+    F --> G[GIS and Investigation]
+    G --> H[Human Review]
+    H --> I[Investigation Outcome]
 ```
 
 The workflow consists of:
@@ -104,15 +104,15 @@ These are called **analytical risk signals** rather than five independent AI mod
 Each analytical signal contributes a bounded value to the final score.
 
 ```mermaid
-flowchart TB
-    A["Cost Anomaly: 0-30"] --> F["Weighted Aggregation"]
-    B["Timeline Anomaly: 0-25"] --> F
-    C["Spatial Similarity: 0-20"] --> F
-    D["Agency Risk: 0-15"] --> F
-    E["Progress Mismatch: 0-10"] --> F
-    F --> G["Audit Priority Score: 0-100"]
-    G --> H["Evidence Generation"]
-    H --> I["Priority Queue"]
+graph TB
+    A[Cost Anomaly] --> F[Weighted Aggregation]
+    B[Timeline Anomaly] --> F
+    C[Spatial Similarity] --> F
+    D[Agency Risk] --> F
+    E[Progress Mismatch] --> F
+    F --> G[Audit Priority Score]
+    G --> H[Evidence Generation]
+    H --> I[Priority Queue]
 ```
 
 Conceptually:
@@ -122,7 +122,7 @@ Audit Priority Score
 =
 Cost Contribution
 + Timeline Contribution
-+ Spatial / Similarity Contribution
++ Spatial or Similarity Contribution
 + Agency Contribution
 + Progress Contribution
 ```
@@ -132,7 +132,7 @@ Maximum contribution:
 ```text
 Cost Anomaly                    <= 30
 Timeline Anomaly                <= 25
-Duplicate / Spatial Similarity  <= 20
+Duplicate or Spatial Similarity <= 20
 Agency Risk                     <= 15
 Progress Mismatch               <= 10
 ---------------------------------------
@@ -169,12 +169,12 @@ Depending on the implemented analytical pipeline, cost analysis can use techniqu
 * machine-learning-based anomaly detection
 
 ```mermaid
-flowchart LR
-    A["Project Cost"] --> B["Peer Group"]
-    B --> C["Comparable Projects"]
-    C --> D["Cost Distribution"]
-    D --> E["Deviation Analysis"]
-    E --> F["Cost Signal"]
+graph LR
+    A[Project Cost] --> B[Peer Group]
+    B --> C[Comparable Projects]
+    C --> D[Cost Distribution]
+    D --> E[Deviation Analysis]
+    E --> F[Cost Signal]
 ```
 
 Example evidence:
@@ -199,13 +199,13 @@ The actual values depend on the dataset and comparison methodology.
 Identify projects whose execution duration differs substantially from relevant peer or benchmark patterns.
 
 ```mermaid
-flowchart LR
-    A["Start Date"] --> C["Execution Duration"]
-    B["Completion Date"] --> C
-    C --> D["Peer Benchmark"]
-    D --> E["Duration Deviation"]
+graph LR
+    A[Start Date] --> C[Execution Duration]
+    B[Completion Date] --> C
+    C --> D[Peer Benchmark]
+    D --> E[Duration Deviation]
     C --> E
-    E --> F["Timeline Signal"]
+    E --> F[Timeline Signal]
 ```
 
 The system focuses on unusual duration patterns.
@@ -224,17 +224,17 @@ Projects can be analyzed for potentially related records using:
 * relevant contextual information
 
 ```mermaid
-flowchart TB
-    A["Project A"] --> C["Similarity Analysis"]
-    B["Project B"] --> C
-    C --> D["Geographic Distance"]
-    C --> E["Description Similarity"]
-    C --> F["Attribute Comparison"]
-    D --> G["Combined Evidence"]
+graph TB
+    A[Project A] --> C[Similarity Analysis]
+    B[Project B] --> C
+    C --> D[Geographic Distance]
+    C --> E[Description Similarity]
+    C --> F[Attribute Comparison]
+    D --> G[Combined Evidence]
     E --> G
     F --> G
-    G --> H["Similarity Signal"]
-    H --> I["Human Verification"]
+    G --> H[Similarity Signal]
+    H --> I[Human Verification]
 ```
 
 A similarity signal identifies a **candidate relationship for investigation**. It does not establish that two projects are duplicates.
@@ -246,13 +246,13 @@ A similarity signal identifies a **candidate relationship for investigation**. I
 Project-level analysis can be supplemented by historical aggregation at the implementing-agency level.
 
 ```mermaid
-flowchart LR
-    A["Project Records"] --> B["Group by Agency"]
-    B --> C["Historical Aggregation"]
-    C --> D["Agency Metrics"]
-    D --> E["Pattern Analysis"]
-    E --> F["Agency Signal"]
-    F --> G["Project Context"]
+graph LR
+    A[Project Records] --> B[Group by Agency]
+    B --> C[Historical Aggregation]
+    C --> D[Agency Metrics]
+    D --> E[Pattern Analysis]
+    E --> F[Agency Signal]
+    F --> G[Project Context]
 ```
 
 Agency-level information provides additional context when reviewing individual projects.
@@ -266,12 +266,12 @@ The purpose is to identify patterns that may warrant examination, not to automat
 Sentinel can compare reported financial expenditure with reported physical progress to identify potentially unusual relationships.
 
 ```mermaid
-flowchart LR
-    A["Financial Expenditure"] --> C["Relationship Analysis"]
-    B["Reported Progress"] --> C
-    C --> D["Reference Relationship"]
-    D --> E["Mismatch Detection"]
-    E --> F["Progress Signal"]
+graph LR
+    A[Financial Expenditure] --> C[Relationship Analysis]
+    B[Reported Progress] --> C
+    C --> D[Reference Relationship]
+    D --> E[Mismatch Detection]
+    E --> F[Progress Signal]
 ```
 
 For example, a project with substantially higher reported expenditure relative to its reported progress may receive a review signal.
@@ -287,12 +287,12 @@ A numerical score without supporting evidence can be difficult to investigate.
 Sentinel therefore connects analytical signals to the evidence that contributed to them.
 
 ```mermaid
-flowchart LR
-    A["Project"] --> B["Analytical Signal"]
-    B --> C["Signal Contribution"]
-    C --> D["Supporting Evidence"]
-    D --> E["Human-Readable Explanation"]
-    E --> F["Reviewer Investigation"]
+graph LR
+    A[Project] --> B[Analytical Signal]
+    B --> C[Signal Contribution]
+    C --> D[Supporting Evidence]
+    D --> E[Human Explanation]
+    E --> F[Reviewer Investigation]
 ```
 
 Instead of displaying only:
@@ -333,18 +333,18 @@ The purpose of explainability is to allow a reviewer to understand **why a proje
 Sentinel separates automated analytical prioritization from human investigation.
 
 ```mermaid
-flowchart TD
-    A["Project Data"] --> B["Analytical Processing"]
-    B --> C["Risk Signals"]
-    C --> D["Audit Priority Score"]
-    D --> E["Evidence"]
-    E --> F["Priority Queue"]
-    F --> G["Authorized Reviewer"]
-    G --> H{"Investigation Outcome"}
-    H --> I["No Issue Found"]
-    H --> J["Additional Information Required"]
-    H --> K["Verified Anomaly"]
-    H --> L["Escalated"]
+graph TB
+    A[Project Data] --> B[Analytical Processing]
+    B --> C[Risk Signals]
+    C --> D[Audit Priority Score]
+    D --> E[Evidence]
+    E --> F[Priority Queue]
+    F --> G[Authorized Reviewer]
+    G --> H{Investigation Outcome}
+    H --> I[No Issue Found]
+    H --> J[Information Required]
+    H --> K[Verified Anomaly]
+    H --> L[Escalated]
 ```
 
 Possible investigation outcomes include:
@@ -373,16 +373,16 @@ It can support visualization of:
 * spatial relationships
 
 ```mermaid
-flowchart LR
-    A["Project Records"] --> B["Latitude and Longitude"]
-    B --> C["Geospatial Processing"]
-    C --> D["Project Locations"]
-    C --> E["Risk Distribution"]
-    C --> F["Spatial Relationships"]
-    D --> G["GIS Interface"]
+graph LR
+    A[Project Records] --> B[Latitude and Longitude]
+    B --> C[Geospatial Processing]
+    C --> D[Project Locations]
+    C --> E[Risk Distribution]
+    C --> F[Spatial Relationships]
+    D --> G[GIS Interface]
     E --> G
     F --> G
-    G --> H["Project Investigation"]
+    G --> H[Project Investigation]
 ```
 
 GIS is therefore part of the investigation workflow rather than only a map visualization.
@@ -392,32 +392,32 @@ GIS is therefore part of the investigation workflow rather than only a map visua
 ## System Architecture
 
 ```mermaid
-flowchart TB
-    D["Project Data"] --> P["Data Processing"]
-    P --> A["Analytical Intelligence"]
-    A --> R["Risk Intelligence"]
-    R --> S["Audit Priority Score"]
-    S --> E["Evidence Generation"]
+graph TB
+    A[Project Data] --> B[Data Processing]
+    B --> C[Analytical Intelligence]
+    C --> D[Risk Intelligence]
+    D --> E[Audit Priority Score]
+    E --> F[Evidence Generation]
 
-    E --> DB[("PostgreSQL")]
+    F --> G[PostgreSQL]
 
-    DB --> API["FastAPI"]
-    API --> WEB["Next.js / React"]
+    G --> H[FastAPI]
+    H --> I[Next.js React]
 
-    WEB --> DASH["Dashboard"]
-    WEB --> QUEUE["Priority Queue"]
-    WEB --> MAP["GIS"]
-    WEB --> PROJECT["Project Investigation"]
-    WEB --> EXPLAIN["Explainability"]
+    I --> J[Dashboard]
+    I --> K[Priority Queue]
+    I --> L[GIS]
+    I --> M[Project Investigation]
+    I --> N[Explainability]
 
-    DASH --> REVIEW["Authorized Reviewer"]
-    QUEUE --> REVIEW
-    MAP --> REVIEW
-    PROJECT --> REVIEW
-    EXPLAIN --> REVIEW
+    J --> O[Authorized Reviewer]
+    K --> O
+    L --> O
+    M --> O
+    N --> O
 
-    REVIEW --> OUTCOME["Investigation Outcome"]
-    OUTCOME --> DB
+    O --> P[Investigation Outcome]
+    P --> G
 ```
 
 The main architecture is:
@@ -459,11 +459,12 @@ The system separates data processing, analytical logic, backend services, databa
 The frontend communicates with the backend through REST/JSON APIs.
 
 ```mermaid
-flowchart LR
-    A["Next.js / React"] -->|REST / JSON| B["FastAPI"]
-    B --> C["Application Services"]
-    C --> D[("PostgreSQL")]
-    C --> E["Analytical Components"]
+graph LR
+    A[Next.js React] --> B[REST JSON]
+    B --> C[FastAPI]
+    C --> D[Application Services]
+    D --> E[PostgreSQL]
+    D --> F[Analytical Components]
 ```
 
 ---
@@ -487,13 +488,13 @@ Controlled data or injected scenarios used to test whether analytical components
 Derived values calculated from project records for use by analytical signals.
 
 ```mermaid
-flowchart LR
-    A["Project Data"] --> B["Curated / Derived Records"]
-    A --> C["Synthetic Validation Scenarios"]
-    B --> D["Feature Preparation"]
+graph LR
+    A[Project Data] --> B[Curated Records]
+    A --> C[Synthetic Scenarios]
+    B --> D[Feature Preparation]
     C --> D
-    D --> E["Analytical Signals"]
-    E --> F["Audit Priority Score"]
+    D --> E[Analytical Signals]
+    E --> F[Audit Priority Score]
 ```
 
 Synthetic anomalies are explicitly treated as **synthetic validation scenarios** and are not presented as actual government findings.
@@ -507,12 +508,12 @@ Likewise, a high Audit Priority Score is not presented as proof of fraud or irre
 Sentinel uses controlled scenarios to evaluate whether the analytical pipeline responds to known patterns.
 
 ```mermaid
-flowchart LR
-    A["Baseline Dataset"] --> B["Controlled Scenario"]
-    B --> C["Analytical Pipeline"]
-    C --> D["Generated Signals"]
-    D --> E["Expected Behaviour"]
-    E --> F["Validation Result"]
+graph LR
+    A[Baseline Dataset] --> B[Controlled Scenario]
+    B --> C[Analytical Pipeline]
+    C --> D[Generated Signals]
+    D --> E[Expected Behaviour]
+    E --> F[Validation Result]
 ```
 
 Example validation scenarios include:
@@ -532,33 +533,31 @@ The validation process is intended to test **analytical behaviour**, not to clai
 The web platform is organized around the investigation workflow.
 
 ```mermaid
-flowchart TB
-    A["Sentinel Dashboard"]
+graph TB
+    A[Sentinel Dashboard] --> B[Overview]
+    A --> C[Audit Priority Queue]
+    A --> D[GIS Intelligence]
+    A --> E[Project Search]
+    A --> F[Investigation Workspace]
 
-    A --> B["Overview"]
-    A --> C["Audit Priority Queue"]
-    A --> D["GIS Intelligence"]
-    A --> E["Project Search"]
-    A --> F["Investigation Workspace"]
+    B --> B1[Projects Monitored]
+    B --> B2[Priority Distribution]
+    B --> B3[Risk Signal Distribution]
 
-    B --> B1["Projects Monitored"]
-    B --> B2["Priority Distribution"]
-    B --> B3["Risk Signal Distribution"]
+    C --> C1[Audit Priority Score]
+    C --> C2[Project Status]
+    C --> C3[Risk Signals]
+    C --> C4[Location]
 
-    C --> C1["Audit Priority Score"]
-    C --> C2["Project Status"]
-    C --> C3["Risk Signals"]
-    C --> C4["Location"]
+    D --> D1[Project Locations]
+    D --> D2[Risk Distribution]
+    D --> D3[Spatial Relationships]
 
-    D --> D1["Project Locations"]
-    D --> D2["Risk Distribution"]
-    D --> D3["Spatial Relationships"]
-
-    F --> F1["Score Breakdown"]
-    F --> F2["Supporting Evidence"]
-    F --> F3["GIS Context"]
-    F --> F4["Investigation Status"]
-    F --> F5["Reviewer Outcome"]
+    F --> F1[Score Breakdown]
+    F --> F2[Supporting Evidence]
+    F --> F3[GIS Context]
+    F --> F4[Investigation Status]
+    F --> F5[Reviewer Outcome]
 ```
 
 Primary user journey:
@@ -704,10 +703,10 @@ Use the frontend for the main interface and `/docs` on the backend to inspect th
 The MVP intentionally keeps the core architecture lightweight.
 
 ```mermaid
-flowchart LR
-    A["Next.js / React"] --> B["FastAPI"]
-    B --> C["Python Analytics"]
-    B --> D[("PostgreSQL")]
+graph LR
+    A[Next.js React] --> B[FastAPI]
+    B --> C[Python Analytics]
+    B --> D[PostgreSQL]
 ```
 
 The architecture is designed to remain:
@@ -808,35 +807,35 @@ A demonstration can follow a single project through the complete Sentinel workfl
 
 ```mermaid
 sequenceDiagram
-    actor Reviewer
-    participant UI as Sentinel UI
-    participant API as FastAPI
-    participant Risk as Risk Analysis
-    participant DB as PostgreSQL
+    participant Reviewer
+    participant UI
+    participant API
+    participant Risk
+    participant DB
 
-    Reviewer->>UI: Open Dashboard
+    Reviewer->>UI: Open dashboard
     UI->>API: Request project overview
-    API->>DB: Retrieve project data
+    API->>DB: Get project data
     DB-->>API: Project records
     API-->>UI: Dashboard data
 
-    Reviewer->>UI: Open Priority Queue
+    Reviewer->>UI: Open priority queue
     UI->>API: Request prioritized projects
-    API->>Risk: Calculate or retrieve signals
-    Risk->>DB: Retrieve analytical data
+    API->>Risk: Analyze projects
+    Risk->>DB: Get analytical data
     DB-->>Risk: Project features
-    Risk-->>API: Signals, score and evidence
+    Risk-->>API: Signals and evidence
     API-->>UI: Priority queue
 
     Reviewer->>UI: Select project
     UI->>API: Request investigation details
-    API-->>UI: Score, evidence and GIS context
+    API-->>UI: Score and evidence
 
-    Reviewer->>UI: Review evidence
-    Reviewer->>UI: Record investigation outcome
+    Reviewer->>UI: Review project
+    Reviewer->>UI: Record outcome
 
     UI->>API: Submit outcome
-    API->>DB: Store investigation result
+    API->>DB: Store outcome
     DB-->>API: Confirmation
     API-->>UI: Updated status
 ```
@@ -966,3 +965,4 @@ The implementation is focused on:
 * focused MVP scope
 
 Features and technologies are documented according to their actual implementation status rather than being presented as completed capabilities prematurely.
+
