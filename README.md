@@ -53,7 +53,7 @@ Sentinel converts project data into an evidence-backed investigation workflow.
 flowchart LR
     A["MPLADS Project Data"] --> B["Validation & Normalization"]
     B --> C["Five Analytical Risk Signals"]
-    C --> D["Audit Priority Score<br/>0–100"]
+    C --> D["Audit Priority Score<br/>0-100"]
     D --> E["Evidence Generation"]
     E --> F["Priority Queue"]
     F --> G["GIS & Project Investigation"]
@@ -97,19 +97,13 @@ Each analytical signal contributes a bounded value to the final score.
 
 ```mermaid
 flowchart TB
-    A["Cost Anomaly<br/>0–30"]
-    B["Timeline Anomaly<br/>0–25"]
-    C["Duplicate / Spatial Similarity<br/>0–20"]
-    D["Agency Risk<br/>0–15"]
-    E["Progress / Expenditure Mismatch<br/>0–10"]
+    A["Cost Anomaly<br/>0-30"] --> F["Weighted Risk Aggregation"]
+    B["Timeline Anomaly<br/>0-25"] --> F
+    C["Duplicate / Spatial Similarity<br/>0-20"] --> F
+    D["Agency Risk<br/>0-15"] --> F
+    E["Progress / Expenditure Mismatch<br/>0-10"] --> F
 
-    A --> F["Weighted Risk Aggregation"]
-    B --> F
-    C --> F
-    D --> F
-    E --> F
-
-    F --> G["Audit Priority Score<br/>0–100"]
+    F --> G["Audit Priority Score<br/>0-100"]
     G --> H["Evidence Generation"]
     H --> I["Audit Priority Queue"]
 ```
@@ -133,7 +127,7 @@ Cost Anomaly                    <= 30
 Timeline Anomaly                <= 25
 Duplicate / Spatial Similarity <= 20
 Agency Risk                     <= 15
-Progress Mismatch              <= 10
+Progress Mismatch               <= 10
 -----------------------------------
 Total                           <= 100
 ```
@@ -173,7 +167,7 @@ flowchart LR
     B --> C["Comparable Projects"]
     C --> D["Cost Distribution"]
     D --> E["Deviation Analysis"]
-    E --> F["Cost Signal<br/>0–30"]
+    E --> F["Cost Signal<br/>0-30"]
 ```
 
 Example evidence:
@@ -204,7 +198,7 @@ flowchart LR
     C --> D["Peer / Benchmark Duration"]
     D --> E["Duration Deviation"]
     C --> E
-    E --> F["Timeline Signal<br/>0–25"]
+    E --> F["Timeline Signal<br/>0-25"]
 ```
 
 The system focuses on **unusual duration patterns**.
@@ -235,7 +229,7 @@ flowchart TB
     E --> G
     F --> G
 
-    G --> H["Similarity Signal<br/>0–20"]
+    G --> H["Similarity Signal<br/>0-20"]
     H --> I["Human Verification"]
 ```
 
@@ -253,7 +247,7 @@ flowchart LR
     B --> C["Historical Aggregation"]
     C --> D["Agency-Level Metrics"]
     D --> E["Pattern Analysis"]
-    E --> F["Agency Signal<br/>0–15"]
+    E --> F["Agency Signal<br/>0-15"]
     F --> G["Project Context"]
 ```
 
@@ -271,10 +265,9 @@ Sentinel can compare reported financial expenditure with reported physical progr
 flowchart LR
     A["Financial Expenditure"] --> C["Relationship Analysis"]
     B["Reported Progress"] --> C
-
     C --> D["Expected / Reference Relationship"]
     D --> E["Mismatch Detection"]
-    E --> F["Progress Signal<br/>0–10"]
+    E --> F["Progress Signal<br/>0-10"]
 ```
 
 For example, a project with substantially higher reported expenditure relative to its reported progress may receive a review signal.
@@ -401,7 +394,6 @@ GIS is therefore part of the investigation workflow rather than only a map visua
 
 ```mermaid
 flowchart TB
-
     subgraph DATA["DATA"]
         D1["Curated MPLADS / eSAKSHI-Derived Records"]
         D2["Synthetic Validation Data"]
@@ -449,7 +441,6 @@ flowchart TB
 
     D1 --> P1
     D2 --> P1
-
     P1 --> P2
     P2 --> P3
 
@@ -572,12 +563,11 @@ Sentinel uses controlled scenarios to evaluate whether the analytical pipeline r
 
 ```mermaid
 flowchart LR
-    A["Baseline Dataset"]
-    --> B["Controlled Scenario"]
-    --> C["Run Analytical Pipeline"]
-    --> D["Generated Signals"]
-    --> E["Compare with Expected Behaviour"]
-    --> F["Validation Result"]
+    A["Baseline Dataset"] --> B["Controlled Scenario"]
+    B --> C["Run Analytical Pipeline"]
+    C --> D["Generated Signals"]
+    D --> E["Compare with Expected Behaviour"]
+    E --> F["Validation Result"]
 ```
 
 Example validation scenarios include:
@@ -635,7 +625,6 @@ mplads-sentinel/
 
 ```mermaid
 erDiagram
-
     AGENCY ||--o{ PROJECT : implements
     PROJECT ||--o| RISK_ANALYSIS : receives
     PROJECT ||--o{ EVIDENCE : generates
@@ -762,7 +751,9 @@ Do not commit `.env`, passwords, API keys, or other credentials.
 
 ### Backend
 
-From the repository root, create a Python virtual environment:
+Run the backend from the **repository root**.
+
+Create a Python virtual environment:
 
 ```powershell
 python -m venv .venv
@@ -783,7 +774,7 @@ pip install -r backend\requirements.txt
 Start the FastAPI application:
 
 ```powershell
-uvicorn backend.app.main:app --reload
+python -m uvicorn backend.app.main:app --reload
 ```
 
 The backend will typically be available at:
@@ -800,11 +791,23 @@ http://localhost:8000/docs
 
 ### Frontend
 
-Open a second terminal and run the frontend from the `frontend` directory:
+Open a **second terminal**.
+
+Move into the frontend directory before running npm commands:
 
 ```powershell
 cd frontend
+```
+
+Install frontend dependencies:
+
+```powershell
 npm install
+```
+
+Start the Next.js development server:
+
+```powershell
 npm run dev
 ```
 
@@ -813,6 +816,8 @@ The frontend development server will typically be available at:
 ```text
 http://localhost:3000
 ```
+
+> Do not run `npm install` from the repository root unless a root-level `package.json` is added to the project. The frontend package manager configuration is located inside `frontend/`.
 
 ### PostgreSQL
 
@@ -823,7 +828,7 @@ If PostgreSQL is required by the current application configuration:
 * configure the database connection in `.env`
 * ensure the backend can connect to the configured database
 
-The exact database name, credentials, and connection variables should be taken from `.env.example` and the backend configuration rather than assumed from the README.
+The exact database name, credentials, and connection variables should be taken from `.env.example` and the backend configuration rather than assumed from this README.
 
 ---
 
