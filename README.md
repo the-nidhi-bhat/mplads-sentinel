@@ -51,15 +51,14 @@ Sentinel converts project data into an evidence-backed investigation workflow.
 
 ```mermaid
 flowchart LR
-    A["MPLADS Project Data"]
-    --> B["Validation & Normalization"]
-    --> C["Five Analytical Risk Signals"]
-    --> D["Audit Priority Score<br/>0–100"]
-    --> E["Evidence Generation"]
-    --> F["Priority Queue"]
-    --> G["GIS & Project Investigation"]
-    --> H["Human Review"]
-    --> I["Investigation Outcome"]
+    A["MPLADS Project Data"] --> B["Validation & Normalization"]
+    B --> C["Five Analytical Risk Signals"]
+    C --> D["Audit Priority Score<br/>0–100"]
+    D --> E["Evidence Generation"]
+    E --> F["Priority Queue"]
+    F --> G["GIS & Project Investigation"]
+    G --> H["Human Review"]
+    H --> I["Investigation Outcome"]
 ```
 
 The workflow is:
@@ -130,13 +129,13 @@ Cost Contribution
 Maximum contributions:
 
 ```text
-Cost Anomaly                    ≤ 30
-Timeline Anomaly                ≤ 25
-Duplicate / Spatial Similarity ≤ 20
-Agency Risk                    ≤ 15
-Progress Mismatch              ≤ 10
+Cost Anomaly                    <= 30
+Timeline Anomaly                <= 25
+Duplicate / Spatial Similarity <= 20
+Agency Risk                     <= 15
+Progress Mismatch              <= 10
 -----------------------------------
-Total                           ≤ 100
+Total                           <= 100
 ```
 
 The score represents **analytical priority**, not the probability that fraud or wrongdoing has occurred.
@@ -170,12 +169,11 @@ Depending on the available data and implementation stage, the analysis can use:
 
 ```mermaid
 flowchart LR
-    A["Project Cost"]
-    --> B["Peer Group"]
-    --> C["Comparable Projects"]
-    --> D["Cost Distribution"]
-    --> E["Deviation Analysis"]
-    --> F["Cost Signal<br/>0–30"]
+    A["Project Cost"] --> B["Peer Group"]
+    B --> C["Comparable Projects"]
+    C --> D["Cost Distribution"]
+    D --> E["Deviation Analysis"]
+    E --> F["Cost Signal<br/>0–30"]
 ```
 
 Example evidence:
@@ -201,16 +199,11 @@ Identify projects whose execution duration differs substantially from relevant p
 
 ```mermaid
 flowchart LR
-    A["Start Date"]
-    --> C["Execution Duration"]
-
-    B["Completion Date"]
-    --> C
-
+    A["Start Date"] --> C["Execution Duration"]
+    B["Completion Date"] --> C
     C --> D["Peer / Benchmark Duration"]
     D --> E["Duration Deviation"]
     C --> E
-
     E --> F["Timeline Signal<br/>0–25"]
 ```
 
@@ -231,11 +224,8 @@ Projects can be analyzed for potentially related records using a combination of:
 
 ```mermaid
 flowchart TB
-    A["Project A"]
-    B["Project B"]
-
-    A --> C["Similarity Analysis"]
-    B --> C
+    A["Project A"] --> C["Similarity Analysis"]
+    B["Project B"] --> C
 
     C --> D["Geographic Distance"]
     C --> E["Description Similarity"]
@@ -259,13 +249,12 @@ Project-level analysis can be supplemented by historical aggregation at the impl
 
 ```mermaid
 flowchart LR
-    A["Project Records"]
-    --> B["Group by Agency"]
-    --> C["Historical Aggregation"]
-    --> D["Agency-Level Metrics"]
-    --> E["Pattern Analysis"]
-    --> F["Agency Signal<br/>0–15"]
-    --> G["Project Context"]
+    A["Project Records"] --> B["Group by Agency"]
+    B --> C["Historical Aggregation"]
+    C --> D["Agency-Level Metrics"]
+    D --> E["Pattern Analysis"]
+    E --> F["Agency Signal<br/>0–15"]
+    F --> G["Project Context"]
 ```
 
 Agency-level information provides additional context when reviewing individual projects.
@@ -280,11 +269,8 @@ Sentinel can compare reported financial expenditure with reported physical progr
 
 ```mermaid
 flowchart LR
-    A["Financial Expenditure"]
-    B["Reported Progress"]
-
-    A --> C["Relationship Analysis"]
-    B --> C
+    A["Financial Expenditure"] --> C["Relationship Analysis"]
+    B["Reported Progress"] --> C
 
     C --> D["Expected / Reference Relationship"]
     D --> E["Mismatch Detection"]
@@ -305,12 +291,11 @@ Sentinel therefore connects analytical signals to the evidence that produced the
 
 ```mermaid
 flowchart LR
-    A["Project"]
-    --> B["Analytical Signal"]
-    --> C["Signal Contribution"]
-    --> D["Supporting Evidence"]
-    --> E["Human-Readable Explanation"]
-    --> F["Reviewer Investigation"]
+    A["Project"] --> B["Analytical Signal"]
+    B --> C["Signal Contribution"]
+    C --> D["Supporting Evidence"]
+    D --> E["Human-Readable Explanation"]
+    E --> F["Reviewer Investigation"]
 ```
 
 Instead of showing only:
@@ -352,13 +337,12 @@ Sentinel intentionally separates **automated analytical prioritization** from **
 
 ```mermaid
 flowchart TD
-    A["Project Data"]
-    --> B["Analytical Processing"]
-    --> C["Risk Signals"]
-    --> D["Audit Priority Score"]
-    --> E["Evidence"]
-    --> F["Priority Queue"]
-    --> G["Authorized Reviewer"]
+    A["Project Data"] --> B["Analytical Processing"]
+    B --> C["Risk Signals"]
+    C --> D["Audit Priority Score"]
+    D --> E["Evidence"]
+    E --> F["Priority Queue"]
+    F --> G["Authorized Reviewer"]
 
     G --> H{"Investigation Outcome"}
 
@@ -395,9 +379,8 @@ It can support visualization of:
 
 ```mermaid
 flowchart LR
-    A["Project Records"]
-    --> B["Latitude / Longitude"]
-    --> C["Geospatial Processing"]
+    A["Project Records"] --> B["Latitude / Longitude"]
+    B --> C["Geospatial Processing"]
 
     C --> D["Project Locations"]
     C --> E["Risk Distribution"]
@@ -541,10 +524,7 @@ The frontend communicates with the backend through REST/JSON APIs.
 
 ```mermaid
 flowchart LR
-    A["Next.js / React"]
-    -->|"REST / JSON"|
-    B["FastAPI"]
-
+    A["Next.js / React"] -->|"REST / JSON"| B["FastAPI"]
     B --> C["Application Services"]
     C --> D[("PostgreSQL")]
     C --> E["Analytical Components"]
@@ -570,9 +550,7 @@ Derived values calculated from project records for use by the analytical signals
 
 ```mermaid
 flowchart LR
-    A["Project Data"]
-    --> B["Curated / Derived Records"]
-
+    A["Project Data"] --> B["Curated / Derived Records"]
     A --> C["Synthetic Validation Scenarios"]
 
     B --> D["Feature Preparation"]
@@ -659,11 +637,8 @@ mplads-sentinel/
 erDiagram
 
     AGENCY ||--o{ PROJECT : implements
-
     PROJECT ||--o| RISK_ANALYSIS : receives
-
     PROJECT ||--o{ EVIDENCE : generates
-
     PROJECT ||--o{ INVESTIGATION : undergoes
 
     PROJECT {
@@ -773,15 +748,17 @@ Recommended development environment:
 
 Python 3.11 is recommended for compatibility with the project's machine-learning dependencies.
 
-### Frontend
+### Environment Variables
 
-Run the frontend from the `frontend` directory:
+From the repository root, create the local environment file:
 
 ```powershell
-cd frontend
-npm install
-npm run dev
+Copy-Item .env.example .env
 ```
+
+Configure the required database and application values in `.env`.
+
+Do not commit `.env`, passwords, API keys, or other credentials.
 
 ### Backend
 
@@ -815,25 +792,38 @@ The backend will typically be available at:
 http://localhost:8000
 ```
 
+FastAPI's interactive API documentation will typically be available at:
+
+```text
+http://localhost:8000/docs
+```
+
+### Frontend
+
+Open a second terminal and run the frontend from the `frontend` directory:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
 The frontend development server will typically be available at:
 
 ```text
 http://localhost:3000
 ```
 
-If PostgreSQL is required by the current application configuration, create the required database and configure the connection through `.env`.
+### PostgreSQL
 
-### Environment Variables
+If PostgreSQL is required by the current application configuration:
 
-Create a local environment file from the provided template:
+* ensure the PostgreSQL server is running
+* create the required database
+* configure the database connection in `.env`
+* ensure the backend can connect to the configured database
 
-```powershell
-Copy-Item .env.example .env
-```
-
-Configure the required database and application values in `.env`.
-
-Do not commit `.env`, passwords, API keys, or other credentials.
+The exact database name, credentials, and connection variables should be taken from `.env.example` and the backend configuration rather than assumed from the README.
 
 ---
 
@@ -843,10 +833,8 @@ The MVP intentionally keeps the core architecture lightweight.
 
 ```mermaid
 flowchart LR
-    A["Next.js"]
-    --> B["FastAPI"]
-    --> C["Python Analytics"]
-
+    A["Next.js"] --> B["FastAPI"]
+    B --> C["Python Analytics"]
     B --> D[("PostgreSQL")]
 ```
 
@@ -962,15 +950,15 @@ sequenceDiagram
 
     Reviewer->>UI: Open Priority Queue
     UI->>API: Request prioritized projects
-    API->>Risk: Calculate / retrieve signals
+    API->>Risk: Calculate or retrieve signals
     Risk->>DB: Retrieve analytical data
     DB-->>Risk: Project features
-    Risk-->>API: Signals + score + evidence
+    Risk-->>API: Signals, score, and evidence
     API-->>UI: Priority queue
 
     Reviewer->>UI: Select project
     UI->>API: Request investigation details
-    API-->>UI: Score + evidence + GIS context
+    API-->>UI: Score, evidence, and GIS context
 
     Reviewer->>UI: Review evidence
     Reviewer->>UI: Record investigation outcome
