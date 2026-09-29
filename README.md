@@ -47,7 +47,7 @@ MPLADS Sentinel addresses this by combining multiple analytical signals into an 
 
 ## Proposed Solution
 
-Sentinel converts project data into an evidence-backed investigation workflow:
+Sentinel converts project data into an evidence-backed investigation workflow.
 
 ```mermaid
 flowchart LR
@@ -64,14 +64,14 @@ flowchart LR
 
 The workflow is:
 
-* Analyze project data
-* Detect unusual patterns
-* Calculate analytical risk signals
-* Combine signals into a transparent priority score
-* Generate supporting evidence
-* Prioritize projects for review
-* Provide geographic and project context
-* Support human investigation and outcome recording
+* analyze project data
+* detect unusual patterns
+* calculate analytical risk signals
+* combine signals into a transparent priority score
+* generate supporting evidence
+* prioritize projects for review
+* provide geographic and project context
+* support human investigation and outcome recording
 
 ---
 
@@ -141,7 +141,7 @@ Total                           ≤ 100
 
 The score represents **analytical priority**, not the probability that fraud or wrongdoing has occurred.
 
-### MVP weighting
+### MVP Weighting
 
 | Signal                          | Weight |
 | ------------------------------- | -----: |
@@ -809,13 +809,13 @@ Start the FastAPI application:
 uvicorn backend.app.main:app --reload
 ```
 
-The backend will be available on the local FastAPI server, typically at:
+The backend will typically be available at:
 
 ```text
 http://localhost:8000
 ```
 
-The frontend development server is typically available at:
+The frontend development server will typically be available at:
 
 ```text
 http://localhost:3000
@@ -839,7 +839,7 @@ Do not commit `.env`, passwords, API keys, or other credentials.
 
 ## MVP Architecture Philosophy
 
-The MVP intentionally keeps the core architecture lightweight:
+The MVP intentionally keeps the core architecture lightweight.
 
 ```mermaid
 flowchart LR
@@ -1063,35 +1063,3 @@ The implementation is focused on:
 * focused MVP scope
 
 Features and technologies are documented according to their actual implementation status rather than being presented as completed capabilities prematurely.
-
----
-
-## Sentinel Workflow
-
-```mermaid
-flowchart TB
-    A["MPLADS PROJECT DATA"]
-    --> B["DATA PROCESSING"]
-
-    B --> C["FIVE ANALYTICAL SIGNALS"]
-
-    C --> D["AUDIT PRIORITY SCORE<br/>0–100"]
-
-    D --> E["EVIDENCE GENERATION"]
-
-    E --> F["AUDIT PRIORITY QUEUE"]
-
-    F --> G["GIS CONTEXT"]
-
-    F --> H["PROJECT INVESTIGATION"]
-
-    G --> H
-
-    H --> I["AUTHORIZED HUMAN REVIEW"]
-
-    I --> J["INVESTIGATION OUTCOME"]
-```
-
-> **Detect patterns. Explain evidence. Prioritize attention. Support human investigation.**
-
-MPLADS Sentinel transforms project-level data into an explainable prioritization workflow that helps authorized reviewers determine **where closer investigation may be warranted**.
