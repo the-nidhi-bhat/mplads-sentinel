@@ -4,7 +4,7 @@
 
 MPLADS Sentinel is an explainable analytical and AI/ML-assisted platform designed to analyze MPLADS project data, identify unusual patterns across financial, timeline, geographic, agency, and progress-related dimensions, and prioritize projects that may require closer human review.
 
-The system combines five analytical risk signals into a transparent **Audit Priority Score from 0–100**, generates evidence explaining the factors contributing to the score, and presents prioritized projects through a monitoring, GIS, and investigation interface.
+The system combines multiple analytical signals into a transparent **Audit Priority Score from 0–100**, generates evidence explaining the factors contributing to the score, and presents prioritized projects through a monitoring, GIS, and investigation interface.
 
 > **Sentinel identifies patterns that deserve attention. It does not automatically declare fraud or irregularity. Final findings remain with authorized human reviewers.**
 
@@ -27,11 +27,18 @@ The system combines five analytical risk signals into a transparent **Audit Prio
 
 ## Problem
 
-Large-scale implementation of MPLADS projects produces records containing information such as project expenditure, execution timelines, locations, implementing agencies, project descriptions, and reported progress.
+Large-scale implementation of MPLADS projects produces records containing information such as:
 
-When a large number of project records must be monitored, examining every project with the same level of attention can make prioritization difficult.
+* project expenditure
+* execution timelines
+* project locations
+* implementing agencies
+* project descriptions
+* reported progress
 
-Potentially unusual patterns may appear across multiple dimensions:
+When many project records must be monitored, examining every project with the same level of attention can make prioritization difficult.
+
+Potentially unusual patterns may appear across several dimensions:
 
 * unusual project costs
 * unusual execution durations
@@ -41,36 +48,37 @@ Potentially unusual patterns may appear across multiple dimensions:
 
 These signals become more useful when considered together rather than independently.
 
-MPLADS Sentinel addresses this by combining multiple analytical signals into an explainable prioritization workflow that helps reviewers determine **which projects may warrant closer examination first**.
+MPLADS Sentinel addresses this by combining multiple analytical signals into an explainable prioritization workflow that helps reviewers identify projects that may warrant closer examination.
 
 ---
 
 ## Proposed Solution
 
-Sentinel converts project data into an evidence-backed investigation workflow.
+Sentinel transforms project data into an evidence-backed investigation workflow.
 
 ```mermaid
 flowchart LR
-    A["MPLADS Project Data"] --> B["Validation & Normalization"]
-    B --> C["Five Analytical Risk Signals"]
-    C --> D["Audit Priority Score<br/>0-100"]
-    D --> E["Evidence Generation"]
+    A["MPLADS Project Data"] --> B["Data Processing"]
+    B --> C["Analytical Signals"]
+    C --> D["Audit Priority Score"]
+    D --> E["Evidence"]
     E --> F["Priority Queue"]
-    F --> G["GIS & Project Investigation"]
+    F --> G["GIS and Investigation"]
     G --> H["Human Review"]
     H --> I["Investigation Outcome"]
 ```
 
-The workflow is:
+The workflow consists of:
 
-* analyze project data
-* detect unusual patterns
-* calculate analytical risk signals
-* combine signals into a transparent priority score
-* generate supporting evidence
-* prioritize projects for review
-* provide geographic and project context
-* support human investigation and outcome recording
+* processing project records
+* preparing analytical features
+* identifying unusual patterns
+* calculating analytical risk signals
+* combining signals into a transparent score
+* generating supporting evidence
+* prioritizing projects for review
+* providing geographic and project context
+* recording human investigation outcomes
 
 ---
 
@@ -87,25 +95,24 @@ Sentinel uses five complementary analytical signals.
 | Progress / Expenditure Mismatch |                   10 | Identify unusual relationships between expenditure and reported progress          |
 | **Total**                       |              **100** | **Audit Priority Score**                                                          |
 
-These are referred to as **analytical risk signals** rather than five independent AI models because Sentinel combines multiple approaches, including machine learning, statistical analysis, rule-based calculations, aggregation, geographic analysis, and similarity analysis.
+These are referred to as **analytical risk signals** rather than five independent AI models because Sentinel can combine machine-learning, statistical, rule-based, aggregation, geographic, and similarity-based methods.
 
 ---
 
 ## Audit Priority Score
 
-Each analytical signal contributes a bounded value to the final score.
+Each signal contributes a bounded value to the final score.
 
 ```mermaid
 flowchart TB
-    A["Cost Anomaly<br/>0-30"] --> F["Weighted Risk Aggregation"]
-    B["Timeline Anomaly<br/>0-25"] --> F
-    C["Duplicate / Spatial Similarity<br/>0-20"] --> F
-    D["Agency Risk<br/>0-15"] --> F
-    E["Progress / Expenditure Mismatch<br/>0-10"] --> F
-
-    F --> G["Audit Priority Score<br/>0-100"]
+    A["Cost Anomaly: 0-30"] --> F["Weighted Aggregation"]
+    B["Timeline Anomaly: 0-25"] --> F
+    C["Spatial Similarity: 0-20"] --> F
+    D["Agency Risk: 0-15"] --> F
+    E["Progress Mismatch: 0-10"] --> F
+    F --> G["Audit Priority Score: 0-100"]
     G --> H["Evidence Generation"]
-    H --> I["Audit Priority Queue"]
+    H --> I["Priority Queue"]
 ```
 
 Conceptually:
@@ -120,7 +127,7 @@ Cost Contribution
 + Progress Contribution
 ```
 
-Maximum contributions:
+Maximum contribution:
 
 ```text
 Cost Anomaly                    <= 30
@@ -132,7 +139,7 @@ Progress Mismatch               <= 10
 Total                           <= 100
 ```
 
-The score represents **analytical priority**, not the probability that fraud or wrongdoing has occurred.
+The score represents **analytical priority**. It is not a probability of fraud and does not independently establish wrongdoing.
 
 ### MVP Weighting
 
@@ -144,7 +151,7 @@ The score represents **analytical priority**, not the probability that fraud or 
 | Agency Risk                     |    15% |
 | Progress / Expenditure Mismatch |    10% |
 
-These are initial MVP weights selected to provide a transparent and controllable scoring mechanism. They are not presented as universally optimal weights.
+These are initial MVP weights used to provide a transparent and controllable scoring mechanism. They are not presented as universally optimal weights.
 
 ---
 
@@ -154,7 +161,7 @@ These are initial MVP weights selected to provide a transparent and controllable
 
 Identify projects whose cost is unusual relative to an appropriate comparison group.
 
-Depending on the available data and implementation stage, the analysis can use:
+Potential analytical approaches include:
 
 * peer-project benchmarking
 * percentile comparison
@@ -167,7 +174,7 @@ flowchart LR
     B --> C["Comparable Projects"]
     C --> D["Cost Distribution"]
     D --> E["Deviation Analysis"]
-    E --> F["Cost Signal<br/>0-30"]
+    E --> F["Cost Signal"]
 ```
 
 Example evidence:
@@ -195,13 +202,13 @@ Identify projects whose execution duration differs substantially from relevant p
 flowchart LR
     A["Start Date"] --> C["Execution Duration"]
     B["Completion Date"] --> C
-    C --> D["Peer / Benchmark Duration"]
+    C --> D["Peer Benchmark"]
     D --> E["Duration Deviation"]
     C --> E
-    E --> F["Timeline Signal<br/>0-25"]
+    E --> F["Timeline Signal"]
 ```
 
-The system focuses on **unusual duration patterns**.
+The system focuses on unusual duration patterns.
 
 A duration anomaly should not automatically be interpreted as a delay unless the available data contains an appropriate planned or expected completion reference.
 
@@ -209,7 +216,7 @@ A duration anomaly should not automatically be interpreted as a delay unless the
 
 ## Duplicate and Spatial Similarity
 
-Projects can be analyzed for potentially related records using a combination of:
+Projects can be analyzed for potentially related records using:
 
 * geographic distance
 * project description similarity
@@ -220,16 +227,13 @@ Projects can be analyzed for potentially related records using a combination of:
 flowchart TB
     A["Project A"] --> C["Similarity Analysis"]
     B["Project B"] --> C
-
     C --> D["Geographic Distance"]
     C --> E["Description Similarity"]
     C --> F["Attribute Comparison"]
-
     D --> G["Combined Evidence"]
     E --> G
     F --> G
-
-    G --> H["Similarity Signal<br/>0-20"]
+    G --> H["Similarity Signal"]
     H --> I["Human Verification"]
 ```
 
@@ -245,9 +249,9 @@ Project-level analysis can be supplemented by historical aggregation at the impl
 flowchart LR
     A["Project Records"] --> B["Group by Agency"]
     B --> C["Historical Aggregation"]
-    C --> D["Agency-Level Metrics"]
+    C --> D["Agency Metrics"]
     D --> E["Pattern Analysis"]
-    E --> F["Agency Signal<br/>0-15"]
+    E --> F["Agency Signal"]
     F --> G["Project Context"]
 ```
 
@@ -265,9 +269,9 @@ Sentinel can compare reported financial expenditure with reported physical progr
 flowchart LR
     A["Financial Expenditure"] --> C["Relationship Analysis"]
     B["Reported Progress"] --> C
-    C --> D["Expected / Reference Relationship"]
+    C --> D["Reference Relationship"]
     D --> E["Mismatch Detection"]
-    E --> F["Progress Signal<br/>0-10"]
+    E --> F["Progress Signal"]
 ```
 
 For example, a project with substantially higher reported expenditure relative to its reported progress may receive a review signal.
@@ -309,9 +313,7 @@ Agency Risk:                      9 / 15
 Progress Mismatch:                8 / 10
 ```
 
-The reviewer can then inspect the evidence associated with individual signals.
-
-Possible evidence includes:
+Possible supporting evidence includes:
 
 * observed project value
 * peer benchmark
@@ -326,7 +328,7 @@ Possible evidence includes:
 
 ## Human-in-the-Loop Investigation
 
-Sentinel intentionally separates **automated analytical prioritization** from **human decision-making**.
+Sentinel separates **automated analytical prioritization** from **human decision-making**.
 
 ```mermaid
 flowchart TD
@@ -336,9 +338,7 @@ flowchart TD
     D --> E["Evidence"]
     E --> F["Priority Queue"]
     F --> G["Authorized Reviewer"]
-
     G --> H{"Investigation Outcome"}
-
     H --> I["No Issue Found"]
     H --> J["Additional Information Required"]
     H --> K["Verified Anomaly"]
@@ -372,17 +372,14 @@ It can support visualization of:
 
 ```mermaid
 flowchart LR
-    A["Project Records"] --> B["Latitude / Longitude"]
+    A["Project Records"] --> B["Latitude and Longitude"]
     B --> C["Geospatial Processing"]
-
     C --> D["Project Locations"]
     C --> E["Risk Distribution"]
     C --> F["Spatial Relationships"]
-
     D --> G["GIS Interface"]
     E --> G
     F --> G
-
     G --> H["Project Investigation"]
 ```
 
@@ -394,92 +391,36 @@ GIS is therefore part of the investigation workflow rather than only a map visua
 
 ```mermaid
 flowchart TB
-    subgraph DATA["DATA"]
-        D1["Curated MPLADS / eSAKSHI-Derived Records"]
-        D2["Synthetic Validation Data"]
-    end
+    D["Project Data"] --> P["Data Processing"]
+    P --> A["Analytical Intelligence"]
+    A --> R["Risk Intelligence"]
+    R --> S["Audit Priority Score"]
+    S --> E["Evidence Generation"]
 
-    subgraph PROCESS["PROCESSING"]
-        P1["Validation"]
-        P2["Normalization"]
-        P3["Feature Preparation"]
-    end
+    E --> DB[("PostgreSQL")]
 
-    subgraph ANALYTICS["ANALYTICAL INTELLIGENCE"]
-        A1["Cost"]
-        A2["Timeline"]
-        A3["Spatial / Similarity"]
-        A4["Agency"]
-        A5["Progress / Expenditure"]
-    end
+    DB --> API["FastAPI"]
+    API --> WEB["Next.js / React"]
 
-    subgraph RISK["RISK INTELLIGENCE"]
-        R1["Signal Normalization"]
-        R2["Weighted Aggregation"]
-        R3["Audit Priority Score"]
-        R4["Evidence Generation"]
-    end
+    WEB --> DASH["Dashboard"]
+    WEB --> QUEUE["Priority Queue"]
+    WEB --> MAP["GIS"]
+    WEB --> PROJECT["Project Investigation"]
+    WEB --> EXPLAIN["Explainability"]
 
-    subgraph BACKEND["APPLICATION BACKEND"]
-        API["FastAPI"]
-        DB[("PostgreSQL")]
-    end
-
-    subgraph FRONTEND["WEB PLATFORM"]
-        WEB["Next.js / React"]
-        DASH["Dashboard"]
-        QUEUE["Priority Queue"]
-        MAP["GIS"]
-        PROJECT["Project Investigation"]
-        EXPLAIN["Explainability"]
-    end
-
-    subgraph HUMAN["HUMAN REVIEW"]
-        REVIEW["Authorized Reviewer"]
-        OUTCOME["Investigation Outcome"]
-    end
-
-    D1 --> P1
-    D2 --> P1
-    P1 --> P2
-    P2 --> P3
-
-    P3 --> A1
-    P3 --> A2
-    P3 --> A3
-    P3 --> A4
-    P3 --> A5
-
-    A1 --> R1
-    A2 --> R1
-    A3 --> R1
-    A4 --> R1
-    A5 --> R1
-
-    R1 --> R2
-    R2 --> R3
-    R3 --> R4
-
-    R3 --> DB
-    R4 --> DB
-
-    DB --> API
-    API --> WEB
-
-    WEB --> DASH
-    WEB --> QUEUE
-    WEB --> MAP
-    WEB --> PROJECT
-    WEB --> EXPLAIN
-
+    DASH --> REVIEW["Authorized Reviewer"]
     QUEUE --> REVIEW
+    MAP --> REVIEW
     PROJECT --> REVIEW
     EXPLAIN --> REVIEW
-    MAP --> REVIEW
 
-    REVIEW --> OUTCOME
+    REVIEW --> OUTCOME["Investigation Outcome"]
     OUTCOME --> DB
 ```
+
+The architecture separates the main responsibilities of the platform:
+
+**Data → Processing → Analytics → Risk Scoring → Evidence → API → Web Interface → Human Review**
 
 ---
 
@@ -515,7 +456,7 @@ The frontend communicates with the backend through REST/JSON APIs.
 
 ```mermaid
 flowchart LR
-    A["Next.js / React"] -->|"REST / JSON"| B["FastAPI"]
+    A["Next.js / React"] -->|REST / JSON| B["FastAPI"]
     B --> C["Application Services"]
     C --> D[("PostgreSQL")]
     C --> E["Analytical Components"]
@@ -537,16 +478,14 @@ Controlled data or injected scenarios used to test whether analytical components
 
 ### Analytical Features
 
-Derived values calculated from project records for use by the analytical signals.
+Derived values calculated from project records for use by analytical signals.
 
 ```mermaid
 flowchart LR
     A["Project Data"] --> B["Curated / Derived Records"]
     A --> C["Synthetic Validation Scenarios"]
-
     B --> D["Feature Preparation"]
     C --> D
-
     D --> E["Analytical Signals"]
     E --> F["Audit Priority Score"]
 ```
@@ -564,9 +503,9 @@ Sentinel uses controlled scenarios to evaluate whether the analytical pipeline r
 ```mermaid
 flowchart LR
     A["Baseline Dataset"] --> B["Controlled Scenario"]
-    B --> C["Run Analytical Pipeline"]
+    B --> C["Analytical Pipeline"]
     C --> D["Generated Signals"]
-    D --> E["Compare with Expected Behaviour"]
+    D --> E["Expected Behaviour"]
     E --> F["Validation Result"]
 ```
 
@@ -617,68 +556,6 @@ mplads-sentinel/
 ├── .env.example
 ├── .gitignore
 └── README.md
-```
-
----
-
-## Data Model
-
-```mermaid
-erDiagram
-    AGENCY ||--o{ PROJECT : implements
-    PROJECT ||--o| RISK_ANALYSIS : receives
-    PROJECT ||--o{ EVIDENCE : generates
-    PROJECT ||--o{ INVESTIGATION : undergoes
-
-    PROJECT {
-        string project_id PK
-        string project_name
-        string category
-        string district
-        string constituency
-        string agency_id FK
-        float sanctioned_amount
-        float expenditure
-        float progress
-        date start_date
-        date completion_date
-        float latitude
-        float longitude
-    }
-
-    AGENCY {
-        string agency_id PK
-        string agency_name
-        string agency_type
-    }
-
-    RISK_ANALYSIS {
-        string analysis_id PK
-        string project_id FK
-        float cost_score
-        float timeline_score
-        float spatial_score
-        float agency_score
-        float progress_score
-        float total_score
-    }
-
-    EVIDENCE {
-        string evidence_id PK
-        string project_id FK
-        string signal_type
-        string evidence_text
-        float observed_value
-        float benchmark_value
-    }
-
-    INVESTIGATION {
-        string investigation_id PK
-        string project_id FK
-        string status
-        string finding
-        string reviewer_note
-    }
 ```
 
 ---
@@ -739,7 +616,7 @@ Python 3.11 is recommended for compatibility with the project's machine-learning
 
 ### Environment Variables
 
-From the repository root, create the local environment file:
+Run the following from the **repository root**:
 
 ```powershell
 Copy-Item .env.example .env
@@ -751,7 +628,7 @@ Do not commit `.env`, passwords, API keys, or other credentials.
 
 ### Backend
 
-Run the backend from the **repository root**.
+The backend commands should be run from the **repository root**.
 
 Create a Python virtual environment:
 
@@ -759,31 +636,31 @@ Create a Python virtual environment:
 python -m venv .venv
 ```
 
-Activate it on Windows PowerShell:
+Activate it:
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-Install backend dependencies:
+Install dependencies:
 
 ```powershell
 pip install -r backend\requirements.txt
 ```
 
-Start the FastAPI application:
+Start the API:
 
 ```powershell
 python -m uvicorn backend.app.main:app --reload
 ```
 
-The backend will typically be available at:
+The backend will normally be available at:
 
 ```text
 http://localhost:8000
 ```
 
-FastAPI's interactive API documentation will typically be available at:
+FastAPI's interactive API documentation will normally be available at:
 
 ```text
 http://localhost:8000/docs
@@ -793,40 +670,40 @@ http://localhost:8000/docs
 
 Open a **second terminal**.
 
-Move into the frontend directory before running npm commands:
+Move into the frontend directory:
 
 ```powershell
 cd frontend
 ```
 
-Install frontend dependencies:
+Install dependencies:
 
 ```powershell
 npm install
 ```
 
-Start the Next.js development server:
+Start the development server:
 
 ```powershell
 npm run dev
 ```
 
-The frontend development server will typically be available at:
+The frontend will normally be available at:
 
 ```text
 http://localhost:3000
 ```
 
-> Do not run `npm install` from the repository root unless a root-level `package.json` is added to the project. The frontend package manager configuration is located inside `frontend/`.
+> **Important:** Do not run `npm install` from the repository root. The frontend `package.json` is located inside `frontend/`.
 
 ### PostgreSQL
 
 If PostgreSQL is required by the current application configuration:
 
-* ensure the PostgreSQL server is running
+* make sure PostgreSQL is running
 * create the required database
 * configure the database connection in `.env`
-* ensure the backend can connect to the configured database
+* make sure the backend can connect to the configured database
 
 The exact database name, credentials, and connection variables should be taken from `.env.example` and the backend configuration rather than assumed from this README.
 
@@ -936,12 +813,11 @@ These are future directions and are not presented as current MVP capabilities.
 
 ## SIH Demonstration Flow
 
-A strong demonstration follows a single project through the complete Sentinel workflow.
+A demonstration can follow a single project through the complete Sentinel workflow.
 
 ```mermaid
 sequenceDiagram
     actor Reviewer
-
     participant UI as Sentinel UI
     participant API as FastAPI
     participant Risk as Risk Analysis
@@ -958,12 +834,12 @@ sequenceDiagram
     API->>Risk: Calculate or retrieve signals
     Risk->>DB: Retrieve analytical data
     DB-->>Risk: Project features
-    Risk-->>API: Signals, score, and evidence
+    Risk-->>API: Signals, score and evidence
     API-->>UI: Priority queue
 
     Reviewer->>UI: Select project
     UI->>API: Request investigation details
-    API-->>UI: Score, evidence, and GIS context
+    API-->>UI: Score, evidence and GIS context
 
     Reviewer->>UI: Review evidence
     Reviewer->>UI: Record investigation outcome
