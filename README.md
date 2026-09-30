@@ -2,11 +2,11 @@
 
 ### Explainable AI/ML and GIS-Based Risk Intelligence for MPLADS
 
-MPLADS Sentinel is an analytical platform designed to help reviewers identify MPLADS projects that may require closer examination.
+MPLADS Sentinel is an explainable analytical and AI/ML-assisted platform for analyzing MPLADS project data across **financial, timeline, geographic, agency, and progress-related dimensions**.
 
-It analyzes project data across **cost, timeline, location, agency, and progress** dimensions and combines these signals into a transparent **Audit Priority Score from 0–100**.
+The system combines multiple analytical signals into a transparent **Audit Priority Score from 0–100**, helping authorized reviewers identify projects that may require closer examination.
 
-> **The score indicates review priority. It does not prove fraud or wrongdoing. Final decisions remain with authorized human reviewers.**
+> **Important:** Sentinel identifies patterns that deserve attention. It does not automatically declare fraud, corruption, or wrongdoing. Final findings and decisions remain with authorized human reviewers.
 
 ---
 
@@ -15,8 +15,8 @@ It analyzes project data across **cost, timeline, location, agency, and progress
 | Field             | Details                                                     |
 | ----------------- | ----------------------------------------------------------- |
 | Problem Statement | SIH26102                                                    |
-| Organization      | Ministry of Statistics and Programme Implementation (MoSPI) |
-| Division          | Data Informatics & Innovation Division (DIID)               |
+| Ministry          | Ministry of Statistics and Programme Implementation (MoSPI) |
+| Division          | Data Informatics and Innovation Division (DIID)             |
 | Category          | Software                                                    |
 | Theme             | Smart Automation                                            |
 | Team              | Phantom Syndicate                                           |
@@ -25,76 +25,103 @@ It analyzes project data across **cost, timeline, location, agency, and progress
 
 ## What Sentinel Does
 
-Sentinel analyzes MPLADS project records using five signals:
+MPLADS Sentinel evaluates projects using five complementary analytical signals:
 
-* **Cost Anomaly** — identifies unusual project costs compared with relevant projects.
-* **Timeline Anomaly** — identifies unusual execution-duration patterns.
-* **Duplicate / Spatial Similarity** — identifies potentially related projects using location and project information.
-* **Agency Risk** — provides historical agency-level context.
-* **Progress / Expenditure Mismatch** — identifies unusual relationships between reported expenditure and physical progress.
+### 1. Cost Anomaly — 30 Points
 
-These signals are combined into an **Audit Priority Score (0–100)**.
+Identifies unusual project-cost patterns by comparing project values against relevant data distributions and expected ranges.
+
+### 2. Timeline Anomaly — 25 Points
+
+Highlights projects with unusual delays, extended completion periods, or timeline patterns that deserve review.
+
+### 3. Duplicate / Spatial Similarity — 20 Points
+
+Analyzes project descriptions and geographic information to identify potentially similar or closely located projects.
+
+### 4. Agency Risk — 15 Points
+
+Examines agency-level patterns across projects to identify unusual concentrations or recurring risk signals.
+
+### 5. Progress / Expenditure Mismatch — 10 Points
+
+Compares reported project progress with expenditure-related information to identify inconsistencies that may require verification.
 
 ---
 
 ## Audit Priority Score
 
-| Signal                          | Maximum |
-| ------------------------------- | ------: |
-| Cost Anomaly                    |      30 |
-| Timeline Anomaly                |      25 |
-| Duplicate / Spatial Similarity  |      20 |
-| Agency Risk                     |      15 |
-| Progress / Expenditure Mismatch |      10 |
-| **Total**                       | **100** |
+The five signals are combined into a single transparent score:
 
-The score is designed to help reviewers decide **which projects may deserve closer attention first**.
+| Signal                          | Maximum Score |
+| ------------------------------- | ------------: |
+| Cost Anomaly                    |            30 |
+| Timeline Anomaly                |            25 |
+| Duplicate / Spatial Similarity  |            20 |
+| Agency Risk                     |            15 |
+| Progress / Expenditure Mismatch |            10 |
+| **Total**                       |       **100** |
 
-It is not a fraud probability and is not a final investigation finding.
+The score represents **review priority**, not probability of fraud and not a final finding.
 
 ---
 
-## Explainability
+## Explainable Risk Intelligence
 
-Sentinel is designed to show **why** a project received its score.
+Instead of producing only a numerical score, Sentinel provides the evidence contributing to that score.
 
-Example:
+### Example
 
 ```text
-Audit Priority Score: 82 / 100
+Audit Priority Score: 78 / 100
 
-Cost Anomaly:                    25 / 30
-Timeline Anomaly:                20 / 25
-Duplicate / Spatial Similarity:  16 / 20
-Agency Risk:                     11 / 15
-Progress Mismatch:               10 / 10
+Cost Anomaly:                  24 / 30
+Timeline Anomaly:              20 / 25
+Spatial Similarity:            15 / 20
+Agency Risk:                   11 / 15
+Progress/Expenditure Mismatch:  8 / 10
+
+Priority: High
 ```
 
-The system can provide supporting evidence such as:
+A reviewer can inspect the individual signals and supporting evidence instead of relying on an unexplained black-box prediction.
 
-* project cost
-* peer benchmark
-* execution duration
-* geographic distance
-* similarity indicators
-* agency-level patterns
-* expenditure and progress information
+---
+
+## System Architecture
+
+```mermaid
+flowchart TD
+    A[MPLADS Project Data] --> B[Data Processing]
+    B --> C[Analytical Signals]
+    C --> D[Audit Priority Score]
+    D --> E[Evidence Generation]
+    E --> F[Priority Queue]
+    F --> G[GIS Investigation]
+    G --> H[Human Review]
+```
+
+### Architecture Flow
+
+**Data → Processing → Analytical Signals → Priority Score → Evidence → Investigation → Human Review**
+
+The architecture is designed to keep the analytical process transparent and allow reviewers to trace why a project received its priority score.
 
 ---
 
 ## GIS Intelligence
 
-The GIS component provides geographic context for MPLADS projects.
+Sentinel incorporates geographic analysis to help reviewers investigate spatial patterns.
 
-It can be used to view:
+The GIS layer can help visualize:
 
-* project locations
-* project distribution
-* priority projects
-* geographic clusters
-* spatial relationships
+* Project locations
+* Geographical clusters
+* Nearby or potentially similar projects
+* Project concentration
+* Spatial relationships between flagged projects
 
-GIS is intended to support project investigation rather than simply display locations.
+This allows analytical signals to be explored in a geographic context rather than only through tables and numerical scores.
 
 ---
 
@@ -122,51 +149,80 @@ GIS is intended to support project investigation rather than simply display loca
 * PostgreSQL
 * SQLAlchemy
 
+### Analytical Components
+
+* Statistical anomaly detection
+* Similarity analysis
+* Rule-based risk signals
+* Machine-learning-assisted analysis
+* Geographic analysis
+* Explainable scoring
+
 ---
 
-## Basic Architecture
+## Data Processing Pipeline
 
 ```text
-MPLADS Project Data
-        ↓
-Data Processing
-        ↓
-Analytical Signals
-        ↓
+MPLADS Data
+     ↓
+Data Cleaning & Validation
+     ↓
+Feature Preparation
+     ↓
+Analytical Signal Generation
+     ↓
+Signal Scoring
+     ↓
 Audit Priority Score
-        ↓
-Evidence
-        ↓
-Priority Queue
-        ↓
-GIS / Project Investigation
-        ↓
-Human Review
+     ↓
+Evidence Generation
+     ↓
+Dashboard / GIS
+     ↓
+Human Investigation
 ```
+
+Each analytical signal contributes a defined maximum number of points, making the final score easier to understand and audit.
 
 ---
 
 ## Data and Validation
 
-The project distinguishes between:
+The system is designed to work with structured MPLADS project information such as:
 
-* **Curated / derived project data** used by the application.
-* **Synthetic validation scenarios** used to test analytical behaviour.
-* **Derived analytical features** calculated from project records.
+* Project identifiers
+* Project descriptions
+* Project costs
+* Sanction and completion dates
+* Implementing agencies
+* Project status
+* Expenditure information
+* Geographic coordinates
+* Progress information
 
-Synthetic scenarios are not presented as real government findings.
+Where real-world data is unavailable or incomplete during development, **synthetic or validation data may be used to test analytical scenarios**.
+
+Synthetic anomalies are validation scenarios and should not be interpreted as evidence of actual wrongdoing.
 
 ---
 
 ## Responsible Use
 
-MPLADS Sentinel follows these principles:
+MPLADS Sentinel is designed as a **decision-support and investigation-prioritization system**.
 
-* Explain analytical results where possible.
-* Keep human reviewers in the decision-making loop.
-* Clearly distinguish real, derived, and synthetic data.
-* Treat analytical signals as indicators for review.
-* Do not present scores as proof of fraud or wrongdoing.
+It does not:
+
+* Automatically declare fraud
+* Accuse an agency or individual
+* Treat an anomaly as proof of wrongdoing
+* Replace authorized human investigation
+* Guarantee that every flagged project contains an irregularity
+
+Instead, it helps reviewers answer:
+
+> **Which projects deserve closer attention, and what evidence contributed to that priority?**
+
+Final verification and action remain the responsibility of authorized human reviewers.
 
 ---
 
@@ -174,13 +230,25 @@ MPLADS Sentinel follows these principles:
 
 ```text
 mplads-sentinel/
+│
 ├── frontend/
+│   ├── app/
+│   ├── components/
+│   └── ...
+│
 ├── backend/
+│   ├── app/
+│   ├── models/
+│   ├── services/
+│   └── ...
+│
+├── data/
 ├── docs/
-├── .env.example
-├── docker-compose.yml
-└── README.md
+├── README.md
+└── ...
 ```
+
+The exact project structure may evolve as development continues.
 
 ---
 
@@ -188,7 +256,7 @@ mplads-sentinel/
 
 ### Backend
 
-From the repository root:
+From the project root:
 
 ```powershell
 python -m venv .venv
@@ -211,7 +279,7 @@ http://localhost:8000/docs
 
 ### Frontend
 
-Open another terminal:
+Open a new terminal:
 
 ```powershell
 cd frontend
@@ -225,20 +293,20 @@ Frontend:
 http://localhost:3000
 ```
 
-> **Important:** Run `npm install` inside the `frontend` directory, not the repository root.
+> Run `npm install` inside the `frontend` directory where the frontend `package.json` is located.
 
 ---
 
-## Team — Phantom Syndicate
+## Team Phantom Syndicate
 
-| Member                     | Responsibility                                                |
-| -------------------------- | ------------------------------------------------------------- |
-| **Nidhi — Team Lead**      | Product direction, coordination, architecture and integration |
-| **Arati A. Patil**         | Documentation, research and presentation                      |
-| **Agam BharatKumar Doshi** | Research and data analysis                                    |
-| **Iffa A. Attar**          | Architecture and solution structuring                         |
-| **Dayyanahmed Jamadar**    | Backend and machine learning                                  |
-| **Krupal Rayakar**         | Frontend and UI/UX                                            |
+| Member                     | Role                                        |
+| -------------------------- | ------------------------------------------- |
+| **Nidhi**                  | Team Lead, Product Direction & Integration  |
+| **Arati A. Patil**         | Documentation, Research & Presentation      |
+| **Agam BharatKumar Doshi** | Research & Data Analysis                    |
+| **Iffa A. Attar**          | Architecture, Domain & Solution Structuring |
+| **Dayyanahmed Jamadar**    | Backend & ML                                |
+| **Krupal Rayakar**         | Frontend & UI/UX                            |
 
 ---
 
@@ -246,4 +314,10 @@ http://localhost:3000
 
 **Smart India Hackathon 2026 — MVP Development**
 
-MPLADS Sentinel is currently focused on building a working, explainable and reproducible analytical system for MPLADS project prioritization and investigation support.
+MPLADS Sentinel is being developed as an explainable analytical platform for **risk prioritization, evidence-based investigation, and geographic project intelligence**.
+
+---
+
+## Key Idea
+
+> **Detect patterns. Explain the evidence. Prioritize review. Keep humans in the loop.**
